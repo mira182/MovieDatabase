@@ -9,10 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from "./services/auth.service";
 import {HttpModule} from "@angular/http";
 import {AccountService} from "./services/account.service";
-import { ProfileComponent } from './components/profile/profile.component';
+import { HomeComponent } from './components/home/home.component';
 import {routing} from "./app.routing";
 import {FacebookModule} from "ngx-facebook";
 import {UrlPermission} from "./urlPermission/url.permission";
+import { MoviesListComponent } from './components/movies-list/movies-list.component';
 
 
 @NgModule({
@@ -20,9 +21,8 @@ import {UrlPermission} from "./urlPermission/url.permission";
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
-
-
+    HomeComponent,
+    MoviesListComponent
   ],
   imports: [
     BrowserModule,HttpModule,FormsModule,routing, FacebookModule.forRoot(),
