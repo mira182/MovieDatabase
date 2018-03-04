@@ -7,7 +7,7 @@ import {MoviesListComponent} from "./components/movies-list/movies-list.componen
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent ,canActivate: [UrlPermission] },
+  { path: 'home', component: HomeComponent ,canActivate: [UrlPermission] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'movies', component: MoviesListComponent },
