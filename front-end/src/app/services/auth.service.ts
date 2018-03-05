@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions,Response} from '@angular/http';
 import {User} from "../model/model.user";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
   static API_URL="http://localhost:8080";
+  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable(); // {2}
+  }
+
 
   constructor(public http: Http) { }
 
@@ -27,6 +34,7 @@ export class AuthService {
       if (user) {
         // store user details  in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
+        this.loggedIn.next(true);
       }
     });
   }
@@ -36,6 +44,7 @@ export class AuthService {
     return this.http.post(AuthService.API_URL+"logout",{})
       .map((response: Response) => {
         localStorage.removeItem('currentUser');
+        this.loggedIn.next(false);
       });
 
   }

@@ -15,6 +15,7 @@ import {FacebookModule} from "ngx-facebook";
 import {UrlPermission} from "./urlPermission/url.permission";
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { ErrorComponent } from './components/error/error.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ErrorComponent } from './components/error/error.component';
     RegisterComponent,
     HomeComponent,
     MoviesListComponent,
-    ErrorComponent
+    ErrorComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,HttpModule,FormsModule,routing, FacebookModule.forRoot(),
