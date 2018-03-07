@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,6 +17,7 @@ import {UrlPermission} from "./urlPermission/url.permission";
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { MovieItemComponent } from './components/movie-item/movie-item.component';
 
 
 @NgModule({
@@ -26,10 +28,11 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     HomeComponent,
     MoviesListComponent,
     ErrorComponent,
-    NavBarComponent
+    NavBarComponent,
+    MovieItemComponent,
   ],
   imports: [
-    BrowserModule,HttpModule,FormsModule,routing, FacebookModule.forRoot(),
+    NgxCarouselModule, BrowserModule,HttpModule,FormsModule,routing
   ],
   providers: [AuthService,AccountService,UrlPermission],
   bootstrap: [AppComponent]
