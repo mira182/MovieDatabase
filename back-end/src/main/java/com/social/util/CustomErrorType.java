@@ -1,5 +1,6 @@
 package com.social.util;
-/** 
+
+/**
  * @author kamal berriga
  *
  */

@@ -12,5 +12,5 @@ import com.social.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-public User findOneByUsername(String username);
+    public User findOneByUsername(String username);
 }

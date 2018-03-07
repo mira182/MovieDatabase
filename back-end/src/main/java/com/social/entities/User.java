@@ -1,11 +1,5 @@
 package com.social.entities;
 
-
-/*******************************************************************************
- * 2017, this is the user entity class ,
- * this class implements users details of the spring security framework
- *******************************************************************************/
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,36 +13,38 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-/**
- * Description of User.
- * 
- * @author kamal berriga
- */
+
 @Entity
-@Table(name="User")
+@Table(name = "User")
 @Scope("session")
-public  class User implements UserDetails{
-	public static enum Role{ USER }
-	/**
+public  class User implements UserDetails {
+
+    public enum Role{ USER }
+
+    /**
 	 * Description of the property id.
 	 */
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
-	/**
+
+    /**
 	 * Description of the property email.
 	 */
 	@Column(unique = true)
 	private String username ;
-	/**
+
+    /**
 	 * Description of the property password.
 	 */
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password ;
-	/**
+
+    /**
 	 * Description of the property role , to grant authority to the user .
 	 */
     private String  role;
+
     /**
 	 * Description of the property full name.
 	 */
@@ -63,7 +59,8 @@ public  class User implements UserDetails{
     	this.password= password;
     	this.fullName=fullName;
     }
-	@JsonIgnore
+
+    @JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return true;
@@ -103,13 +100,11 @@ public  class User implements UserDetails{
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return username;
 	}
 	

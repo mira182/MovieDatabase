@@ -12,12 +12,13 @@ import {HttpModule} from "@angular/http";
 import {AccountService} from "./services/account.service";
 import { HomeComponent } from './components/home/home.component';
 import {routing} from "./app.routing";
-import {FacebookModule} from "ngx-facebook";
 import {UrlPermission} from "./urlPermission/url.permission";
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
+import { HttpClientModule } from '@angular/common/http';
+import {MovieService} from "./services/movie.service";
 
 
 @NgModule({
@@ -32,9 +33,9 @@ import { MovieItemComponent } from './components/movie-item/movie-item.component
     MovieItemComponent,
   ],
   imports: [
-    NgxCarouselModule, BrowserModule,HttpModule,FormsModule,routing
+    NgxCarouselModule, BrowserModule,HttpModule,FormsModule,routing, HttpClientModule
   ],
-  providers: [AuthService,AccountService,UrlPermission],
+  providers: [MovieService, AuthService, AccountService, UrlPermission],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
