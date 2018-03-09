@@ -14,7 +14,7 @@ export class MovieService {
 
   getAllMovies() {
     // return this.httpClient.get<Movie[]>(this.URL);
-    return this.httpClient.get(this.URL)
+    return this.httpClient.get<any>(this.URL)
       .subscribe(data => console.log(data),
         error => console.log('oops', error));
   }

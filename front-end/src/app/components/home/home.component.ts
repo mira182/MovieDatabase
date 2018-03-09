@@ -1,5 +1,4 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {User} from "../../model/model.user";
 
 @Component({
   selector: 'app-home',
@@ -9,9 +8,7 @@ import {User} from "../../model/model.user";
 })
 
 export class HomeComponent {
-  currentUser: User;
   constructor() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
 

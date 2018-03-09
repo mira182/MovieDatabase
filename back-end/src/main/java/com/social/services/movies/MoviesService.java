@@ -1,4 +1,4 @@
-package com.social.services;
+package com.social.services.movies;
 
 import com.social.dao.MovieRepository;
 import com.social.entities.Movie;

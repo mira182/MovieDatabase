@@ -19,14 +19,14 @@ export class AppComponent  implements OnInit {
   }
 
   // login out from the app
-  logOut() {
-    this.authService.logOut()
-      .subscribe(
-        data => {
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.router.navigate(['/error']);
-        });
-  }
+  // logOut() {
+  //   this.authService.logOut()
+  //     .subscribe(
+  //       data => {
+  //         this.router.navigate(['/login']);
+  //       },
+  //       error => {
+  //         this.router.navigate(['/error']);
+  //       });
+  // }
 }

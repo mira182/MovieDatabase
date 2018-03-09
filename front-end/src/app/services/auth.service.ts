@@ -1,52 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions,Response} from '@angular/http';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {User} from "../model/model.user";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
-  static API_URL="http://localhost:8080";
-  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
-  get isLoggedIn() {
-    return this.loggedIn.asObservable(); // {2}
+  constructor(private http: HttpClient) {
   }
 
-
-  constructor(public http: Http) { }
-
-  public logIn(user: User){
-
-    let headers = new Headers();
-    headers.append('Accept', 'application/json')
-    // creating base64 encoded String from user name and password
-    var base64Credential: string = btoa( user.username+ ':' + user.password);
-    headers.append("Authorization", "Basic " + base64Credential);
-
-    let options = new RequestOptions();
-    options.headers=headers;
-
-    return this.http.get(AuthService.API_URL+"/account/login" ,   options)
-      .map((response: Response) => {
-      // login successful if there's a jwt token in the response
-      let user = response.json().principal;// the returned user object is a principal object
-      if (user) {
-        // store user details  in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.loggedIn.next(true);
-      }
-    });
-  }
-
-  logOut() {
-    // remove user from local storage to log user out
-    return this.http.post(AuthService.API_URL+"logout",{})
-      .map((response: Response) => {
-        localStorage.removeItem('currentUser');
-        this.loggedIn.next(false);
-      });
-
+  attemptAuth(ussername: string, password: string): Observable<any> {
+    const credentials = {username: ussername, password: password};
+    console.log('attempAuth ::');
+    return this.http.post<any>('http://localhost:8080/token/generate-token', credentials);
   }
 }

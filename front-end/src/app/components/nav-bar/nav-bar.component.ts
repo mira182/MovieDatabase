@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../../services/auth.service';
+import {TokenStorage} from "../../services/token.storage";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,16 +10,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NavBarComponent implements OnInit {
 
-  isLoggedIn$: Observable<boolean>;                  // {1}
-
-  constructor(private authService: AuthService) { }
+  constructor(private token: TokenStorage, private router: Router) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
   }
 
   onLogout(){
-    this.authService.logOut();                      // {3}
+    this.token.signOut();
   }
 
 }

@@ -1,19 +1,16 @@
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from "./components/login/login.component";
-import {RegisterComponent} from "./components/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
-import {UrlPermission} from "./urlPermission/url.permission";
 import {MoviesListComponent} from "./components/movies-list/movies-list.component";
 
 
 const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent , canActivate: [UrlPermission] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'movies', component: MoviesListComponent },
+  { path: 'login', component: LoginComponent },
 
   // otherwise redirect to profile
-  { path: '**', redirectTo: '/login' }
+  {path : '', component : LoginComponent}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {User} from "../../model/model.user";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
-
+import {MatDialog} from "@angular/material";
+import {TokenStorage} from "../../services/token.storage";
 
 @Component({
   selector: 'app-login',
@@ -11,22 +11,22 @@ import {Router} from "@angular/router";
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  user: User = new User();
   errorMessage:string;
-  constructor(private authService :AuthService, private router: Router) { }
+  username: string;
+  password: string;
 
-
+  constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private token: TokenStorage) {
+  }
 
   ngOnInit() {
   }
 
-  login(){
-    this.authService.logIn(this.user)
-      .subscribe(data=>{
+  login(): void {
+    this.authService.attemptAuth(this.username, this.password).subscribe(
+      data => {
+        this.token.saveToken(data.token);
         this.router.navigate(['home']);
-        },err=>{
-        this.errorMessage="Username or password is incorrect";
-        }
-      )
+      }
+    );
   }
 }
