@@ -3,7 +3,7 @@ package com.social.controller;
 import com.social.config.JwtTokenUtil;
 import com.social.model.AuthToken;
 import com.social.model.LoginUser;
-import com.social.model.User;
+import com.social.model.entities.User;
 import com.social.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

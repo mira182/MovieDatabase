@@ -1,4 +1,4 @@
-package com.social.entities;
+package com.social.model.entities;
 
 
 import lombok.Data;

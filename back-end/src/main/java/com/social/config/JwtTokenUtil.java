@@ -1,6 +1,6 @@
 package com.social.config;
 
-import com.social.model.User;
+import com.social.model.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,4 +1,4 @@
-package com.social.model;
+package com.social.model.entities;
 
 import javax.persistence.*;
 import java.util.Collection;

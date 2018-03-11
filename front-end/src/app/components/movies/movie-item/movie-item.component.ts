@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import {Movie} from "../../../model/movie";
 
 @Component({
   selector: 'app-movie-item',
@@ -7,6 +8,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class MovieItemComponent implements OnInit {
+
+  @Input() movie : Movie;
 
   constructor() { }
 

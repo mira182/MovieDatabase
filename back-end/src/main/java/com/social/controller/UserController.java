@@ -1,7 +1,7 @@
 package com.social.controller;
 
-import com.social.model.User;
-import com.social.model.dto.UserDto;
+import com.social.model.entities.User;
+import com.social.model.dto.UserDTO;
 import com.social.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public User saveUser(@RequestBody UserDto user){
+    public User saveUser(@RequestBody UserDTO user){
         return userService.save(user);
     }
 

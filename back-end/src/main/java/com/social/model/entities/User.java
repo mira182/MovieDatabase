@@ -1,4 +1,4 @@
-package com.social.model;
+package com.social.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

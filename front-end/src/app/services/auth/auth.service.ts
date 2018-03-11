@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
+
+  public loggedIn: boolean;
 
   constructor(private http: HttpClient) {
   }
@@ -12,5 +14,13 @@ export class AuthService {
     const credentials = {username: ussername, password: password};
     console.log('attempAuth ::');
     return this.http.post<any>('http://localhost:8080/token/generate-token', credentials);
+  }
+
+  public isLoggedIn(): boolean {
+    return this.loggedIn;
+  }
+
+  setLoggedIn(loggedIn: boolean) {
+    this.loggedIn = loggedIn;
   }
 }

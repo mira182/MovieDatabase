@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material";
-import {TokenStorage} from "../../services/token.storage";
+import {TokenStorage} from "../../services/auth/token.storage";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,7 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
-  constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private token: TokenStorage) {
+  constructor(private router: Router, private authService: AuthService, private token: TokenStorage) {
   }
 
   ngOnInit() {
@@ -26,6 +25,7 @@ export class LoginComponent implements OnInit {
       data => {
         this.token.saveToken(data.token);
         this.router.navigate(['home']);
+        this.authService.setLoggedIn(true);
       }
     );
   }

@@ -1,10 +1,10 @@
 package com.social.services.user;
 
 import com.social.dao.UserRepository;
-import com.social.model.Privilege;
-import com.social.model.Role;
-import com.social.model.User;
-import com.social.model.dto.UserDto;
+import com.social.model.entities.Privilege;
+import com.social.model.entities.Role;
+import com.social.model.entities.User;
+import com.social.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-    public User save(UserDto user) {
+    public User save(UserDTO user) {
 	    User newUser = new User();
 	    newUser.setUsername(user.getUsername());
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
