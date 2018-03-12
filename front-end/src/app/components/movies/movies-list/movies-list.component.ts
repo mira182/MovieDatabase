@@ -5,6 +5,8 @@ import {HttpClient} from "@angular/common/http";
 import {MatDialogModule, MatDialogRef, MatDialog} from '@angular/material';
 import { AddMovieDialogComponent } from '../../dialogs/add-movie-dialog/add-movie-dialog.component';
 import { Movie } from "../../../model/movie";
+import {OmdbMovie} from "../../../model/omdbMovie";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-movies-list',
@@ -17,6 +19,8 @@ export class MoviesListComponent implements OnInit {
   public carouselTile: NgxCarousel;
   private newMovie : Movie;
   private allMovies : Movie[];
+  private omdbTitle : string;
+  private omdbMovie : Observable<OmdbMovie>;
 
   constructor(private movieService: MovieService, private http: HttpClient, public dialog: MatDialog) { }
 
@@ -50,7 +54,7 @@ export class MoviesListComponent implements OnInit {
 
   public getAllMovies() {
     this.movieService.getAllMovies().subscribe(data => {
-      console.log(data);
+      console.log('all movies: ' + data);
       this.allMovies = data;
     });
   }
@@ -69,5 +73,10 @@ export class MoviesListComponent implements OnInit {
         this.movieService.addMovie(this.newMovie);
       }
     });
+  }
+
+  getOmdbTitle() {
+    this.omdbMovie = this.movieService.getOmdbMovie(this.omdbTitle);
+    console.log(JSON.stringify(this.omdbMovie));
   }
 }

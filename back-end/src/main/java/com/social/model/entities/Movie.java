@@ -23,4 +23,8 @@ public class Movie {
     private Integer imdbRating;
 
     private Integer length;
+
+    private String actors;
+
+    private String directors;
 }
