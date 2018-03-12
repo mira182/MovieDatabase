@@ -12,5 +12,4 @@ public interface MovieService {
 
     Movie saveMovie(MovieDTO movieDto);
 
-    void importMovieDataFromImdb(String movieName);
 }

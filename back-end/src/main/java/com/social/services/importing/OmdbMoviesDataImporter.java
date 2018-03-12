@@ -3,8 +3,9 @@ package com.social.services.importing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.social.dao.MovieRepository;
-import com.social.model.dto.OmdbMovieDTO;
+import com.social.model.dto.MovieDTO;
 import com.social.model.entities.Movie;
+import com.social.util.ImageDownloader;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// TODO prettyfi
 @Service
 public class OmdbMoviesDataImporter implements MovieDataImporter {
 
@@ -39,7 +41,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     }
 
     @Override
-    public OmdbMovieDTO getMovieData(String title) {
+    public MovieDTO getMovieData(String title) {
         final RestTemplate restTemplate = new RestTemplate();
 
         final HttpHeaders headers = new HttpHeaders();
@@ -50,19 +52,21 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 HttpMethod.GET, entity, String.class);
 
         final ObjectMapper mapper = new ObjectMapper();
-        OmdbMovieDTO omdbMovieDTO = null;
+//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        MovieDTO omdbMovieDTO = null;
         try {
-            omdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
+            omdbMovieDTO = mapper.readValue(result.getBody(), MovieDTO.class);
         } catch (IOException e) {
             System.err.println(e);
         }
 
+        System.out.println(omdbMovieDTO);
         return omdbMovieDTO;
     }
 
     @Override
-    public List<OmdbMovieDTO> getMovieData(List<String> titles) {
-        List<OmdbMovieDTO> omdbMovieList = new ArrayList<>();
+    public List<MovieDTO> getMovieData(List<String> titles) {
+        List<MovieDTO> omdbMovieList = new ArrayList<>();
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -74,7 +78,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                     HttpMethod.GET, entity, String.class);
             final ObjectMapper mapper = new ObjectMapper();
             try {
-                OmdbMovieDTO omdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
+                MovieDTO omdbMovieDTO = mapper.readValue(result.getBody(), MovieDTO.class);
                 omdbMovieList.add(omdbMovieDTO);
             } catch (IOException e) {
                 System.err.println(e);
@@ -86,30 +90,34 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public void importMovieData(String title) {
-        final OmdbMovieDTO omdbMovieDTO = getMovieData(title);
-        final Movie movie = movieRepository.findByName(title);
+        final MovieDTO omdbMovieDTO = getMovieData(title);
+        movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+    }
+
+    @Override
+    public void importMoviesData(List<String> titles) {
+        for (MovieDTO omdbMovieDTO : getMovieData(titles)) {
+            movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        }
+    }
+
+    private Movie convertDTOtoEntity(MovieDTO omdbMovieDTO) {
+        final Movie movie = new Movie();
         movie.setName(omdbMovieDTO.getName());
+        movie.setCountry(omdbMovieDTO.getCountry());
+        movie.setProduction(omdbMovieDTO.getProduction());
         movie.setYear(omdbMovieDTO.getYear());
         movie.setActors(omdbMovieDTO.getActors());
         movie.setDescription(omdbMovieDTO.getDescription());
         movie.setDirectors(omdbMovieDTO.getDirectors());
         movie.setImdbRating(omdbMovieDTO.getImdbRating());
-        movie.setLength(omdbMovieDTO.getLength());
-        movieRepository.save(movie);
-    }
-
-    @Override
-    public void importMoviesData(List<String> titles) {
-        for (OmdbMovieDTO omdbMovieDTO : getMovieData(titles)) {
-            final Movie movie = movieRepository.findByName(omdbMovieDTO.getName());
-            movie.setName(omdbMovieDTO.getName());
-            movie.setYear(omdbMovieDTO.getYear());
-            movie.setActors(omdbMovieDTO.getActors());
-            movie.setDescription(omdbMovieDTO.getDescription());
-            movie.setDirectors(omdbMovieDTO.getDirectors());
-            movie.setImdbRating(omdbMovieDTO.getImdbRating());
-            movie.setLength(omdbMovieDTO.getLength());
-            movieRepository.save(movie);
+        movie.setPosterUrl(omdbMovieDTO.getPosterUrl());
+        movie.setLength(Integer.parseInt(omdbMovieDTO.getLength().replace("min", "").trim()));
+        try {
+            movie.setPoster(ImageDownloader.downloadImage(omdbMovieDTO.getPosterUrl()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return movie;
     }
 }

@@ -1,15 +1,14 @@
 package com.social.services.importing;
 
-import com.social.model.dto.OmdbMovieDTO;
-import org.json.JSONObject;
+import com.social.model.dto.MovieDTO;
 
 import java.util.List;
 
 public interface MovieDataImporter {
 
-    OmdbMovieDTO getMovieData(String title);
+    MovieDTO getMovieData(String title);
 
-    List<OmdbMovieDTO> getMovieData(List<String> titles);
+    List<MovieDTO> getMovieData(List<String> titles);
 
     void importMovieData(String title);
 

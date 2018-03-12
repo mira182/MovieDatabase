@@ -26,6 +26,7 @@ import { TokenStorage } from "./services/auth/token.storage";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddMovieDialogComponent } from './components/dialogs/add-movie-dialog/add-movie-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

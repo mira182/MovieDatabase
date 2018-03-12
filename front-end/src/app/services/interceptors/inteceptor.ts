@@ -23,13 +23,15 @@ export class Interceptor implements HttpInterceptor {
       });
     }
 
+    console.log("Request intercepted: " + JSON.stringify(req));
     return next.handle(req).do(
         (err: any) => {
           if (err instanceof HttpErrorResponse) {
             console.log(err);
             console.log('req url :: ' + req.url);
             if (err.status === 401) {
-              this.router.navigate(['/home']);
+              this.token.signOut();
+              this.router.navigate(['/login']);
             }
           }
         }

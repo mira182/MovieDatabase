@@ -17,6 +17,9 @@
   <mat-card-content>
     <input matInput type="text" placeholder="Title" [(ngModel)]="omdbTitle" name="omdbTitle" required>
     <!--<img mat-card-image src="https://material.angularjs.org/latest/img/washedout.png">-->
-    <button mat-raised-button color="primary" (click)="getOmdbTitle()">Get details</button>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="getOmdbTitle()">Get details</button>
+    <button mat-raised-button color="primary" (click)="importMovie()">Import movie</button>
+  </mat-card-actions>
 </mat-card>

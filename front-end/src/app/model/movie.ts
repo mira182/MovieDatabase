@@ -1,9 +1,13 @@
 export class Movie {
-  id: string;
-  name: string;
-  year: number;
-  description: string;
-  imdbRating: number;
-  length: number;
+  name : string;
+  year : number;
+  description : string;
+  imdbRating : number;
+  length : string;
+  actors : string;
+  directors : string;
+  country : string;
+  posterUrl : string;
+  production : string;
 
 }

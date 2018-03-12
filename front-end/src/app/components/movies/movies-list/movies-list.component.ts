@@ -5,7 +5,6 @@ import {HttpClient} from "@angular/common/http";
 import {MatDialogModule, MatDialogRef, MatDialog} from '@angular/material';
 import { AddMovieDialogComponent } from '../../dialogs/add-movie-dialog/add-movie-dialog.component';
 import { Movie } from "../../../model/movie";
-import {OmdbMovie} from "../../../model/omdbMovie";
 import {Observable} from "rxjs";
 
 @Component({
@@ -20,7 +19,7 @@ export class MoviesListComponent implements OnInit {
   private newMovie : Movie;
   private allMovies : Movie[];
   private omdbTitle : string;
-  private omdbMovie : Observable<OmdbMovie>;
+  private omdbMovie : Observable<Movie>;
 
   constructor(private movieService: MovieService, private http: HttpClient, public dialog: MatDialog) { }
 
@@ -54,8 +53,8 @@ export class MoviesListComponent implements OnInit {
 
   public getAllMovies() {
     this.movieService.getAllMovies().subscribe(data => {
-      console.log('all movies: ' + data);
       this.allMovies = data;
+      console.log("All movies: " + JSON.stringify(data));
     });
   }
 
@@ -77,6 +76,14 @@ export class MoviesListComponent implements OnInit {
 
   getOmdbTitle() {
     this.omdbMovie = this.movieService.getOmdbMovie(this.omdbTitle);
-    console.log(JSON.stringify(this.omdbMovie));
+    this.omdbMovie.subscribe(resp => {
+      console.log("Movie details response" + JSON.stringify(resp));
+    });
+  }
+
+  importMovie() {
+    this.movieService.importMovie(this.omdbTitle).subscribe(resp => {
+      console.log("Import response" + JSON.stringify(resp));
+    });
   }
 }

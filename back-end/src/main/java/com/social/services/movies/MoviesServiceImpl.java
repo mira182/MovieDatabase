@@ -26,12 +26,7 @@ public class MoviesServiceImpl implements MovieService {
         movie.setYear(movieDto.getYear());
         movie.setDescription(movieDto.getDescription());
         movie.setImdbRating(movieDto.getImdbRating());
-        movie.setLength(movieDto.getLength());
+        movie.setLength(Integer.parseInt(movieDto.getLength().replace("min", "")));
         return movieRepository.save(movie);
-    }
-
-    @Override
-    public void importMovieDataFromImdb(String movieName) {
-        // TODO implement
     }
 }

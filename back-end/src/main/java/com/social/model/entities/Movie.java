@@ -20,11 +20,21 @@ public class Movie {
 
     private String description;
 
-    private Integer imdbRating;
+    private Double imdbRating;
 
     private Integer length;
 
     private String actors;
 
     private String directors;
+
+    private String country;
+
+    @Lob
+    @Column( length = 100000 )
+    private byte[] poster;
+
+    private String posterUrl;
+
+    private String production;
 }
