@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { NgxCarouselModule } from 'ngx-carousel';
 import 'hammerjs';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule
-  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MAT_DIALOG_DEFAULT_OPTIONS
+  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule, MatExpansionModule,
+  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { routing } from "./app.routing";
 import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
@@ -25,6 +25,8 @@ import { Interceptor } from "./services/interceptors/inteceptor";
 import { TokenStorage } from "./services/auth/token.storage";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddMovieDialogComponent } from './components/dialogs/add-movie-dialog/add-movie-dialog.component';
+import { TvShowItemComponent } from './components/tvshows/tv-show-item/tv-show-item.component';
+import { TvShowListComponent } from './components/tvshows/tv-show-list/tv-show-list.component';
 
 
 @NgModule({
@@ -36,14 +38,16 @@ import { AddMovieDialogComponent } from './components/dialogs/add-movie-dialog/a
     ErrorComponent,
     NavBarComponent,
     MovieItemComponent,
-    AddMovieDialogComponent
+    AddMovieDialogComponent,
+    TvShowItemComponent,
+    TvShowListComponent
   ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
-    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule
+    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule
   ],
   entryComponents: [
     AddMovieDialogComponent

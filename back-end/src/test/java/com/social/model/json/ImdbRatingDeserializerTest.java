@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.social.model.dto.MovieDTO;
+import com.social.model.dto.OmdbMovieDTO;
 import org.junit.Test;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -28,9 +28,9 @@ public class ImdbRatingDeserializerTest {
         mapper.registerModule(simpleModule);
 
         @SuppressWarnings("unchecked")
-        MovieDTO movieDTO = mapper.readValue(JSON_OBJECT, MovieDTO.class);
+        OmdbMovieDTO omdbMovieDTO = mapper.readValue(JSON_OBJECT, OmdbMovieDTO.class);
 
-        System.out.println(movieDTO.getImdbRating());
+        System.out.println(omdbMovieDTO.getImdbRating());
     }
 
     @Test
@@ -50,9 +50,9 @@ public class ImdbRatingDeserializerTest {
         mapper.registerModule(simpleModule);
 
         @SuppressWarnings("unchecked")
-        MovieDTO movieDTO = mapper.readValue(result.getBody(), MovieDTO.class);
+        OmdbMovieDTO omdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
 
-        System.out.println(movieDTO.getImdbRating());
+        System.out.println(omdbMovieDTO.getImdbRating());
     }
 
 }

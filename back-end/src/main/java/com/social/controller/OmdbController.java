@@ -1,11 +1,9 @@
 package com.social.controller;
 
-import com.social.model.dto.MovieDTO;
+import com.social.model.dto.OmdbMovieDTO;
 import com.social.services.importing.MovieDataImporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -16,7 +14,7 @@ public class OmdbController {
     private MovieDataImporter omdbMoviesDataImporter;
 
     @RequestMapping(value="/omdbMovie", method = RequestMethod.GET)
-    public MovieDTO getOmdbMovieDetails(@RequestParam(name = "title") String movieTitle) {
+    public OmdbMovieDTO getOmdbMovieDetails(@RequestParam(name = "title") String movieTitle) {
         return omdbMoviesDataImporter.getMovieData(movieTitle);
     }
 

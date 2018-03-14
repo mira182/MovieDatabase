@@ -4,9 +4,11 @@ package com.social.services.importing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.social.dao.MovieRepository;
-import com.social.model.dto.MovieDTO;
+import com.social.model.dto.OmdbMovieDTO;
 import com.social.model.entities.Movie;
 import com.social.model.json.ImdbRatingDeserializer;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -22,6 +24,8 @@ import java.util.Scanner;
 // TODO prettyfi
 @Service
 public class OmdbMoviesDataImporter implements MovieDataImporter {
+
+    private static final Logger logger = LogManager.getLogger(OmdbMoviesDataImporter.class);
 
     public static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&apikey=PlsBanMe";
 
@@ -42,7 +46,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     }
 
     @Override
-    public MovieDTO getMovieData(String title) {
+    public OmdbMovieDTO getMovieData(String title) {
         final RestTemplate restTemplate = new RestTemplate();
 
         final HttpHeaders headers = new HttpHeaders();
@@ -53,21 +57,20 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 HttpMethod.GET, entity, String.class);
 
         final ObjectMapper mapper = new ObjectMapper();
-//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        MovieDTO omdbMovieDTO = null;
+        OmdbMovieDTO omdbOmdbMovieDTO = null;
         try {
-            omdbMovieDTO = mapper.readValue(result.getBody(), MovieDTO.class);
+            omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
         } catch (IOException e) {
-            System.err.println(e);
+            logger.error(e);
         }
 
-        System.out.println(omdbMovieDTO);
-        return omdbMovieDTO;
+        System.out.println(omdbOmdbMovieDTO);
+        return omdbOmdbMovieDTO;
     }
 
     @Override
-    public List<MovieDTO> getMoviesData(String titles) {
-        List<MovieDTO> omdbMovieList = new ArrayList<>();
+    public List<OmdbMovieDTO> getMoviesData(String titles) {
+        List<OmdbMovieDTO> omdbMovieList = new ArrayList<>();
         List<String> titlesList = new ArrayList<>();
         Scanner scanner = new Scanner(titles);
         scanner.useDelimiter(",");
@@ -83,18 +86,15 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
         final ObjectMapper mapper = new ObjectMapper();
-        SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addDeserializer(Object.class, new ImdbRatingDeserializer());
-        mapper.registerModule(simpleModule);
 
         for (String title : titlesList) {
             ResponseEntity<String> result = restTemplate.exchange(String.format(MOVIE_TITLE_SEARCH_URL, title),
                     HttpMethod.GET, entity, String.class);
             try {
-                MovieDTO omdbMovieDTO = mapper.readValue(result.getBody(), MovieDTO.class);
-                omdbMovieList.add(omdbMovieDTO);
+                OmdbMovieDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
+                omdbMovieList.add(omdbOmdbMovieDTO);
             } catch (IOException e) {
-                System.err.println(e);
+                logger.error(e);
             }
         }
 
@@ -103,37 +103,37 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public void importMovieData(String title) {
-        final MovieDTO omdbMovieDTO = getMovieData(title);
-        movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        final OmdbMovieDTO omdbOmdbMovieDTO = getMovieData(title);
+        movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
     }
 
     @Override
     public void importMoviesData(String titles) {
-        for (MovieDTO omdbMovieDTO : getMoviesData(titles)) {
-            movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        for (OmdbMovieDTO omdbOmdbMovieDTO : getMoviesData(titles)) {
+            movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
         }
     }
 
-    private Movie convertDTOtoEntity(MovieDTO omdbMovieDTO) {
+    private Movie convertDTOtoEntity(OmdbMovieDTO omdbOmdbMovieDTO) {
         final Movie movie = new Movie();
-        movie.setName(omdbMovieDTO.getName());
-        movie.setCountry(omdbMovieDTO.getCountry());
-        movie.setProduction(omdbMovieDTO.getProduction());
-        movie.setYear(omdbMovieDTO.getYear());
-        movie.setActors(omdbMovieDTO.getActors());
-        movie.setDescription(omdbMovieDTO.getDescription());
-        movie.setDirectors(omdbMovieDTO.getDirectors());
-        movie.setImdbRating(omdbMovieDTO.getImdbRating());
-        movie.setPosterUrl(omdbMovieDTO.getPosterUrl());
-        movie.setGenre(omdbMovieDTO.getGenre());
-        movie.setLength(omdbMovieDTO.getLength() == null ? null : Integer.parseInt(omdbMovieDTO.getLength().replace("min", "").trim()));
+        movie.setName(omdbOmdbMovieDTO.getName());
+        movie.setCountry(omdbOmdbMovieDTO.getCountry());
+        movie.setProduction(omdbOmdbMovieDTO.getProduction());
+        movie.setYear(omdbOmdbMovieDTO.getYear());
+        movie.setActors(omdbOmdbMovieDTO.getActors());
+        movie.setDescription(omdbOmdbMovieDTO.getDescription());
+        movie.setDirectors(omdbOmdbMovieDTO.getDirectors());
+        movie.setImdbRating(omdbOmdbMovieDTO.getImdbRating());
+        movie.setPosterUrl(omdbOmdbMovieDTO.getPosterUrl());
+        movie.setGenre(omdbOmdbMovieDTO.getGenre());
+        movie.setLength(omdbOmdbMovieDTO.getLength());
 //        try {
-//            movie.setPoster(ImageDownloader.downloadImage(omdbMovieDTO.getPosterUrl()));
+//            movie.setPoster(ImageDownloader.downloadImage(omdbOmdbMovieDTO.getPosterUrl()));
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
         return movie;
     }
 
-    public static final String[] MOVIES = {"John Wick  ","300 ","300 Rise of an Empire ","Alien vs Predator ","Aliens vs Predator Requiem","Assassin's Creed  ","Batman","Batman ","Batman Begins ","The Dark Knight ","The Dark Knight Rises ","Blade","Blade ","Blade II ","Blade III - Trinity ","Constantine ","Dracula Untold ","Fearless","Immortals ","IP Man ","Ip Man 2 ","IP Man 3 - The Final Fight","John Wick Chapter 2  ","Kingsman The Secret Service ","Law Abiding Citizen ","Mad Max Fury Road ","Ninja Assassin ","Predators ","Punisher War Zone ","Taken  Extended Cut","Teenage Mutant Ninja Turtles ","Teenage Mutant Ninja Turtles Out Of The Shadows  ","Teenage.Mutant.Ninja.Turtles","Teenage.Mutant.Ninja.Turtles.2","Teenage.Mutant.Ninja.Turtles.3","The A Team","The Chronicles of Riddick ","The Last Boy Scout ","The Magnificent Seven  ","The Raid 2  ","The Raid Redemption ","Troy ","Wanted ","American Pie  ","American Pie 2  ","Clerks 2 ","Clerks THEATRICAL  ","Deathgasm  ","Fack ju Gothe - 2013","Horrible Bosses 2 ","Sausage.Party","Ted.2","The Edge Of Seventeen  ","The Waterboy ","The Wolf of Wall Street ","Reign Of Fire ","The.Harry.Potter.Movies","Lord of the rings The.Fellowship.of.the.Ring","Lord of the rings The.Two.Towers","Lord of the rings The.Return.of.the.King","Twilight.Saga.Complete.2008-2012.1080p.Rifftrax.6ch.2ch.v2","Underworld","Underworld - Extended Edition ","Underworld - Rise of the Lycans ","Underworld Awakening  ","Underworld Evolution ","Warcraft  ","Iron Man 1","Iron Man 2","Iron.Man.3","Man of Steel ","Spider Man Trilogy ","Spiderman ","Spiderman 2 ","Spiderman 3 ","Spider-Man Homecoming  ","Suicide Squad  ","The Amazing Spider Man 2  ","The Amazing Spiderman ","The Avengers ","Thor ","Thor Ragnarok  ","Thor The Dark World ","X-Men Complete 720p BD-Rips Eng]","X Men Days of Future Past ","X Men First Class ","X-Men ","X-Men 2 ","X-Men Apocalypse  ","X-Men Origins Wolverine ","X-Men The Last Stand ","X-Men The Wolverine ","Ant-Man ","Avengers Age of Ultron ","Batman.v.Superman.Dawn.of.Justice","Captain America - The First Avenger ","Captain.America.The.Winter.Soldier","Deadpool","Doctor Strange  ","Fantastic Four ","Guardians of the Galaxy ","Guardians Of The Galaxy Vol. 2  ","Cast Away ","Hair","Lords.of.Dogtown","October Sky ","The Blind Side ","The School of Rock ","Sphere ","Star Trek Compleate","Star Trek ","Star Trek Beyond  ","Star Trek Into Darkness ","Star Wars Episode 1","Star Wars Episode 2","Star Wars Episode 3","Star Wars Episode 4","Star Wars Episode 5","Star Wars Episode 6","Star Wars Episode VII - The Force Awakens  ","Stargate The Ark of Truth","Stargate.Continuum","Starship Troopers ","Starship Troopers 3 Marauder ","Starship Troopers Invasion ","Terminator ","Terminator 2 Judgement Day ","Terminator Genisys ","The Martian  ","The Matrix","The Matrix Reload","The Matrix Revolution","Time Lapse ","War For The Planet Of The Apes  ","Arrival  ","Back to the Future 1","Back to the Future 2","Back to the Future 3","Battle - Los Angeles ","Dawn of the Planet of the Apes ","District 9 ","Edge of Tomorrow ","Equilibrium ","Ex Machina ","Independence Day","Independence.Day.Resurgence","Interstellar ","Men In Black ","Men In Black II ","Men In Black III ","Phenomenon","Project Almanac ","Rise of the Planet of the Apes ","Star wars Rogue.One","Donnie Darko","Exam ","Identity ","Into The Wild ","K-PAX ","Predestination ","Revolver ","The Man From the Earth ","The Mist ","Triangle ","Whiplash","Zeitgeist Addendum ","Love","10 Things I Hate About You  ","500 Days Of Summer ","A Lot Like Love ","A Walk to Remember ","About Time ","Before Midnight ","Before Sunrise","Before Sunset ","Blue Valentine ","Blue.Is.the.Warmest.Color","Chasing Liberty","Cruel Intentions ","Flipped ","Good Will Hunting","I Origins ","Its Kind of a Funny Story ","Love Actually ","Love, Rosie ","Match.Point","No Strings Attached ","Once ","One Day ","Pretty Woman ","Ruby.Sparks","Scott Pilgrim vs the World  ","She's All That ","Sing street","Stuck in Love ","The Breakfast Club ","The Graduate","The Spectacular Now  ","The.Perks.Of.Being.A.Wallflower","Valentine's Day ","What If","Wicker.Park"};
+    public static final String MOVIES = "John Wick  ,300 ,300 Rise of an Empire ,Alien vs Predator ,Aliens vs Predator Requiem,Assassin's Creed  ,Batman,Batman ,Batman Begins ,The Dark Knight ,The Dark Knight Rises ,Blade,Blade ,Blade II ,Blade III - Trinity ,Constantine ,Dracula Untold ,Fearless,Immortals ,IP Man ,Ip Man 2 ,IP Man 3 - The Final Fight,John Wick Chapter 2  ,Kingsman The Secret Service ,Law Abiding Citizen ,Mad Max Fury Road ,Ninja Assassin ,Predators ,Punisher War Zone ,Taken  Extended Cut,Teenage Mutant Ninja Turtles ,Teenage Mutant Ninja Turtles Out Of The Shadows  ,Teenage.Mutant.Ninja.Turtles,Teenage.Mutant.Ninja.Turtles.2,Teenage.Mutant.Ninja.Turtles.3,The A Team,The Chronicles of Riddick ,The Last Boy Scout ,The Magnificent Seven  ,The Raid 2  ,The Raid Redemption ,Troy ,Wanted ,American Pie  ,American Pie 2  ,Clerks 2 ,Clerks THEATRICAL  ,Deathgasm  ,Fack ju Gothe - 2013,Horrible Bosses 2 ,Sausage.Party,Ted.2,The Edge Of Seventeen  ,The Waterboy ,The Wolf of Wall Street ,Reign Of Fire ,The.Harry.Potter.Movies,Lord of the rings The.Fellowship.of.the.Ring,Lord of the rings The.Two.Towers,Lord of the rings The.Return.of.the.King,Twilight.Saga.Complete.2008-2012.1080p.Rifftrax.6ch.2ch.v2,Underworld,Underworld - Extended Edition ,Underworld - Rise of the Lycans ,Underworld Awakening  ,Underworld Evolution ,Warcraft  ,Iron Man 1,Iron Man 2,Iron.Man.3,Man of Steel ,Spider Man Trilogy ,Spiderman ,Spiderman 2 ,Spiderman 3 ,Spider-Man Homecoming  ,Suicide Squad  ,The Amazing Spider Man 2  ,The Amazing Spiderman ,The Avengers ,Thor ,Thor Ragnarok  ,Thor The Dark World ,X-Men Complete 720p BD-Rips Eng],X Men Days of Future Past ,X Men First Class ,X-Men ,X-Men 2 ,X-Men Apocalypse  ,X-Men Origins Wolverine ,X-Men The Last Stand ,X-Men The Wolverine ,Ant-Man ,Avengers Age of Ultron ,Batman.v.Superman.Dawn.of.Justice,Captain America - The First Avenger ,Captain.America.The.Winter.Soldier,Deadpool,Doctor Strange  ,Fantastic Four ,Guardians of the Galaxy ,Guardians Of The Galaxy Vol. 2  ,Cast Away ,Hair,Lords.of.Dogtown,October Sky ,The Blind Side ,The School of Rock ,Sphere ,Star Trek Compleate,Star Trek ,Star Trek Beyond  ,Star Trek Into Darkness ,Star Wars Episode 1,Star Wars Episode 2,Star Wars Episode 3,Star Wars Episode 4,Star Wars Episode 5,Star Wars Episode 6,Star Wars Episode VII - The Force Awakens  ,Stargate The Ark of Truth,Stargate.Continuum,Starship Troopers ,Starship Troopers 3 Marauder ,Starship Troopers Invasion ,Terminator ,Terminator 2 Judgement Day ,Terminator Genisys ,The Martian  ,The Matrix,The Matrix Reload,The Matrix Revolution,Time Lapse ,War For The Planet Of The Apes  ,Arrival  ,Back to the Future 1,Back to the Future 2,Back to the Future 3,Battle - Los Angeles ,Dawn of the Planet of the Apes ,District 9 ,Edge of Tomorrow ,Equilibrium ,Ex Machina ,Independence Day,Independence.Day.Resurgence,Interstellar ,Men In Black ,Men In Black II ,Men In Black III ,Phenomenon,Project Almanac ,Rise of the Planet of the Apes ,Star wars Rogue.One,Donnie Darko,Exam ,Identity ,Into The Wild ,K-PAX ,Predestination ,Revolver ,The Man From the Earth ,The Mist ,Triangle ,Whiplash,Zeitgeist Addendum ,Love,10 Things I Hate About You  ,500 Days Of Summer ,A Lot Like Love ,A Walk to Remember ,About Time ,Before Midnight ,Before Sunrise,Before Sunset ,Blue Valentine ,Blue.Is.the.Warmest.Color,Chasing Liberty,Cruel Intentions ,Flipped ,Good Will Hunting,I Origins ,Its Kind of a Funny Story ,Love Actually ,Love Rosie ,Match.Point,No Strings Attached ,Once ,One Day ,Pretty Woman ,Ruby.Sparks,Scott Pilgrim vs the World  ,She's All That ,Sing street,Stuck in Love ,The Breakfast Club ,The Graduate,The Spectacular Now  ,The.Perks.Of.Being.A.Wallflower,Valentine's Day ,What If,Wicker.Park";
 }

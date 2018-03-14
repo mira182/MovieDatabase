@@ -6,6 +6,7 @@ import {Movie} from "../../model/movie";
 // import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
 import {HttpParams} from "@angular/common/http";
+import {TvShow} from "../../model/tvshow";
 
 @Injectable()
 export class MovieService {
@@ -15,14 +16,14 @@ export class MovieService {
 
   constructor(protected httpClient: HttpClient) { }
 
-  public getAllMovies(): Observable<Movie[]> { //
+  public getAllMovies(): Observable<Movie[]> {
     return this.httpClient.get<Movie[]>(this.URL, {responseType: 'json'});
   }
 
   public addMovie(movie : Movie) {
     this.httpClient.post<Movie>('http://localhost:8080/movies', JSON.stringify(movie), {responseType: 'json'})
       .subscribe(data => {
-        console.log('Add movie: ' + data);
+        console.log('Add movie: ' + JSON.stringify(data));
       });
   }
 
@@ -34,11 +35,19 @@ export class MovieService {
     return this.httpClient.get<Movie>('http://localhost:8080/omdb/importMovie', {params: new HttpParams().set('title', title)});
   }
 
-  public importMovies(movie : Movie) {
-    this.httpClient.post<any>('http://localhost:8080/omdb/importMovies', this.MOVIES, {responseType: 'json'})
+  public importMovies() {
+    // this.httpClient.post<any>('http://localhost:8080/omdb/importMovies', this.MOVIES, {responseType: 'json'})
+    //   .subscribe(data => {
+    //     console.log('response: ' + data);
+    //   });
+
+    this.httpClient.post<any>('http://www.omdbapi.com/?t=supermans&apikey=PlsBanMe', {responseType: 'json'})
       .subscribe(data => {
         console.log('response: ' + data);
       });
   }
 
+  getAllTvShows(): Observable<TvShow[]> {
+    return this.httpClient.get<TvShow[]>(this.URL, {responseType: 'json'});
+  }
 }

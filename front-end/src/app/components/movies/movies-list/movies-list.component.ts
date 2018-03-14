@@ -88,6 +88,6 @@ export class MoviesListComponent implements OnInit {
   }
 
   importMovies() {
-    this.movieService.importMovies();
+    // this.movieService.importMovies();
   }
 }

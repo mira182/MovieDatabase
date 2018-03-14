@@ -20,6 +20,6 @@ public class OmdbMoviesDataImporterTest {
 
     @Test
     public void importOmdbMovies() {
-//        omdbMoviesDataImporter.importMoviesData(Arrays.asList(OmdbMoviesDataImporter.MOVIES));
+        omdbMoviesDataImporter.importMoviesData(OmdbMoviesDataImporter.MOVIES);
     }
 }

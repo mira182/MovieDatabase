@@ -1,7 +1,8 @@
 package com.social.controller;
 
-import com.social.model.entities.Movie;
 import com.social.model.dto.MovieDTO;
+import com.social.model.dto.OmdbMovieDTO;
+import com.social.model.entities.Movie;
 import com.social.services.movies.MoviesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

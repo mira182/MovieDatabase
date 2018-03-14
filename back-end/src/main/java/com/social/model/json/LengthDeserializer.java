@@ -11,13 +11,13 @@ public class LengthDeserializer extends JsonDeserializer<Integer> {
 
     private static final String LENGTH_NAME = "Runtime";
 
-    private static final String MISSING_VALUE = "N/A";
+    private static final String TIME_UNIT = "min";
 
     @Override
     public Integer deserialize(JsonParser jp, DeserializationContext ctxt)
             throws IOException {
 
-        if (jp.getCurrentName().equals(LENGTH_NAME) && jp.getText().equals(MISSING_VALUE)) {
+        if (jp.getCurrentName().equals(LENGTH_NAME) && jp.getText().contains(TIME_UNIT)) {
             return Integer.parseInt(jp.getText().replace("min", "").trim());
         } else {
             return Integer.parseInt(jp.getText());

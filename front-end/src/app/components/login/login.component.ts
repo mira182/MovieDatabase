@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     this.authService.attemptAuth(this.username, this.password).subscribe(
       data => {
         this.token.saveToken(data.token);
-        this.router.navigate(['home']);
+        this.router.navigate(['movies']);
         this.authService.setLoggedIn(true);
       }
     );

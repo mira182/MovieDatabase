@@ -1,4 +1,4 @@
-export class Movie {
+export class TvShow {
   name : string;
   year : number;
   description : string;
@@ -10,4 +10,6 @@ export class Movie {
   posterUrl : string;
   production : string;
   genre : string;
+  seasons : number;
+  episodes : number;
 }
