@@ -9,5 +9,5 @@ export class Movie {
   country : string;
   posterUrl : string;
   production : string;
-
+  genre : string;
 }

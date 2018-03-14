@@ -8,9 +8,9 @@ public interface MovieDataImporter {
 
     MovieDTO getMovieData(String title);
 
-    List<MovieDTO> getMovieData(List<String> titles);
+    List<MovieDTO> getMoviesData(String titles);
 
     void importMovieData(String title);
 
-    void importMoviesData(List<String> title);
+    void importMoviesData(String title);
 }

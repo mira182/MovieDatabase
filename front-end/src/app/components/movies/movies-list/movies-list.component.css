@@ -23,3 +23,7 @@
   border-radius: 50%;
   right: 0;
 }
+
+mat-sidenav {
+  width: 200px;
+}

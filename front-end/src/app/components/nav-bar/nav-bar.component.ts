@@ -16,7 +16,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogout(){
+  logOut() {
     this.token.signOut();
     this.authService.setLoggedIn(false);
   }

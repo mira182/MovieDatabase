@@ -1,9 +1,14 @@
 package com.social;
 
+import com.social.services.importing.MovieDataImporter;
+import com.social.services.importing.OmdbMoviesDataImporter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
+
+import java.util.Arrays;
 
 
 @SpringBootApplication

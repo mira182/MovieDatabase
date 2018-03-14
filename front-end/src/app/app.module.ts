@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgxCarouselModule } from 'ngx-carousel';
 import 'hammerjs';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatFormFieldModule, MAT_DIALOG_DEFAULT_OPTIONS
+  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule
+  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -43,7 +43,7 @@ import { AddMovieDialogComponent } from './components/dialogs/add-movie-dialog/a
     FormsModule,
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule
   ],
   entryComponents: [
     AddMovieDialogComponent

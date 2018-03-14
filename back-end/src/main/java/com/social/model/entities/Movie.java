@@ -30,11 +30,13 @@ public class Movie {
 
     private String country;
 
-    @Lob
-    @Column( length = 100000 )
-    private byte[] poster;
+//    @Lob
+//    @Column( length = 100000 )
+//    private byte[] poster;
 
     private String posterUrl;
 
     private String production;
+
+    private  String genre;
 }

@@ -21,7 +21,7 @@ public class OmdbController {
     }
 
     @RequestMapping(value="/importMovies", method = RequestMethod.POST)
-    public void importOmdbMovies(List<String> movieTitles) {
+    public void importOmdbMovies(@RequestBody String movieTitles) {
         omdbMoviesDataImporter.importMoviesData(movieTitles);
     }
 

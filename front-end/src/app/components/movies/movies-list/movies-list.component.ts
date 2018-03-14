@@ -86,4 +86,8 @@ export class MoviesListComponent implements OnInit {
       console.log("Import response" + JSON.stringify(resp));
     });
   }
+
+  importMovies() {
+    this.movieService.importMovies();
+  }
 }

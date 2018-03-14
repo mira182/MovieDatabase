@@ -1,28 +1,26 @@
 package com.social.model.json;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
 
 
-public class LengthDeserializer extends StdDeserializer<Integer> {
+public class LengthDeserializer extends JsonDeserializer<Integer> {
 
-    public LengthDeserializer() {
-        this(null);
-    }
+    private static final String LENGTH_NAME = "Runtime";
 
-    public LengthDeserializer(Class<?> vc) {
-        super(vc);
-    }
+    private static final String MISSING_VALUE = "N/A";
 
     @Override
-    public Integer deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException,JsonProcessingException {
-        JsonNode node = jp.getCodec().readTree(jp);
-        Integer length = Integer.parseInt(node.get("Runtime").asText().replaceAll("[\\D]", ""));
-        return length;
+    public Integer deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException {
+
+        if (jp.getCurrentName().equals(LENGTH_NAME) && jp.getText().equals(MISSING_VALUE)) {
+            return Integer.parseInt(jp.getText().replace("min", "").trim());
+        } else {
+            return Integer.parseInt(jp.getText());
+        }
     }
 }
