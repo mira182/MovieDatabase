@@ -46,7 +46,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     }
 
     @Override
-    public OmdbMovieDTO getMovieData(String title) {
+    public OmdbMovieDTO getMovieData(String title) throws IOException {
         final RestTemplate restTemplate = new RestTemplate();
 
         final HttpHeaders headers = new HttpHeaders();
@@ -57,14 +57,10 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 HttpMethod.GET, entity, String.class);
 
         final ObjectMapper mapper = new ObjectMapper();
-        OmdbMovieDTO omdbOmdbMovieDTO = null;
-        try {
-            omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
-        } catch (IOException e) {
-            logger.error(e);
-        }
 
-        System.out.println(omdbOmdbMovieDTO);
+        OmdbMovieDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
+        logger.info(omdbOmdbMovieDTO);
+
         return omdbOmdbMovieDTO;
     }
 
@@ -79,23 +75,16 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         }
         scanner.close();
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
-        final ObjectMapper mapper = new ObjectMapper();
-
         for (String title : titlesList) {
-            ResponseEntity<String> result = restTemplate.exchange(String.format(MOVIE_TITLE_SEARCH_URL, title),
-                    HttpMethod.GET, entity, String.class);
+            OmdbMovieDTO omdbOmdbMovieDTO;
             try {
-                OmdbMovieDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
-                omdbMovieList.add(omdbOmdbMovieDTO);
+                omdbOmdbMovieDTO = getMovieData(title);
             } catch (IOException e) {
                 logger.error(e);
+                continue;
             }
+            movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
+            omdbMovieList.add(omdbOmdbMovieDTO);
         }
 
         return omdbMovieList;
@@ -103,7 +92,13 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public void importMovieData(String title) {
-        final OmdbMovieDTO omdbOmdbMovieDTO = getMovieData(title);
+        final OmdbMovieDTO omdbOmdbMovieDTO;
+        try {
+            omdbOmdbMovieDTO = getMovieData(title);
+        } catch (IOException e) {
+            logger.error(e);
+            return;
+        }
         movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
     }
 
@@ -132,6 +127,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        logger.info("Movie object converted from OMDBMovieDTO: " + movie);
         return movie;
     }
 

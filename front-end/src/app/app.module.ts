@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddMovieDialogComponent } from './components/dialogs/add-movie-dialog/add-movie-dialog.component';
 import { TvShowItemComponent } from './components/tvshows/tv-show-item/tv-show-item.component';
 import { TvShowListComponent } from './components/tvshows/tv-show-list/tv-show-list.component';
+import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { TvShowListComponent } from './components/tvshows/tv-show-list/tv-show-l
     MovieItemComponent,
     AddMovieDialogComponent,
     TvShowItemComponent,
-    TvShowListComponent
+    TvShowListComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -50,7 +52,7 @@ import { TvShowListComponent } from './components/tvshows/tv-show-list/tv-show-l
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule
   ],
   entryComponents: [
-    AddMovieDialogComponent
+    AddMovieDialogComponent, ErrorDialogComponent
   ],
   // exports: [CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule],
   providers: [MovieService, AuthService, AuthGuardService, TokenStorage,

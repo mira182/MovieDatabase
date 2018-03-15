@@ -21,7 +21,7 @@ export class MovieService {
   }
 
   public addMovie(movie : Movie) {
-    this.httpClient.post<Movie>('http://localhost:8080/movies', JSON.stringify(movie), {responseType: 'json'})
+    this.httpClient.post<Movie>(this.URL, JSON.stringify(movie), {responseType: 'json'})
       .subscribe(data => {
         console.log('Add movie: ' + JSON.stringify(data));
       });
@@ -36,15 +36,15 @@ export class MovieService {
   }
 
   public importMovies() {
-    // this.httpClient.post<any>('http://localhost:8080/omdb/importMovies', this.MOVIES, {responseType: 'json'})
-    //   .subscribe(data => {
-    //     console.log('response: ' + data);
-    //   });
-
-    this.httpClient.post<any>('http://www.omdbapi.com/?t=supermans&apikey=PlsBanMe', {responseType: 'json'})
+    this.httpClient.post<any>('http://localhost:8080/omdb/importMovies', this.MOVIES, {responseType: 'json'})
       .subscribe(data => {
         console.log('response: ' + data);
       });
+
+    // this.httpClient.post<any>('http://www.omdbapi.com/?t=supermans&apikey=PlsBanMe', {responseType: 'json'})
+    //   .subscribe(data => {
+    //     console.log('response: ' + data);
+    //   });
   }
 
   getAllTvShows(): Observable<TvShow[]> {

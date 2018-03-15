@@ -13,11 +13,11 @@ import {SlideInOutAnimation} from "../../animations/animations";
 export class MovieItemComponent implements OnInit {
 
   @Input() movie : Movie;
-  animationState = 'in';
+  animationState = 'out';
 
   toggleShowDiv(divName: string) {
     if (divName === 'divA') {
-      this.animationState = this.animationState === 'out' ? 'in' : 'out';
+      this.animationState = this.animationState === 'in' ? 'out' : 'in';
     }
   }
 

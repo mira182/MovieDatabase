@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgxCarousel } from 'ngx-carousel';
-import {MovieService} from "../../../services/movies/movie.service";
-import {HttpClient} from "@angular/common/http";
-import {MatDialogModule, MatDialogRef, MatDialog} from '@angular/material';
+import { MovieService} from "../../../services/movies/movie.service";
+import { HttpClient } from "@angular/common/http";
+import { MatDialog } from '@angular/material';
 import { AddMovieDialogComponent } from '../../dialogs/add-movie-dialog/add-movie-dialog.component';
 import { Movie } from "../../../model/movie";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-movies-list',
@@ -88,6 +88,6 @@ export class MoviesListComponent implements OnInit {
   }
 
   importMovies() {
-    // this.movieService.importMovies();
+    this.movieService.importMovies();
   }
 }
