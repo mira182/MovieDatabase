@@ -1,7 +1,10 @@
 package com.social.config;
 
+import com.social.services.importing.OmdbMoviesDataImporter;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +25,8 @@ import static com.social.model.Constants.HEADER_STRING;
 import static com.social.model.Constants.TOKEN_PREFIX;
 
 class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private static final Logger logger = LogManager.getLogger(JwtAuthenticationFilter.class);
 
     @Autowired
     private UserDetailsService userDetailsService;

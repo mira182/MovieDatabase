@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Error</h2>
-<mat-dialog-content class="error">{{exceptionData.message}}</mat-dialog-content>
+<mat-dialog-content class="error">{{exceptionData.error.message}}</mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button (click)="closeDialog()">Ok</button>
+  <button mat-raised-button mat-dialog-close>Ok</button>
 </mat-dialog-actions>

@@ -7,6 +7,7 @@ import {Movie} from "../../model/movie";
 import {Observable} from "rxjs";
 import {HttpParams} from "@angular/common/http";
 import {TvShow} from "../../model/tvshow";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Injectable()
 export class MovieService {

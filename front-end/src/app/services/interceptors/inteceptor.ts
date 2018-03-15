@@ -29,35 +29,28 @@ export class Interceptor implements HttpInterceptor {
 
     console.log("Request intercepted: " + JSON.stringify(req));
     return next.handle(req)
-      .do(err => {
-        if (err instanceof HttpResponse) { //<-- HERE
-          if (err.status === 401) {
-            this.openDialog(err);
+      .catch((err: HttpErrorResponse) => {
+        console.log("http response error: " + JSON.stringify(err));
+        if (err.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', err.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.error('Backend returned code ' + err.status +  ' body was: ' + JSON.stringify(err.error));
+          this.openDialog(err);
+          if (err.status == 401) {
             this.token.signOut();
             this.router.navigate(['/login']);
           }
         }
+
+        // ...optionally return a default fallback value so app can continue (pick one)
+        // which could be a default value
+        // return Observable.of<any>({my: "default value..."});
+        // or simply an empty observable
+        return Observable.empty<HttpEvent<any>>();
       });
-
-
-      // .catch((err: HttpErrorResponse) => {
-      //
-      //   if (err.error instanceof Error) {
-      //     // A client-side or network error occurred. Handle it accordingly.
-      //     console.error('An error occurred:', err.error.message);
-      //   } else {
-      //     // The backend returned an unsuccessful response code.
-      //     // The response body may contain clues as to what went wrong,
-      //     console.error(`Backend returned code ${err.status}, body was: ${err.error}`);
-      //   }
-      //
-      //
-      //   // ...optionally return a default fallback value so app can continue (pick one)
-      //   // which could be a default value (which has to be a HttpResponse here)
-      //   // return Observable.of(new HttpResponse({body: [{name: "Default value..."}]}));
-      //   // or simply an empty observable
-      //   return Observable.empty<HttpEvent<any>>();
-      // });
   }
 
   openDialog(apiError): void {

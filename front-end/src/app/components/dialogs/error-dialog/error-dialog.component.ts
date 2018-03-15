@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Inject} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from "@angular/material";
-import {ApiError} from "../../../model/apierror";
+import {Error} from "../../../model/error";
 
 @Component({
   selector: 'app-error-dialog',
@@ -10,9 +10,10 @@ import {ApiError} from "../../../model/apierror";
 })
 export class ErrorDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public exceptionData : any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public exceptionData : Error) { }
 
   ngOnInit() {
+    console.log(JSON.stringify(this.exceptionData));
   }
 
 }
