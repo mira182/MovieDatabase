@@ -38,10 +38,12 @@ export class Interceptor implements HttpInterceptor {
           // The backend returned an unsuccessful response code.
           // The response body may contain clues as to what went wrong,
           console.error('Backend returned code ' + err.status +  ' body was: ' + JSON.stringify(err.error));
-          this.openDialog(err);
-          if (err.status == 401) {
-            this.token.signOut();
-            this.router.navigate(['/login']);
+          if (!req.url.endsWith("generate-token")) {
+            this.openDialog(err);
+            if (err.status == 401) {
+              this.token.signOut();
+              this.router.navigate(['/login']);
+            }
           }
         }
 

@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
         this.token.saveToken(data.token);
         this.router.navigate(['movies']);
         this.authService.setLoggedIn(true);
+      },
+      error => {
+        console.log("login failed: " + error);
       }
     );
   }
