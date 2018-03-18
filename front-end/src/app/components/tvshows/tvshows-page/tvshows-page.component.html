@@ -1,0 +1,24 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sideNav mode="over" opened="false" class="example-container">
+    <mat-toolbar color="primary"><span>Sidenav toolbar</span></mat-toolbar>
+    <mat-nav-list>
+      <!--<span class="fa fa-angle-down fa-2x"></span>-->
+      <a mat-list-item (click)="onSideNavClick()">OMDB<mat-icon class="rightAlignment" [@indicatorRotate]="sideNavExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
+      <mat-nav-list *ngIf="sideNavExpanded">
+        <a mat-list-item (click)="getOmdbTitle()">Get tvshow</a>
+        <a mat-list-item (click)="importTvShow()">Import tvshow</a>
+        <a mat-list-item (click)="importTvShows()">Import tvshows</a>
+      </mat-nav-list>
+
+      <a mat-list-item (click)="moviesMenuShow = !moviesMenuShow">Movies</a>
+      <mat-menu #movies="matMenu">
+        <a mat-menu-item (click)="openAddTvShowDialog()">Add Tv Show</a>
+      </mat-menu>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <h2>All movies</h2>
+    <app-movies-list></app-movies-list>
+  </mat-sidenav-content>
+</mat-sidenav-container>

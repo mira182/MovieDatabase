@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 import {TokenStorage} from '../auth/token.storage';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/throw';
 import {HttpEvent} from "@angular/common/http";
 import {MatDialog} from "@angular/material";
 import {ErrorDialogComponent} from "../../components/dialogs/error-dialog/error-dialog.component";
@@ -39,10 +41,18 @@ export class Interceptor implements HttpInterceptor {
           // The response body may contain clues as to what went wrong,
           console.error('Backend returned code ' + err.status +  ' body was: ' + JSON.stringify(err.error));
           if (!req.url.endsWith("generate-token")) {
+<<<<<<< HEAD
             this.openDialog(err);
             if (err.status == 401) {
               this.token.signOut();
               this.router.navigate(['/login']);
+=======
+            if (err.status == 401) {
+              this.token.signOut();
+              this.router.navigate(['/login']);
+            } else {
+              this.openDialog(err.error);
+>>>>>>> origin/master
             }
           }
         }

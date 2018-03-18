@@ -32,6 +32,7 @@ public class MovieDeserializer extends StdDeserializer<OmdbMovieDTO> {
         JsonToken currentToken = null;
         OmdbMovieDTO movieDTO = new OmdbMovieDTO();
         while ((currentToken = jp.nextValue()) != null) {
+            if (jp.getCurrentName().equals("Title") && currentToken.asString().equals(MISSING_VALUE)) return null;
             if (currentToken.asString().equals(MISSING_VALUE)) {
                 jp.setCurrentValue(null);
                 continue;
