@@ -1,41 +1,13 @@
 
-<mat-sidenav-container class="example-container" >
-  <mat-sidenav mode="side" opened>
-    <mat-toolbar color="primary"><span>Sidenav toolbar</span></mat-toolbar>
-      <button mat-button [matMenuTriggerFor]="movies">OMDB</button>
-
-      <mat-menu #movies="matMenu">
-        <button mat-menu-item (click)="getOmdbTitle()">Get movie</button>
-        <button mat-menu-item (click)="importMovie()">Import movie</button>
-      </mat-menu>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
     <ngx-carousel
       [inputs]="carouselTile"
-      (carouselLoad)="carouselTileLoad($event)">
+      (carouselLoad)="carouselItemsLoad($event)">
 
-      <ngx-tile NgxCarouselItem *ngFor="let movie of allMovies">
+      <ngx-tile NgxCarouselItem *ngFor="let movie of movies">
         <app-movie-item [movie]="movie"></app-movie-item>
       </ngx-tile>
 
-      <button NgxCarouselPrev class="leftRs"><i class="fa fa-angle-left fa-3x"></i></button>
-      <button NgxCarouselNext class="rightRs"><i class="fa fa-angle-right fa-3x"></i></button>
+      <button NgxCarouselPrev class="leftRs"><i class="fa fa-angle-left fa-4x"></i></button>
+      <button NgxCarouselNext class="rightRs"><i class="fa fa-angle-right fa-4x"></i></button>
     </ngx-carousel>
 
-    <button mat-raised-button color="primary" (click)="openAddMovieDialog()">Add movie</button>
-
-    <mat-card>
-      <mat-card-title>OMDB movie details</mat-card-title>
-      <mat-card-content>
-        <input matInput type="text" placeholder="Title" [(ngModel)]="omdbTitle" name="omdbTitle" required>
-        <!--<img mat-card-image src="https://material.angularjs.org/latest/img/washedout.png">-->
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="getOmdbTitle()">Get details</button>
-        <button mat-raised-button color="primary" (click)="importMovie()">Import movie</button>
-        <button mat-raised-button color="primary" (click)="importMovies()">Import movies</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-sidenav-content>
-</mat-sidenav-container>

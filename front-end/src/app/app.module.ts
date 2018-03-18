@@ -4,7 +4,7 @@ import { NgxCarouselModule } from 'ngx-carousel';
 import 'hammerjs';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule, MatExpansionModule,
-  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MAT_DIALOG_DEFAULT_OPTIONS
+  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatListModule, MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -28,7 +28,10 @@ import { AddMovieDialogComponent } from './components/dialogs/add-movie-dialog/a
 import { TvShowItemComponent } from './components/tvshows/tv-show-item/tv-show-item.component';
 import { TvShowListComponent } from './components/tvshows/tv-show-list/tv-show-list.component';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
-
+import { MoviesPageComponent } from './components/movies/movies-page/movies-page.component';
+import {SidenavServiceService} from "./services/sidenav-service.service";
+import { TvshowsPageComponent } from './components/tvshows/tvshows-page/tvshows-page.component';
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule({
   declarations: [
@@ -42,20 +45,23 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     AddMovieDialogComponent,
     TvShowItemComponent,
     TvShowListComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    MoviesPageComponent,
+    TvshowsPageComponent,
+    KeysPipe,
   ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
-    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule
+    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent
   ],
   // exports: [CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule],
-  providers: [MovieService, AuthService, AuthGuardService, TokenStorage,
+  providers: [MovieService, AuthService, AuthGuardService, TokenStorage, SidenavServiceService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi : true },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
   ],

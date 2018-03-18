@@ -51,7 +51,7 @@ export class HomeComponent {
   public getAllMovies() {
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
-      console.log("All movies: " + JSON.stringify(data));
+      console.log("All movies received in home page component");
     });
   }
 

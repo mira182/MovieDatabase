@@ -5,17 +5,7 @@
 </div>
 
   <!-- Movies -->
-  <ngx-carousel
-    [inputs]="carouselTile"
-    (carouselLoad)="carouselTileLoad($event)">
-
-    <ngx-tile NgxCarouselItem *ngFor="let movie of allMovies">
-      <app-movie-item [movie]="movie"></app-movie-item>
-    </ngx-tile>
-
-    <button NgxCarouselPrev class="leftRs"><i class="fa fa-angle-left fa-3x"></i></button>
-    <button NgxCarouselNext class="rightRs"><i class="fa fa-angle-right fa-3x"></i></button>
-  </ngx-carousel>
+<app-movies-list [movies]="allMovies"></app-movies-list>
 
   <mat-divider></mat-divider>
 

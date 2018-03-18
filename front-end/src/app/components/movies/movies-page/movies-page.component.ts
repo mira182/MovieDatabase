@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform, ViewChild, ViewEncapsulation} from '@angular/core';
 import {AddMovieDialogComponent} from "../../dialogs/add-movie-dialog/add-movie-dialog.component";
 import {Observable} from "rxjs/Rx";
 import {Movie} from "../../../model/movie";
@@ -7,6 +7,7 @@ import {MatDialog, MatSidenav} from "@angular/material";
 import {SidenavServiceService} from "../../../services/sidenav-service.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {IndicatorRotate} from "../../animations/animations";
+import {Genres} from "../../../model/genres";
 
 @Component({
   selector: 'app-movies-page',
@@ -17,25 +18,36 @@ import {IndicatorRotate} from "../../animations/animations";
 })
 export class MoviesPageComponent implements OnInit {
 
-  private moviesToShow : Movie[];
+  private allMovies : Movie[];
   private newMovie : Movie;
   private omdbTitle : string;
   private omdbMovie : Observable<Movie>;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
-  sideNavExpanded : boolean;
+  private sideNavExpanded : boolean;
+  private genresToShow : string[] = [];
+  private moviesByGenre: { [genre: string] : Movie[] } = {};
+
 
   constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavServiceService) {}
 
   ngOnInit() {
     this.sideNavService.setSideNav(this.movieSideNav);
-    this.getAllMovies();
+    this.movieService.getAllMovies().subscribe(data => {
+      var tmpMoviesByGenre = [];
+      this.allMovies = data;
+      for (let genre in Genres) {
+        if (isNaN(Number(genre))) {
+          this.genresToShow.push(genre);
+          tmpMoviesByGenre = this.getMoviesByGenre(genre);
+          if (tmpMoviesByGenre.length != 0)
+            this.moviesByGenre[genre] = tmpMoviesByGenre;
+        }
+      }
+    });
   }
 
-  public getAllMovies() {
-    this.movieService.getAllMovies().subscribe(data => {
-      this.moviesToShow = data;
-      console.log("Received all movies in movies page");
-    });
+  getMoviesByGenre(genre : string) {
+    return this.allMovies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
   }
 
   openAddMovieDialog() {

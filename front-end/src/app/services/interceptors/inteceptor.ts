@@ -40,20 +40,19 @@ export class Interceptor implements HttpInterceptor {
           // The backend returned an unsuccessful response code.
           // The response body may contain clues as to what went wrong,
           console.error('Backend returned code ' + err.status +  ' body was: ' + JSON.stringify(err.error));
+          // if (err.status == 500) {
+          //   err.error = new Error("")
+          // }
+
           if (!req.url.endsWith("generate-token")) {
-<<<<<<< HEAD
-            this.openDialog(err);
-            if (err.status == 401) {
-              this.token.signOut();
-              this.router.navigate(['/login']);
-=======
             if (err.status == 401) {
               this.token.signOut();
               this.router.navigate(['/login']);
             } else {
-              this.openDialog(err.error);
->>>>>>> origin/master
+              // this.openDialog(err.error);
             }
+          } else {
+            return Observable.throw(err.error);
           }
         }
 

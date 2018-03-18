@@ -99,9 +99,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public void importMoviesData(String titles) {
-        for (OmdbMovieDTO omdbOmdbMovieDTO : getMoviesData(titles)) {
-            movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
-        }
+        getMoviesData(titles);
     }
 
     private Movie convertDTOtoEntity(OmdbMovieDTO omdbOmdbMovieDTO) {

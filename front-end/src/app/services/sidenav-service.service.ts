@@ -10,7 +10,7 @@ export class SidenavServiceService {
     this.sideNav = sideNav;
   }
 
-  toggleMovieSideNav() {
+  toggleSideNav() {
     this.sideNav.toggle();
   }
 }

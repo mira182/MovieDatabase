@@ -10,7 +10,7 @@
         <a mat-list-item (click)="importMovies()">Import movies</a>
       </mat-nav-list>
 
-      <a mat-list-item (click)="moviesMenuShow = !moviesMenuShow">Movies</a>
+      <a mat-list-item (click)="moviesMenuShow = !moviesMenuShow">Movies<mat-icon class="rightAlignment" [@indicatorRotate]="sideNavExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-menu #movies="matMenu">
         <a mat-menu-item (click)="openAddMovieDialog()">Add movie</a>
       </mat-menu>
@@ -18,8 +18,10 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <h2>All movies</h2>
-    <app-movies-list [movies]="moviesToShow"></app-movies-list>
+    <div *ngFor="let genre of genresToShow">
+      <h1>{{genre}}</h1>
+      <app-movies-list [movies]="moviesByGenre[genre]"></app-movies-list>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
