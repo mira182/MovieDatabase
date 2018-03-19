@@ -1,7 +1,7 @@
 package com.social.config;
 
-import com.social.dao.MovieRepository;
-import com.social.dao.UserRepository;
+import com.mmdb.dao.MovieRepository;
+import com.mmdb.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

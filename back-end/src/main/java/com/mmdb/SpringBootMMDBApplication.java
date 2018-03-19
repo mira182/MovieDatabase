@@ -7,7 +7,6 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 
 @SpringBootApplication
-//@EnableWebMvc
 public class SpringBootMMDBApplication {
 
 	public static void main(String[] args) {

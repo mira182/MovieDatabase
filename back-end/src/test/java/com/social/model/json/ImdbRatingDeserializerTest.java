@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.social.model.dto.OmdbMovieDTO;
+import com.mmdb.model.deserializers.ImdbRatingDeserializer;
+import com.mmdb.model.dto.OmdbMovieDTO;
 import org.junit.Test;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -12,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.Collections;
 
-import static com.social.services.importing.OmdbMoviesDataImporter.MOVIE_TITLE_SEARCH_URL;
+import static com.mmdb.services.importing.OmdbMoviesDataImporter.MOVIE_TITLE_SEARCH_URL;
 
 
 public class ImdbRatingDeserializerTest {

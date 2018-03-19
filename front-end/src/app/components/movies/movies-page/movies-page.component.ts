@@ -23,7 +23,8 @@ export class MoviesPageComponent implements OnInit {
   private omdbTitle : string;
   private omdbMovie : Observable<Movie>;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
-  private sideNavExpanded : boolean;
+  private omdbMenuExpanded : boolean;
+  private moviesMenuExpanded : boolean;
   private genresToShow : string[] = [];
   private moviesByGenre: { [genre: string] : Movie[] } = {};
 
@@ -82,9 +83,4 @@ export class MoviesPageComponent implements OnInit {
   importMovies() {
     this.movieService.importMovies();
   }
-
-  onSideNavClick() {
-    this.sideNavExpanded = !this.sideNavExpanded;
-  }
-
 }
