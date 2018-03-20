@@ -32,6 +32,7 @@ import { MoviesPageComponent } from './components/movies/movies-page/movies-page
 import {SidenavServiceService} from "./services/sidenav-service.service";
 import { TvshowsPageComponent } from './components/tvshows/tvshows-page/tvshows-page.component';
 import { KeysPipe } from './pipes/keys.pipe';
+import { CarouselListComponent } from './components/carousel-list/carousel-list.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { KeysPipe } from './pipes/keys.pipe';
     MoviesPageComponent,
     TvshowsPageComponent,
     KeysPipe,
+    CarouselListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Data
 @Setter(AccessLevel.NONE)
 @AllArgsConstructor
-public class MovieDTO {
+public class TvShowDTO {
     private String name;
     private String year;
     private String description;
@@ -20,5 +20,4 @@ public class MovieDTO {
     private String posterUrl;
     private String production;
     private String genre;
-
 }

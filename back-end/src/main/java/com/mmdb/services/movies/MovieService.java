@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface MovieService {
 
-    List<Movie> getAllMovies();
+    List<MovieDTO> getAllMovies();
 
     Movie saveMovie(MovieDTO movieDto);
 
-    List<Movie> getMoviesByGenre(String genre);
+    List<MovieDTO> getMoviesByGenre(String genre);
 
 }

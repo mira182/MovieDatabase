@@ -22,8 +22,6 @@ public class OmdbMovieDTO {
     @JsonProperty("Year")
     private String year;
 
-    @Lob
-    @Column(length = 3000)
     @JsonProperty("Plot")
     private String description;
 

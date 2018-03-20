@@ -1,14 +1,13 @@
 package com.mmdb.model.entities;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "Movie")
-public class Movie {
+@Table(name = "Tvshow")
+public class TvShow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

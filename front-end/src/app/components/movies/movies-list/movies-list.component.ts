@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgxCarousel} from 'ngx-carousel';
 import {Movie} from "../../../model/movie";
 import {MovieService} from "../../../services/movies/movie.service";
+import {CarouselListComponent} from "../../carousel-list/carousel-list.component";
 
 @Component({
   selector: 'app-movies-list',
@@ -10,11 +11,13 @@ import {MovieService} from "../../../services/movies/movie.service";
   encapsulation: ViewEncapsulation.None
 })
 export class MoviesListComponent implements OnInit {
+
   public carouselTileItems: Array<any>;
   public carouselTile: NgxCarousel;
-  @Input() movies : Movie[];
+  @Input() movies : Array<Movie>;
 
-  constructor(private movieService: MovieService) { }
+  constructor() {
+  }
 
   ngOnInit() {
     //noinspection TypeScriptValidateTypes

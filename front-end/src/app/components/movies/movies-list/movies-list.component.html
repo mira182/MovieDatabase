@@ -3,7 +3,7 @@
       [inputs]="carouselTile"
       (carouselLoad)="carouselItemsLoad($event)" >
 
-      <ngx-tile NgxCarouselItem *ngFor="let movie of movies">
+      <ngx-tile NgxCarouselItem *ngFor="let movie of items">
         <app-movie-item [movie]="movie"></app-movie-item>
       </ngx-tile>
 

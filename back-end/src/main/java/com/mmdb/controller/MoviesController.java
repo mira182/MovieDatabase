@@ -23,7 +23,7 @@ public class MoviesController {
     private MoviesServiceImpl moviesServiceImpl;
 
     @GetMapping
-    public List<Movie> getAllMovies() {
+    public List<MovieDTO> getAllMovies() {
         return moviesServiceImpl.getAllMovies();
     }
 
@@ -33,9 +33,9 @@ public class MoviesController {
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "genre")
-    public List<Movie> getMoviesByGenre(String genre) {
-        List<Movie> movies = moviesServiceImpl.getMoviesByGenre(genre);
-        System.out.println(movies);
+    public List<MovieDTO> getMoviesByGenre(String genre) {
+        final List<MovieDTO> movies = moviesServiceImpl.getMoviesByGenre(genre);
+        logger.debug("Found movies by {} genre: {}", genre, movies);
         return movies;
     }
 }
