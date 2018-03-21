@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { SidenavServiceService } from './sidenav-service.service';
+import { SidenavService } from './sidenav-service.service';
 
-describe('SidenavServiceService', () => {
+describe('SidenavService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SidenavServiceService]
+      providers: [SidenavService]
     });
   });
 
-  it('should be created', inject([SidenavServiceService], (service: SidenavServiceService) => {
+  it('should be created', inject([SidenavService], (service: SidenavService) => {
     expect(service).toBeTruthy();
   }));
 });

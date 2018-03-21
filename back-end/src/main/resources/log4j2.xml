@@ -2,13 +2,16 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATTERN">
-            %d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${hostName} --- %-40.40c{1.} : %m%n%ex
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${hostName} --- %-40.40c{1.} : %m%n%ex
         </Property>
     </Properties>
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
+        <File name="FileAppender" fileName="logs/mmdb.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </File>
     </Appenders>
     <Loggers>
         <Logger name="com.social" level="debug" additivity="false">
@@ -19,17 +22,4 @@
             <AppenderRef ref="ConsoleAppender" />
         </Root>
     </Loggers>
-
-
-    <!-- Rolling File Appender -->
-    <RollingFile name="FileAppender" fileName="logs/mmdb.log"
-                 filePattern="logs/mmdb-%d{yyyy-MM-dd}-%i.log">
-        <PatternLayout>
-            <Pattern>${LOG_PATTERN}</Pattern>
-        </PatternLayout>
-        <Policies>
-            <SizeBasedTriggeringPolicy size="10MB" />
-        </Policies>
-        <DefaultRolloverStrategy max="10"/>
-    </RollingFile>
 </Configuration>

@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { NgxCarouselModule } from 'ngx-carousel';
 import 'hammerjs';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule, MatExpansionModule,
-  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatListModule, MAT_DIALOG_DEFAULT_OPTIONS
+  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule, MatExpansionModule, MatTooltipModule,
+  MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatListModule, MatSnackBarModule,
+  MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -29,10 +30,10 @@ import { TvShowItemComponent } from './components/tvshows/tv-show-item/tv-show-i
 import { TvShowListComponent } from './components/tvshows/tv-show-list/tv-show-list.component';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 import { MoviesPageComponent } from './components/movies/movies-page/movies-page.component';
-import {SidenavServiceService} from "./services/sidenav-service.service";
+import {SidenavService} from "./services/sidenav-service.service";
 import { TvshowsPageComponent } from './components/tvshows/tvshows-page/tvshows-page.component';
-import { KeysPipe } from './pipes/keys.pipe';
-import { CarouselListComponent } from './components/carousel-list/carousel-list.component';
+import { GetOmdbMovieDialogComponent } from './components/dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component';
+import {OmdbService} from "./services/omdb/omdb-service.service";
 
 @NgModule({
   declarations: [
@@ -49,21 +50,21 @@ import { CarouselListComponent } from './components/carousel-list/carousel-list.
     ErrorDialogComponent,
     MoviesPageComponent,
     TvshowsPageComponent,
-    KeysPipe,
-    CarouselListComponent,
+    GetOmdbMovieDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
-    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule
+    MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
+    MatTooltipModule, MatSnackBarModule
   ],
   entryComponents: [
-    AddMovieDialogComponent, ErrorDialogComponent
+    AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent
   ],
   // exports: [CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule],
-  providers: [MovieService, AuthService, AuthGuardService, TokenStorage, SidenavServiceService,
+  providers: [MovieService, AuthService, AuthGuardService, TokenStorage, SidenavService, OmdbService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi : true },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
   ],

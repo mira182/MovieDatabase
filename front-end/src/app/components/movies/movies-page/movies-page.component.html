@@ -1,12 +1,11 @@
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container class="example-container" class="example-sidenav-container">
   <mat-sidenav #sideNav mode="over" opened="false" class="example-container">
     <mat-toolbar color="primary"><span>Sidenav toolbar</span></mat-toolbar>
     <mat-nav-list>
       <!--<span class="fa fa-angle-down fa-2x"></span>-->
       <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded">OMDB<mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-nav-list *ngIf="omdbMenuExpanded">
-        <a mat-list-item class="nested-list-item" (click)="getOmdbTitle()">Get movie</a>
-        <a mat-list-item class="nested-list-item" (click)="importMovie()">Import movie</a>
+        <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get movie</a>
         <a mat-list-item class="nested-list-item" (click)="importMovies()">Import movies</a>
       </mat-nav-list>
 
@@ -26,18 +25,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-<mat-card>
-  <mat-card-title>OMDB movie details</mat-card-title>
-  <mat-card-content>
-    <input matInput type="text" placeholder="Title" [(ngModel)]="omdbTitle" name="omdbTitle" required>
-    <!--<img mat-card-image src="https://material.angularjs.org/latest/img/washedout.png">-->
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="getOmdbTitle()">Get details</button>
-    <button mat-raised-button color="primary" (click)="importMovie()">Import movie</button>
-    <button mat-raised-button color="primary" (click)="importMovies()">Import movies</button>
-    <button mat-raised-button color="primary" (click)="openAddMovieDialog()">Add movie</button>
-  </mat-card-actions>
-</mat-card>

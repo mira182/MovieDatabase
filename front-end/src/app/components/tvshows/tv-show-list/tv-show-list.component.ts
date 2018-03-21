@@ -1,8 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {CarouselListComponent} from "../../carousel-list/carousel-list.component";
 import {TvShow} from "../../../model/tvshow";
 import {NgxCarousel} from "ngx-carousel";
-import {Movie} from "../../../model/movie";
 
 @Component({
   selector: 'app-tv-show-list',

@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.mmdb.model.deserializers.ImdbRatingDeserializer;
 import com.mmdb.model.deserializers.LengthDeserializer;
+import com.mmdb.model.deserializers.OMDBMovieDeserializer;
 import com.mmdb.model.deserializers.PosterDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Lob;
@@ -15,7 +17,12 @@ import javax.persistence.Lob;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
+@JsonDeserialize(using = OMDBMovieDeserializer.class)
 public class OmdbMovieDTO {
+
+    public OmdbMovieDTO() {
+    }
+
     @JsonProperty("Title")
     private String name;
 

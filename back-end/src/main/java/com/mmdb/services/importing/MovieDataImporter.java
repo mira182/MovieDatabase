@@ -14,4 +14,6 @@ public interface MovieDataImporter {
     void importMovieData(String title);
 
     void importMoviesData(String title);
+
+    boolean storeOmdbMovie(OmdbMovieDTO omdbMovieDTO);
 }

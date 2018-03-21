@@ -4,10 +4,11 @@ import {Observable} from "rxjs/Rx";
 import {Movie} from "../../../model/movie";
 import {MovieService} from "../../../services/movies/movie.service";
 import {MatDialog, MatSidenav} from "@angular/material";
-import {SidenavServiceService} from "../../../services/sidenav-service.service";
+import {SidenavService} from "../../../services/sidenav-service.service";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {IndicatorRotate} from "../../animations/animations";
 import {Genres} from "../../../model/genres";
+import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component";
 
 @Component({
   selector: 'app-movies-page',
@@ -29,7 +30,7 @@ export class MoviesPageComponent implements OnInit {
   private moviesByGenre: { [genre: string] : Movie[] } = {};
 
 
-  constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavServiceService) {}
+  constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {}
 
   ngOnInit() {
     this.sideNavService.setSideNav(this.movieSideNav);
@@ -67,16 +68,11 @@ export class MoviesPageComponent implements OnInit {
     });
   }
 
-  getOmdbTitle() {
-    this.omdbMovie = this.movieService.getOmdbMovie(this.omdbTitle);
-    this.omdbMovie.subscribe(resp => {
-      console.log("Movie details response" + JSON.stringify(resp));
-    });
-  }
-
-  importMovie() {
-    this.movieService.importMovie(this.omdbTitle).subscribe(resp => {
-      console.log("Import response" + JSON.stringify(resp));
+  openGetOmdbMovieDialog() {
+    //noinspection TypeScriptUnresolvedFunction
+    let dialogRef = this.dialog.open(GetOmdbMovieDialogComponent, {
+      height: 'auto',
+      width: '500px',
     });
   }
 

@@ -1,27 +1,10 @@
-<!-- *ngIf="isLoggedIn$ | async"-->
 
-<!--<div class="primary-nav" *ngIf="router.url != '/login'">-->
-  <!--<nav class="navbar navbar-inverse">-->
-    <!--<div class="container-fluid">-->
-
-      <!--<ul class="nav navbar-nav">-->
-        <!--<li class="active"><a routerLink="/home" routerLinkActive="active">Home</a></li>-->
-        <!--<li class="active"><a routerLink="/movies" routerLinkActive="active">Movies</a></li>-->
-      <!--</ul>-->
-      <!--<ul class="nav navbar-nav navbar-right">-->
-
-        <!--<li><a routerLink="/login" routerLinkActive="active"><span class="glyphicon glyphicon-log-in" (click)="logOut()"></span> LogOut</a></li>-->
-      <!--</ul>-->
-    <!--</div>-->
-  <!--</nav>-->
-<!--</div>-->
-
-
-<mat-toolbar color="primary" *ngIf="router.url != '/login'">
+<mat-toolbar color="primary" *ngIf="router.url != '/login'" class="main-toolbar">
   <span>MMDB</span>
   <button mat-icon-button (click)="toggleSideNav()" ><mat-icon>menu</mat-icon></button>
   <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
   <button mat-button routerLink="/movies" routerLinkActive="active">Movies</button>
+  <button mat-button routerLink="/tvshows" routerLinkActive="active">Tv Shows</button>
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 

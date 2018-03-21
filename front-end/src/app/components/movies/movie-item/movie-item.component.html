@@ -1,7 +1,8 @@
 <mat-card class="mat-elevation-z4 movie-item" [ngClass]="{'zoom': !expanded }">
   <mat-card-title>
-    <!--<a href="">-->
-    <img mat-card-image src={{movie.posterUrl}} height="300px">
+    <span matTooltip="{{movie.name}}" matTooltipShowDelay="1500">
+      <a href="javascript:void(0);" (click)="toggleShowDiv()"><img mat-card-image src={{movie.posterUrl}} height="300px"></a>
+    </span>
   </mat-card-title>
 
   <mat-card-content [@slideInOut]="animationState">

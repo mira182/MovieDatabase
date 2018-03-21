@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CarouselListComponent } from './carousel-list.component';
+import { GetOmdbMovieDialogComponent } from './get-omdb-movie-dialog.component';
 
-describe('CarouselListComponent', () => {
-  let component: CarouselListComponent;
-  let fixture: ComponentFixture<CarouselListComponent>;
+describe('GetOmdbMovieDialogComponent', () => {
+  let component: GetOmdbMovieDialogComponent;
+  let fixture: ComponentFixture<GetOmdbMovieDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CarouselListComponent ]
+      declarations: [ GetOmdbMovieDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CarouselListComponent);
+    fixture = TestBed.createComponent(GetOmdbMovieDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {MatSidenav} from "@angular/material";
 
 @Injectable()
-export class SidenavServiceService {
+export class SidenavService {
   public sideNav: MatSidenav;
   constructor() { }
 
@@ -10,7 +10,13 @@ export class SidenavServiceService {
     this.sideNav = sideNav;
   }
 
+  getSideNav() {
+    return this.sideNav;
+  }
+
   toggleSideNav() {
-    this.sideNav.toggle();
+    if (this.sideNav) {
+      this.sideNav.toggle();
+    }
   }
 }

@@ -1,8 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgxCarousel} from 'ngx-carousel';
 import {Movie} from "../../../model/movie";
-import {MovieService} from "../../../services/movies/movie.service";
-import {CarouselListComponent} from "../../carousel-list/carousel-list.component";
 
 @Component({
   selector: 'app-movies-list',
@@ -37,7 +35,7 @@ export class MoviesListComponent implements OnInit {
   }
 
   public carouselItemsLoad(evt: any) {
-    const len = this.carouselTileItems.length
+    const len = this.carouselTileItems.length;
     if (len <= 30) {
       for (let i = len; i < len + 10; i++) {
         this.carouselTileItems.push(i);

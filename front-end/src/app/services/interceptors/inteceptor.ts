@@ -22,11 +22,13 @@ export class Interceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const  token = this.token.getToken();
 
-    if (token) {
-      req = req.clone({
-        headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)
-          .set('Content-Type', 'application/json')
-      });
+    if (!req.url.includes("omdbapi.com")) {
+      if (token) {
+        req = req.clone({
+          headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)
+            .set('Content-Type', 'application/json')
+        });
+      }
     }
 
     console.log("Request intercepted: " + JSON.stringify(req));
@@ -44,14 +46,16 @@ export class Interceptor implements HttpInterceptor {
           //   err.error = new Error("")
           // }
 
+          // is NOT login request
           if (!req.url.endsWith("generate-token")) {
             if (err.status == 401) {
               this.token.signOut();
               this.router.navigate(['/login']);
             } else {
               // this.openDialog(err.error);
+              return Observable.throw(err.error);
             }
-          } else {
+          } else { // IS login request
             return Observable.throw(err.error);
           }
         }

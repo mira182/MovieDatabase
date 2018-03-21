@@ -16,15 +16,16 @@ public class OMDBMovieDeserializer extends StdDeserializer<OmdbMovieDTO> {
 
     private static final String MISSING_VALUE = "N/A";
 
+    public OMDBMovieDeserializer() {
+        super(OmdbMovieDTO.class);
+    }
+
     public OMDBMovieDeserializer(Class<OmdbMovieDTO> t) {
         super(t);
     }
 
     @Override
-    public OmdbMovieDTO deserialize(JsonParser jp, DeserializationContext dc)
-            throws IOException, JsonProcessingException {
-
-
+    public OmdbMovieDTO deserialize(JsonParser jp, DeserializationContext dc) throws IOException {
         Double imdbRating = null;
         String year = null;
         Integer length = null;

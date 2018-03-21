@@ -3,6 +3,7 @@ package com.mmdb.controller;
 import com.mmdb.model.dto.OmdbMovieDTO;
 import com.mmdb.services.importing.MovieDataImporter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -28,5 +29,10 @@ public class OmdbController {
     @RequestMapping(value="/importMovie", method = RequestMethod.GET)
     public void importOmdbMovie(@RequestParam("title") String movieTitle) {
         omdbMoviesDataImporter.importMovieData(movieTitle);
+    }
+
+    @RequestMapping(value="/storeOmdbMovie", method = RequestMethod.POST)
+    public boolean storeOmdbMovie(@RequestBody OmdbMovieDTO omdbMovieDTO) {
+        return omdbMoviesDataImporter.storeOmdbMovie(omdbMovieDTO);
     }
 }

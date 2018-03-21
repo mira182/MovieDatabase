@@ -27,7 +27,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     private static final Logger logger = LogManager.getLogger(OmdbMoviesDataImporter.class);
 
-    public static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&apikey=PlsBanMe";
+    public static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&apikey=3534d3d7";
 
     @Autowired
     private MovieRepository movieRepository;
@@ -52,7 +52,6 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         SimpleModule mod = new SimpleModule();
         mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
         mapper.registerModule(mod);
-
         final OmdbMovieDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
         logger.debug("Deserialized OMDB movie: {}", omdbOmdbMovieDTO);
 
@@ -100,6 +99,26 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     @Override
     public void importMoviesData(String titles) {
         getMoviesData(titles);
+    }
+
+    @Override
+    public boolean storeOmdbMovie(OmdbMovieDTO omdbMovieDTO) {
+        logger.debug("Storing OMDB movie: {}", omdbMovieDTO);
+//        final ObjectMapper mapper = new ObjectMapper();
+//        SimpleModule mod = new SimpleModule();
+//        mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
+//        mapper.registerModule(mod);
+//
+//        try {
+//            final OmdbMovieDTO omdbMovieDTO = mapper.readValue(omdbString, OmdbMovieDTO.class);
+//            movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+//        } catch (IOException e) {
+//            logger.error(e);
+//        }
+
+        Movie storedMovie = movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        if (storedMovie != null) return true;
+        else return false;
     }
 
     private Movie convertDTOtoEntity(OmdbMovieDTO omdbOmdbMovieDTO) {
