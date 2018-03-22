@@ -17,21 +17,20 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div>
-      <mat-toolbar class="genre-toolbar">
-          <mat-checkbox *ngFor="let genre of ALL_GENRES"
-                        value="{{genre}}"
-                        [checked]="true"
-                        (change)="genresChanged(genre, $event)">
-            {{genre}}
-          </mat-checkbox>
-      </mat-toolbar>
-    </div>
+    <mat-toolbar class="genre-toolbar">
+      <mat-checkbox *ngFor="let genre of ALL_GENRES"
+                    value="{{genre}}"
+                    [checked]="true"
+                    (change)="genresChanged(genre, $event)">
+        {{genre}}
+      </mat-checkbox>
+    </mat-toolbar>
 
     <div *ngFor="let genre of genresToShow">
       <div *ngIf="moviesByGenre[genre]">
         <h2>{{genre}}</h2>
-        <app-movies-list [movies]="moviesByGenre[genre]" [genre]="genre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+        <app-movies-list [movies]="moviesByGenre[genre]" [genre]="genre"
+                         (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
       </div>
     </div>
   </mat-sidenav-content>

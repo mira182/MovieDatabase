@@ -1,2 +1,2 @@
  - Add statistics dialog for movies and tv shows
- -
+ - Progress of importing movies from OMDB

@@ -22,6 +22,5 @@ public class OmdbMoviesDataImporterTest {
 
     @Test
     public void importOmdbMovies() {
-        omdbMoviesDataImporter.importMoviesData(OmdbMoviesDataImporter.MOVIES);
     }
 }

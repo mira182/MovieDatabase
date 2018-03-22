@@ -9,7 +9,7 @@
         <a mat-list-item (click)="importTvShows()">Import tvshows</a>
       </mat-nav-list>
 
-      <a mat-list-item (click)="moviesMenuShow = !moviesMenuShow">Movies</a>
+      <a mat-list-item (click)="moviesMenuShow = !moviesMenuShow">TV Shows</a>
       <mat-menu #movies="matMenu">
         <a mat-menu-item (click)="openAddTvShowDialog()">Add Tv Show</a>
       </mat-menu>
@@ -17,7 +17,21 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <h2>All movies</h2>
-    <app-movies-list></app-movies-list>
+    <mat-toolbar class="genre-toolbar">
+      <mat-checkbox *ngFor="let genre of ALL_GENRES"
+                    value="{{genre}}"
+                    [checked]="true"
+                    (change)="genresChanged(genre, $event)">
+        {{genre}}
+      </mat-checkbox>
+    </mat-toolbar>
+
+    <div *ngFor="let genre of genresToShow">
+      <div *ngIf="tvShowsByGenre[genre]">
+        <h2>{{genre}}</h2>
+        <app-movies-list [movies]="tvShowsByGenre[genre]" [genre]="genre"
+                         (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+      </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -25,6 +25,8 @@ export class MoviesPageComponent implements OnInit {
   private allMovies : Array<Movie>;
   private newMovie : Movie;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
+  private omdbMenuExpanded : boolean;
+  private moviesMenuExpanded : boolean;
   private genresToShow : string[] = [];
   private moviesByGenre: { [genre: string] : Array<Movie> } = {};
   public ALL_GENRES = [

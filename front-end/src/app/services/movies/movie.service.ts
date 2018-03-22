@@ -37,7 +37,7 @@ export class MovieService {
   }
 
   public importMovies() {
-    this.httpClient.post<any>('http://localhost:8080/omdb/importMovies', Urls.MOVIES_LIST, {responseType: 'json'})
+    this.httpClient.post<any>(Urls.OMDB_IMPORT_MOVIES_URL, Urls.MOVIES_LIST, {responseType: 'json'})
       .subscribe(data => {
         console.log('response: ' + data);
       });

@@ -7,5 +7,7 @@ export class Urls {
   public static readonly OMDB_IMPORT_MOVIES_URL = "http://localhost:8080/omdb/importMovies";
   public static OMDB_URL = "http://www.omdbapi.com/?t=%s&apikey=3534d3d7";
 
+  public static readonly TV_SHOWS_LIST = "13 Reasons Why, 4400, Andromeda, Archer, Battlestar Galactica, Black Books, Breaking Bad, Brooklyn Nine Nine, Dark Angel, Eureka, Fargo, Friends, Game of Thrones, Heroes, How Not to Live Your Life, Jericho, Jessica Jones, Legend of the Seeker, Lois and Clark The New Adventures of Superman, Marvels Daredevil, Marvels Jessica Jones, MASH, Merlin, Misfits, Peaky Blinders, Preacher, RED DWARF, Rome, Roswell, Sense8, Sherlock, SkinsUK, Sliders, Smallville, Sons of Anarchy, Spartacus Season, Spiderman 90's Animated, Stargate Atlantis, Stargate SG-1, Star Trek DS9, Star Trek Enterprise, Star Trek The Next Generation, Supernatural Season, Survivors, That 70's Show, The IT Crowd, The Wire Ultimate, VEEP, Vikings, Youre the worst";
   public static readonly TV_SHOWS_URL = "http://localhost:8080/tvshows";
+  public static readonly OMDB_IMPORT_TV_SHOWS_URL = "http://localhost:8080/omdb/importTvShows";
 }
