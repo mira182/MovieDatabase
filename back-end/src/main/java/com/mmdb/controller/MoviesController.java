@@ -1,12 +1,14 @@
 package com.mmdb.controller;
 
 import com.mmdb.model.dto.MovieDTO;
+import com.mmdb.model.dto.OmdbMovieDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.services.importing.OmdbMoviesDataImporter;
 import com.mmdb.services.movies.MoviesServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,5 +39,11 @@ public class MoviesController {
         final List<MovieDTO> movies = moviesServiceImpl.getMoviesByGenre(genre);
         logger.debug("Found movies by {} genre: {}", genre, movies);
         return movies;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(method = RequestMethod.DELETE, params = "id")
+    public void deleteMovie(Long id) {
+        moviesServiceImpl.deleteMovie(id);
     }
 }

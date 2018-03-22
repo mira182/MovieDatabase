@@ -7,6 +7,7 @@ import {MovieService} from "../../../services/movies/movie.service";
 import {SidenavService} from "../../../services/sidenav-service.service";
 import {IndicatorRotate} from "../../animations/animations";
 import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component";
+import {TvShow} from "../../../model/tvshow";
 
 @Component({
   selector: 'app-tvshows-page',
@@ -17,9 +18,7 @@ import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/g
 })
 export class TvshowsPageComponent implements OnInit {
 
-  private newMovie : Movie;
-  private omdbTitle : string;
-  private omdbMovie : Observable<Movie>;
+  private newTvShow : TvShow;
   @ViewChild('sideNav') tvShowSideNav: MatSidenav;
   sideNavExpanded : boolean;
 
@@ -29,21 +28,21 @@ export class TvshowsPageComponent implements OnInit {
     this.sideNavService.setSideNav(this.tvShowSideNav);
   }
 
-  openAddMovieDialog() {
-    //noinspection TypeScriptUnresolvedFunction
-    let dialogRef = this.dialog.open(AddMovieDialogComponent, {
-      height: 'auto',
-      width: '500px',
-      data : {newMovie: this.newMovie}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.newMovie = result;
-      if (this.newMovie) {
-        this.movieService.addMovie(this.newMovie);
-      }
-    });
-  }
+  // openAddMovieDialog() {
+  //   //noinspection TypeScriptUnresolvedFunction
+  //   let dialogRef = this.dialog.open(AddMovieDialogComponent, {
+  //     height: 'auto',
+  //     width: '500px',
+  //     data : {newMovie: this.newTvShow}
+  //   });
+  //
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.newTvShow = result;
+  //     if (this.newTvShow) {
+  //       this.movieService.addTvShow(this.newTvShow);
+  //     }
+  //   });
+  // }
 
   openGetOmdbTvShowDialog() {
     //noinspection TypeScriptUnresolvedFunction

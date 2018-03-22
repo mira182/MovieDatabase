@@ -5,6 +5,7 @@ import 'hammerjs';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule, MatExpansionModule, MatTooltipModule,
   MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatListModule, MatSnackBarModule,
+  MatButtonToggleModule,
   MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
 
@@ -34,6 +35,8 @@ import {SidenavService} from "./services/sidenav-service.service";
 import { TvshowsPageComponent } from './components/tvshows/tvshows-page/tvshows-page.component';
 import { GetOmdbMovieDialogComponent } from './components/dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component';
 import {OmdbService} from "./services/omdb/omdb-service.service";
+import {MessageSnackbarService} from "./services/error/error-snackbar-service.service";
+import {TvShowsService} from "./services/tvshows/tvshows.service";
 
 @NgModule({
   declarations: [
@@ -58,13 +61,13 @@ import {OmdbService} from "./services/omdb/omdb-service.service";
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
-    MatTooltipModule, MatSnackBarModule
+    MatTooltipModule, MatSnackBarModule, MatButtonToggleModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent
   ],
   // exports: [CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule],
-  providers: [MovieService, AuthService, AuthGuardService, TokenStorage, SidenavService, OmdbService,
+  providers: [MovieService, TvShowsService, AuthService, AuthGuardService, TokenStorage, SidenavService, OmdbService, MessageSnackbarService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi : true },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
   ],

@@ -4,6 +4,9 @@ import com.mmdb.dao.MovieRepository;
 import com.mmdb.model.dto.MovieDTO;
 import com.mmdb.model.dto.builders.MovieDTOBuilder;
 import com.mmdb.model.entities.Movie;
+import com.mmdb.services.importing.OmdbMoviesDataImporter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,8 @@ import java.util.List;
 
 @Service
 public class MoviesServiceImpl implements MovieService {
+
+    private static final Logger logger = LogManager.getLogger(MoviesServiceImpl.class);
 
     @Autowired
     private MovieRepository movieRepository;
@@ -32,6 +37,7 @@ public class MoviesServiceImpl implements MovieService {
                     .setPosterUrl(movieEntity.getPosterUrl())
                     .setProduction(movieEntity.getProduction())
                     .setYear(movieEntity.getYear())
+                    .setId(movieEntity.getId())
                     .createMovieDTO());
         });
         return movies;
@@ -53,9 +59,16 @@ public class MoviesServiceImpl implements MovieService {
                     .setPosterUrl(movieEntity.getPosterUrl())
                     .setProduction(movieEntity.getProduction())
                     .setYear(movieEntity.getYear())
+                    .setId(movieEntity.getId())
                     .createMovieDTO());
         });
         return movies;
+    }
+
+    @Override
+    public void deleteMovie(Long id) {
+        logger.debug("Deleting movie with ID: {} from database.", id);
+        movieRepository.delete(id);
     }
 
     @Override
@@ -77,7 +90,6 @@ public class MoviesServiceImpl implements MovieService {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println(movie);
         return movieRepository.save(movie);
     }
 }

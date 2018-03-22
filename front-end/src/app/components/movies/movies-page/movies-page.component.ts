@@ -1,4 +1,7 @@
-import {Component, OnInit, Pipe, PipeTransform, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+  Component, OnChanges, OnInit, Pipe, PipeTransform, SimpleChanges, ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {AddMovieDialogComponent} from "../../dialogs/add-movie-dialog/add-movie-dialog.component";
 import {Observable} from "rxjs/Rx";
 import {Movie} from "../../../model/movie";
@@ -19,33 +22,39 @@ import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/g
 })
 export class MoviesPageComponent implements OnInit {
 
-  private allMovies : Movie[];
+  private allMovies : Array<Movie>;
   private newMovie : Movie;
-  private omdbTitle : string;
-  private omdbMovie : Observable<Movie>;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
-  private omdbMenuExpanded : boolean;
-  private moviesMenuExpanded : boolean;
   private genresToShow : string[] = [];
-  private moviesByGenre: { [genre: string] : Movie[] } = {};
-
+  private moviesByGenre: { [genre: string] : Array<Movie> } = {};
+  private toolBarGenres : string[] = [];
 
   constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {}
 
   ngOnInit() {
     this.sideNavService.setSideNav(this.movieSideNav);
     this.movieService.getAllMovies().subscribe(data => {
-      var tmpMoviesByGenre = [];
       this.allMovies = data;
       for (let genre in Genres) {
         if (isNaN(Number(genre))) {
-          this.genresToShow.push(genre);
-          tmpMoviesByGenre = this.getMoviesByGenre(genre);
-          if (tmpMoviesByGenre.length != 0)
-            this.moviesByGenre[genre] = tmpMoviesByGenre;
+          this.toolBarGenres.push(genre);
         }
       }
+      this.updateMoviesLists();
     });
+  }
+
+  updateMoviesLists() {
+    this.genresToShow = [];
+    var tmpMoviesByGenre = [];
+    for (let genre in Genres) {
+      if (isNaN(Number(genre))) {
+        this.genresToShow.push(genre);
+        tmpMoviesByGenre = this.getMoviesByGenre(genre);
+        if (tmpMoviesByGenre.length != 0)
+          this.moviesByGenre[genre] = tmpMoviesByGenre;
+      }
+    }
   }
 
   getMoviesByGenre(genre : string) {
@@ -78,5 +87,29 @@ export class MoviesPageComponent implements OnInit {
 
   importMovies() {
     this.movieService.importMovies();
+  }
+
+  deleteMovie(movie : Movie) {
+    // delete movie from list
+    var index = this.allMovies.indexOf(movie);
+    if (index > -1) {
+      this.allMovies.splice(index, 1);
+    }
+    this.updateMoviesLists();
+  }
+
+  genresChanged(selected) {
+    if (this.genresToShow.includes(selected.value)) {
+      if (!selected.checked) {
+        var index = this.genresToShow.indexOf(selected.value);
+        if (index > -1) {
+          this.genresToShow.splice(index, 1);
+        }
+      }
+    } else {
+      if (selected.checked) {
+        this.genresToShow.push(selected.value);
+      }
+    }
   }
 }

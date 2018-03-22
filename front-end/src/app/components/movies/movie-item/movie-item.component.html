@@ -13,11 +13,13 @@
     <h3>Director:</h3><p>{{movie.directors}}</p>
     <h3>Actors:</h3><p>{{movie.actors}}</p>
     <h3>Country:</h3><p>{{movie.country}}</p>
+    <h3>Production:</h3><p>{{movie.production}}</p>
     <h3>Genre:</h3><p>{{movie.genre}}</p>
     <h3>Description:</h3><div>{{movie.description}}</div>
   </mat-card-content>
 
   <mat-card-actions align="end">
+    <button mat-icon-button *ngIf="expanded" (click)="deleteMovie()"><mat-icon>delete</mat-icon></button>
     <button mat-icon-button (click)="toggleShowDiv()" [@indicatorRotate]="expanded ? 'expanded': 'collapsed'"><mat-icon>expand_more</mat-icon></button>
   </mat-card-actions>
 </mat-card>

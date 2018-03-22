@@ -6,7 +6,6 @@
       <a mat-list-item (click)="onSideNavClick()">OMDB<mat-icon class="rightAlignment" [@indicatorRotate]="sideNavExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-nav-list *ngIf="sideNavExpanded">
         <a mat-list-item (click)="openGetOmdbTvShowDialog()">Get tvshow</a>
-        <a mat-list-item (click)="importTvShow()">Import tvshow</a>
         <a mat-list-item (click)="importTvShows()">Import tvshows</a>
       </mat-nav-list>
 

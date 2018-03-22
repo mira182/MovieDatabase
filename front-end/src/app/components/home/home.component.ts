@@ -5,6 +5,7 @@ import {MatDialog} from "@angular/material";
 import {NgxCarousel} from "ngx-carousel";
 import {Movie} from "../../model/movie";
 import {TvShow} from "../../model/tvshow";
+import {TvShowsService} from "../../services/tvshows/tvshows.service";
 
 @Component({
   selector: 'app-home',
@@ -16,13 +17,16 @@ import {TvShow} from "../../model/tvshow";
 export class HomeComponent {
   public carouselTileItems: Array<any>;
   public carouselTile: NgxCarousel;
-  private allMovies : Movie[];
+  private allMovies : Array<Movie>;
   private allTvShows : TvShow[];
 
-  constructor(private movieService: MovieService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private movieService: MovieService, private tvShowsService : TvShowsService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getAllMovies();
+    this.movieService.getAllMovies().subscribe((allMovies) => {
+      this.allMovies = allMovies;
+    });
+    this.getAllTvShows();
 
     //noinspection TypeScriptValidateTypes
     this.carouselTile = {
@@ -48,17 +52,10 @@ export class HomeComponent {
     }
   }
 
-  public getAllMovies() {
-    this.movieService.getAllMovies().subscribe(data => {
-      this.allMovies = data;
-      console.log("All movies received in home page component");
-    });
-  }
-
   public getAllTvShows() {
-    this.movieService.getAllTvShows().subscribe(data => {
+    this.tvShowsService.getAllTvShows().subscribe(data => {
       this.allTvShows = data;
-      console.log("All tv shows: " + JSON.stringify(data));
+      console.log("All TV shows received in home page component");
     });
   }
 }

@@ -3,6 +3,7 @@ package com.mmdb.model.dto.builders;
 import com.mmdb.model.dto.MovieDTO;
 
 public class MovieDTOBuilder {
+    private Long id;
     private String name;
     private String year;
     private String description;
@@ -14,6 +15,11 @@ public class MovieDTOBuilder {
     private String posterUrl;
     private String production;
     private String genre;
+
+    public MovieDTOBuilder setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public MovieDTOBuilder setName(String name) {
         this.name = name;
@@ -71,6 +77,6 @@ public class MovieDTOBuilder {
     }
 
     public MovieDTO createMovieDTO() {
-        return new MovieDTO(name, year, description, imdbRating, length, actors, directors, country, posterUrl, production, genre);
+        return new MovieDTO(id, name, year, description, imdbRating, length, actors, directors, country, posterUrl, production, genre);
     }
 }

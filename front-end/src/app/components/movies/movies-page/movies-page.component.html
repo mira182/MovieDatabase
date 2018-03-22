@@ -17,10 +17,19 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div *ngFor="let genre of genresToShow">
+    <div>
+      <mat-toolbar class="genre-toolbar">
+        <mat-button-toggle-group multiple>
+            <mat-button-toggle *ngFor="let genre of toolBarGenres" [value]="genre" (change)="genresChanged($event)">{{genre}}</mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-toolbar>
+      <p>Your favorite type of pie is: {{genresToShow}}</p>
+    </div>
+
+    <div *ngFor="let genre of genresToShow" (click)="deleteMovie()">
       <div *ngIf="moviesByGenre[genre]">
         <h2>{{genre}}</h2>
-        <app-movies-list [movies]="moviesByGenre[genre]"></app-movies-list>
+        <app-movies-list [movies]="moviesByGenre[genre]" [genre]="genre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
       </div>
     </div>
   </mat-sidenav-content>

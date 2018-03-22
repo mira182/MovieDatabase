@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewEncapsulation, Input} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Movie} from "../../../model/movie";
-import {trigger, style, animate, transition, state} from '@angular/animations';
 import {IndicatorRotate, SlideInOutAnimation} from "../../animations/animations";
+import {MovieService} from "../../../services/movies/movie.service";
+import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
 
 @Component({
   selector: 'app-movie-item',
@@ -12,6 +13,7 @@ import {IndicatorRotate, SlideInOutAnimation} from "../../animations/animations"
 })
 export class MovieItemComponent implements OnInit {
 
+  @Output() movieDeleteEvent = new EventEmitter<Movie>();
   @Input() movie : Movie;
   animationState = 'out';
   expanded = false;
@@ -21,9 +23,17 @@ export class MovieItemComponent implements OnInit {
     this.expanded = !this.expanded;
   }
 
-  constructor() { }
+  constructor(private movieService : MovieService, private messageSnackBar : MessageSnackbarService) { }
 
   ngOnInit() {
   }
 
+  deleteMovie() {
+    this.movieService.deleteMovie(this.movie.id).subscribe((result) => {
+      this.messageSnackBar.openMessageSnackBar("Movie " + this.movie.name + " deleted successfully.");
+      this.movieDeleteEvent.next(this.movie);
+    }, (error) => {
+      this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
+    });
+  }
 }

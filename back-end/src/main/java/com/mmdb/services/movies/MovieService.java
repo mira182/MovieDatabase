@@ -14,4 +14,6 @@ public interface MovieService {
 
     List<MovieDTO> getMoviesByGenre(String genre);
 
+    void deleteMovie(Long id);
+
 }

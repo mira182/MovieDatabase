@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {NgxCarousel} from 'ngx-carousel';
 import {Movie} from "../../../model/movie";
 
@@ -6,13 +6,15 @@ import {Movie} from "../../../model/movie";
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MoviesListComponent implements OnInit {
 
   public carouselTileItems: Array<any>;
   public carouselTile: NgxCarousel;
   @Input() movies : Array<Movie>;
+  @Input() genre : string;
+  @Output() movieDeleteEvent = new EventEmitter<Movie>();
 
   constructor() {
   }
@@ -41,5 +43,9 @@ export class MoviesListComponent implements OnInit {
         this.carouselTileItems.push(i);
       }
     }
+  }
+
+  deleteMovie(movie : Movie) {
+    this.movieDeleteEvent.next(movie);
   }
 }

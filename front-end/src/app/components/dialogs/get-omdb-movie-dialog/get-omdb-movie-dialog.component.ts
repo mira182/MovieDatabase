@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {OmdbService} from "../../../services/omdb/omdb-service.service";
 import {Movie} from "../../../model/movie";
 import {MatSnackBar} from "@angular/material";
+import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
 
 @Component({
   selector: 'app-get-omdb-movie-dialog',
@@ -15,7 +16,7 @@ export class GetOmdbMovieDialogComponent implements OnInit {
   private omdbResult : Movie;
   // private omdbMovie : Movie;
 
-  constructor(public omdbService : OmdbService, public snackBar: MatSnackBar) { }
+  constructor(public omdbService : OmdbService, private messageSnackBarService : MessageSnackbarService) { }
 
   ngOnInit() {
   }
@@ -31,18 +32,12 @@ export class GetOmdbMovieDialogComponent implements OnInit {
   storeOmdbMovie() {
     this.omdbService.storeOmdbMovie(this.omdbResult).subscribe((result) => {
       if (result) {
-        this.openSnackBar("Saving successfully. Result: " + result);
+        this.messageSnackBarService.openMessageSnackBar("Saving successfully. Result: " + result);
       } else {
-        this.openSnackBar("Saving failed. Result: " + result);
+        this.messageSnackBarService.openMessageSnackBar("Saving failed. Result: " + result);
       }
     }, (err) => {
-      this.openSnackBar("Error: " + err.message);
-    });
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, 'Close', {
-      duration: 5000
+      this.messageSnackBarService.openMessageSnackBar("Error: " + err.message);
     });
   }
 
