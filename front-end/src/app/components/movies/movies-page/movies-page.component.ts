@@ -27,7 +27,42 @@ export class MoviesPageComponent implements OnInit {
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private genresToShow : string[] = [];
   private moviesByGenre: { [genre: string] : Array<Movie> } = {};
-  private toolBarGenres : string[] = [];
+  public ALL_GENRES = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Biography",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "Horror",
+    "Music",
+    "Mystery",
+    "Sci-Fi",
+    "Sport",
+    "Thriller",
+  ];
+  private genresMap = {
+    "Action": true,
+    "Adventure": true,
+    "Animation": true,
+    "Biography": true,
+    "Comedy": true,
+    "Crime": true,
+    "Documentary": true,
+    "Drama": true,
+    "Family": true,
+    "Fantasy": true,
+    "Horror": true,
+    "Music": true,
+    "Mystery": true,
+    "Sci-Fi": true,
+    "Sport": true,
+    "Thriller": true,
+  };
 
   constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {}
 
@@ -35,11 +70,6 @@ export class MoviesPageComponent implements OnInit {
     this.sideNavService.setSideNav(this.movieSideNav);
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
-      for (let genre in Genres) {
-        if (isNaN(Number(genre))) {
-          this.toolBarGenres.push(genre);
-        }
-      }
       this.updateMoviesLists();
     });
   }
@@ -47,8 +77,8 @@ export class MoviesPageComponent implements OnInit {
   updateMoviesLists() {
     this.genresToShow = [];
     var tmpMoviesByGenre = [];
-    for (let genre in Genres) {
-      if (isNaN(Number(genre))) {
+    for (let genre of this.ALL_GENRES) {
+      if (this.genresMap[genre]) {
         this.genresToShow.push(genre);
         tmpMoviesByGenre = this.getMoviesByGenre(genre);
         if (tmpMoviesByGenre.length != 0)
@@ -94,22 +124,26 @@ export class MoviesPageComponent implements OnInit {
     var index = this.allMovies.indexOf(movie);
     if (index > -1) {
       this.allMovies.splice(index, 1);
+      this.updateMoviesLists();
     }
-    this.updateMoviesLists();
+    console.log("Deleting event in movies page." + index);
   }
 
-  genresChanged(selected) {
-    if (this.genresToShow.includes(selected.value)) {
-      if (!selected.checked) {
-        var index = this.genresToShow.indexOf(selected.value);
+  genresChanged(genre, event) {
+    var checked = event.source.checked;
+    this.genresMap[genre] = checked;
+    if (this.genresToShow.includes(genre)) {
+      if (!checked) {
+        var index = this.genresToShow.indexOf(genre);
         if (index > -1) {
           this.genresToShow.splice(index, 1);
         }
       }
     } else {
-      if (selected.checked) {
-        this.genresToShow.push(selected.value);
+      if (checked) {
+        this.genresToShow.push(genre);
       }
     }
+    this.genresToShow.sort();
   }
 }

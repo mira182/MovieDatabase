@@ -5,9 +5,10 @@ import 'hammerjs';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule, MatIconModule, MatExpansionModule, MatTooltipModule,
   MatToolbarModule, MatFormFieldModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatListModule, MatSnackBarModule,
-  MatButtonToggleModule,
+  MatButtonToggleModule, MatCheckboxModule,
   MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -57,11 +58,11 @@ import {TvShowsService} from "./services/tvshows/tvshows.service";
   ],
   imports: [
     BrowserAnimationsModule,
-    FormsModule,
+    FormsModule, NgbModule,
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
-    MatTooltipModule, MatSnackBarModule, MatButtonToggleModule
+    MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent
