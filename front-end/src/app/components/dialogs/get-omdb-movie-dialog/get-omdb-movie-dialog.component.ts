@@ -14,7 +14,6 @@ export class GetOmdbMovieDialogComponent implements OnInit {
 
   private omdbTitle : string;
   private omdbResult : Movie;
-  // private omdbMovie : Movie;
 
   constructor(public omdbService : OmdbService, private messageSnackBarService : MessageSnackbarService) { }
 

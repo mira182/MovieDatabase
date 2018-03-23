@@ -1,10 +1,7 @@
 
-<ngx-carousel
-  [inputs]="carouselTile"
-  (carouselLoad)="carouselItemsLoad($event)" >
-
+<ngx-carousel [inputs]="carouselTile">
   <ngx-tile NgxCarouselItem *ngFor="let tvShow of tvShows">
-    <app-tv-show-item [tvShow]="tvShow"></app-tv-show-item>
+    <app-tv-show-item [tvShow]="tvShow" (tvShowDeleteEvent)="deleteTvShow($event)"></app-tv-show-item>
   </ngx-tile>
 
   <button NgxCarouselPrev class="leftRs"><i class="fa fa-angle-left fa-4x"></i></button>

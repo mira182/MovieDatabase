@@ -1,4 +1,5 @@
 export class TvShow {
+  id : number;
   name : string;
   year : number;
   description : string;

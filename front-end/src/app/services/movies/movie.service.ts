@@ -43,7 +43,7 @@ export class MovieService {
       });
   }
 
-  deleteMovie(id) {
+  public deleteMovie(id) {
     return this.httpClient.delete(Urls.MOVIES_URL, {params: new HttpParams().set('id', id)});
   }
 }

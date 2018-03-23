@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter(AccessLevel.NONE)
 @AllArgsConstructor
 public class TvShowDTO {
+    private Long id;
     private String name;
     private String year;
     private String description;

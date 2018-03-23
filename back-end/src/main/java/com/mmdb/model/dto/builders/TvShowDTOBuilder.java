@@ -3,6 +3,7 @@ package com.mmdb.model.dto.builders;
 import com.mmdb.model.dto.TvShowDTO;
 
 public class TvShowDTOBuilder {
+    private Long id;
     private String name;
     private String year;
     private String description;
@@ -14,6 +15,11 @@ public class TvShowDTOBuilder {
     private String posterUrl;
     private String production;
     private String genre;
+
+    public TvShowDTOBuilder setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public TvShowDTOBuilder setName(String name) {
         this.name = name;
@@ -71,6 +77,6 @@ public class TvShowDTOBuilder {
     }
 
     public TvShowDTO createTvShowDTO() {
-        return new TvShowDTO(name, year, description, imdbRating, length, actors, directors, country, posterUrl, production, genre);
+        return new TvShowDTO(id, name, year, description, imdbRating, length, actors, directors, country, posterUrl, production, genre);
     }
 }

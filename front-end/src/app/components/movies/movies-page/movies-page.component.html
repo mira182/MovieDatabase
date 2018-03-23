@@ -1,15 +1,24 @@
-<mat-sidenav-container class="example-container" class="example-sidenav-container">
+<div class="loading-indicator">
+  <mat-spinner *ngIf="showSpinner" style="margin:0 auto;"></mat-spinner>
+</div>
+
+<mat-sidenav-container class="example-container">
   <mat-sidenav #sideNav mode="over" opened="false" class="example-container">
     <mat-toolbar color="primary"><span>Sidenav toolbar</span></mat-toolbar>
     <mat-nav-list>
-      <!--<span class="fa fa-angle-down fa-2x"></span>-->
-      <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded">OMDB<mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
+      <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded">OMDB
+        <mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more
+        </mat-icon>
+      </a>
       <mat-nav-list *ngIf="omdbMenuExpanded">
         <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get movie</a>
         <a mat-list-item class="nested-list-item" (click)="importMovies()">Import movies</a>
       </mat-nav-list>
 
-      <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded">Movies<mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
+      <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded">Movies
+        <mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more
+        </mat-icon>
+      </a>
       <mat-nav-list *ngIf="moviesMenuExpanded">
         <a mat-list-item class="nested-list-item" (click)="openAddMovieDialog()">Add movie</a>
       </mat-nav-list>
@@ -17,6 +26,9 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Movies</h1>
+    </header>
     <mat-toolbar class="genre-toolbar">
       <mat-checkbox *ngFor="let genre of ALL_GENRES"
                     value="{{genre}}"
@@ -29,8 +41,7 @@
     <div *ngFor="let genre of genresToShow">
       <div *ngIf="moviesByGenre[genre]">
         <h2>{{genre}}</h2>
-        <app-movies-list [movies]="moviesByGenre[genre]" [genre]="genre"
-                         (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+        <app-movies-list [movies]="moviesByGenre[genre]" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
       </div>
     </div>
   </mat-sidenav-content>

@@ -10,10 +10,8 @@ import {Movie} from "../../../model/movie";
 })
 export class MoviesListComponent implements OnInit {
 
-  public carouselTileItems: Array<any>;
   public carouselTile: NgxCarousel;
   @Input() movies : Array<Movie>;
-  @Input() genre : string;
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
 
   constructor() {
@@ -33,15 +31,6 @@ export class MoviesListComponent implements OnInit {
       touch: true,
       loop : true,
       easing: 'ease-in'
-    }
-  }
-
-  public carouselItemsLoad(evt: any) {
-    const len = this.carouselTileItems.length;
-    if (len <= 30) {
-      for (let i = len; i < len + 10; i++) {
-        this.carouselTileItems.push(i);
-      }
     }
   }
 

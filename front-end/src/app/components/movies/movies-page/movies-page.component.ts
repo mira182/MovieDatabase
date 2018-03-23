@@ -1,16 +1,10 @@
-import {
-  Component, OnChanges, OnInit, Pipe, PipeTransform, SimpleChanges, ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {AddMovieDialogComponent} from "../../dialogs/add-movie-dialog/add-movie-dialog.component";
-import {Observable} from "rxjs/Rx";
 import {Movie} from "../../../model/movie";
 import {MovieService} from "../../../services/movies/movie.service";
 import {MatDialog, MatSidenav} from "@angular/material";
 import {SidenavService} from "../../../services/sidenav-service.service";
-import {animate, state, style, transition, trigger} from "@angular/animations";
 import {IndicatorRotate} from "../../animations/animations";
-import {Genres} from "../../../model/genres";
 import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component";
 
 @Component({
@@ -27,6 +21,7 @@ export class MoviesPageComponent implements OnInit {
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
   private moviesMenuExpanded : boolean;
+  private showSpinner : boolean;
   private genresToShow : string[] = [];
   private moviesByGenre: { [genre: string] : Array<Movie> } = {};
   public ALL_GENRES = [
@@ -69,10 +64,12 @@ export class MoviesPageComponent implements OnInit {
   constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {}
 
   ngOnInit() {
+    this.showSpinner = true;
     this.sideNavService.setSideNav(this.movieSideNav);
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
       this.updateMoviesLists();
+      this.showSpinner = false;
     });
   }
 
@@ -118,7 +115,10 @@ export class MoviesPageComponent implements OnInit {
   }
 
   importMovies() {
+    this.showSpinner = true;
     this.movieService.importMovies();
+    this.showSpinner = false;
+    window.location.reload();
   }
 
   deleteMovie(movie : Movie) {

@@ -1,9 +1,5 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {AddMovieDialogComponent} from "../../dialogs/add-movie-dialog/add-movie-dialog.component";
 import {MatDialog, MatSidenav} from "@angular/material";
-import {Movie} from "../../../model/movie";
-import {Observable} from "rxjs/Rx";
-import {MovieService} from "../../../services/movies/movie.service";
 import {SidenavService} from "../../../services/sidenav-service.service";
 import {IndicatorRotate} from "../../animations/animations";
 import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component";
@@ -22,8 +18,10 @@ export class TvshowsPageComponent implements OnInit {
   private newTvShow : TvShow;
   @ViewChild('sideNav') tvShowSideNav: MatSidenav;
   private allTvShows : Array<TvShow>;
-  sideNavExpanded : boolean;
+  private omdbMenuExpanded : boolean;
+  private tvShowsMenuExpanded : boolean;
   private genresToShow : string[] = [];
+  private showSpinner : boolean;
   private tvShowsByGenre: { [genre: string] : Array<TvShow> } = {};
   public ALL_GENRES = [
     "Action",
@@ -65,30 +63,30 @@ export class TvshowsPageComponent implements OnInit {
   constructor(private tvShowsService: TvShowsService, public dialog: MatDialog, private sideNavService : SidenavService) { }
 
   ngOnInit() {
+    this.showSpinner = true;
     this.sideNavService.setSideNav(this.tvShowSideNav);
     this.tvShowsService.getAllTvShows().subscribe(data => {
       this.allTvShows = data;
-      this.updateMoviesLists();
+      this.updateTvShowsLists();
+      this.showSpinner = false;
     });
   }
 
-  updateMoviesLists() {
+  updateTvShowsLists() {
     this.genresToShow = [];
     var tmpMoviesByGenre = [];
     for (let genre of this.ALL_GENRES) {
       if (this.genresMap[genre]) {
         this.genresToShow.push(genre);
-        tmpMoviesByGenre = this.getMoviesByGenre(genre);
+        tmpMoviesByGenre = this.getTvShowsByGenre(genre);
         if (tmpMoviesByGenre.length != 0)
           this.tvShowsByGenre[genre] = tmpMoviesByGenre;
       }
     }
   }
 
-  getMoviesByGenre(genre : string) {
-    return this.allTvShows.filter(tvShow => {
-      tvShow.genre.toLowerCase().includes(genre.toLowerCase())
-    });
+  getTvShowsByGenre(genre : string) {
+    return this.allTvShows.filter(tvShow => tvShow.genre.toLowerCase().includes(genre.toLowerCase()));
   }
 
   // openAddMovieDialog() {
@@ -115,12 +113,21 @@ export class TvshowsPageComponent implements OnInit {
     });
   }
 
-  onSideNavClick() {
-    this.sideNavExpanded = !this.sideNavExpanded;
+  importTvShows() {
+    this.showSpinner = true;
+    this.tvShowsService.importTvShows().subscribe();
+    this.showSpinner = false;
+    window.location.reload();
   }
 
-  importTvShows() {
-    this.tvShowsService.importTvShows();
+  deleteTvShow(tvShow : TvShow) {
+    // delete tv show from list
+    var index = this.allTvShows.indexOf(tvShow);
+    if (index > -1) {
+      this.allTvShows.splice(index, 1);
+      this.updateTvShowsLists();
+    }
+    console.log("Deleting event in tv shows page." + index);
   }
 
   genresChanged(genre, event) {

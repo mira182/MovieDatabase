@@ -19,7 +19,7 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-icon-button *ngIf="expanded" (click)="deleteMovie()"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button *ngIf="expanded" (click)="deleteTvShow()"><mat-icon>delete</mat-icon></button>
     <button mat-icon-button (click)="toggleShowDiv()" [@indicatorRotate]="expanded ? 'expanded': 'collapsed'"><mat-icon>expand_more</mat-icon></button>
   </mat-card-actions>
 </mat-card>

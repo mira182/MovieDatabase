@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {TvShow} from "../../../model/tvshow";
 import {NgxCarousel} from "ngx-carousel";
+import {Movie} from "../../../model/movie";
 
 @Component({
   selector: 'app-tv-show-list',
@@ -10,9 +11,9 @@ import {NgxCarousel} from "ngx-carousel";
 })
 export class TvShowListComponent implements OnInit {
 
-  public carouselTileItems: Array<any>;
   public carouselTile: NgxCarousel;
-  @Input() tvShows : TvShow[];
+  @Input() tvShows : Array<TvShow>
+  @Output() tvShowDeleteEvent = new EventEmitter<TvShow>();
 
   constructor() {
   }
@@ -34,13 +35,8 @@ export class TvShowListComponent implements OnInit {
     }
   }
 
-  public carouselItemsLoad(evt: any) {
-    const len = this.carouselTileItems.length
-    if (len <= 30) {
-      for (let i = len; i < len + 10; i++) {
-        this.carouselTileItems.push(i);
-      }
-    }
+  deleteTvShow(tvShow : TvShow) {
+    this.tvShowDeleteEvent.next(tvShow);
   }
 
 }

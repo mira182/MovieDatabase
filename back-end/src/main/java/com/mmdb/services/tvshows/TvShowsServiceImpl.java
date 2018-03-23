@@ -4,6 +4,9 @@ import com.mmdb.dao.TvShowRepository;
 import com.mmdb.model.dto.TvShowDTO;
 import com.mmdb.model.dto.builders.TvShowDTOBuilder;
 import com.mmdb.model.entities.TvShow;
+import com.mmdb.services.movies.MoviesServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,8 @@ import java.util.List;
 @Service
 public class TvShowsServiceImpl implements TvShowsService {
 
+    private static final Logger logger = LogManager.getLogger(TvShowsServiceImpl.class);
+
     @Autowired
     private TvShowRepository tvShowRepository;
 
@@ -21,6 +26,7 @@ public class TvShowsServiceImpl implements TvShowsService {
         final List<TvShowDTO> tvShows = new ArrayList<>();
         tvShowRepository.findAll().forEach((TvShow tvShowEntity) -> {
             tvShows.add(new TvShowDTOBuilder()
+                    .setId(tvShowEntity.getId())
                     .setName(tvShowEntity.getName())
                     .setActors(tvShowEntity.getActors())
                     .setCountry(tvShowEntity.getCountry())
@@ -45,5 +51,11 @@ public class TvShowsServiceImpl implements TvShowsService {
     @Override
     public List<TvShowDTO> getMoviesByGenre(String genre) {
         return null;
+    }
+
+    @Override
+    public void deleteTvShow(Long id) {
+        logger.debug("Deleting tv show with ID: {} from database.", id);
+        tvShowRepository.delete(id);
     }
 }
