@@ -193,7 +193,6 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        logger.info("Movie object converted from OMDBMovieDTO: {}", movie);
         return movie;
     }
 
@@ -215,7 +214,6 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        logger.info("Movie object converted from OMDBMovieDTO: {}", movie);
         return movie;
     }
 
