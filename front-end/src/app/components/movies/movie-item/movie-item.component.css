@@ -8,11 +8,6 @@
   padding-top: 20px;
 }
 
-mat-card-content {
-  width: calc(100% - 70px);
-  height: calc(100% - 70px);
-}
-
 .mat-tooltip {
   font-size: 120%;
 }

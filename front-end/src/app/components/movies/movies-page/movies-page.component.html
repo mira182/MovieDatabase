@@ -22,8 +22,22 @@
   <mat-sidenav-content>
     <header class="jumbotron my-4">
       <h1 class="display-3">Movies</h1>
-      <button mat-icon-button matTooltip="Show list view" (click)="showAsList = true; showAsIcons = false;"><mat-icon>view_list</mat-icon></button>
-      <button mat-icon-button matTooltip="Show icon view" (click)="showAsList = false; showAsIcons = true;"><mat-icon>view_stream</mat-icon></button>
+      <button mat-icon-button matTooltip="Show list view" (click)="showAsList = true; showAsIcons = false;">
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Show icon view" (click)="showAsList = false; showAsIcons = true;">
+        <mat-icon>view_stream</mat-icon>
+      </button>
+      <span class="example-fill-remaining-space"></span>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Statistics
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-movie-statistics [moviesList]="allMovies"></app-movie-statistics>
+      </mat-expansion-panel>
     </header>
 
     <mat-toolbar class="genre-toolbar">
@@ -45,15 +59,20 @@
     </div>
 
     <div *ngIf="showAsIcons">
-      <mat-grid-list cols="5" rowHeight="400px">
 
-        <mat-grid-tile
-          *ngFor="let movie of allMovies"
-          colspan="1"
-          rowspan="1">
-          <app-movie-item [movie]="movie"></app-movie-item>
-        </mat-grid-tile>
-      </mat-grid-list>
+        <div *ngFor="let genre of genresToShow">
+          <h2>{{genre}}</h2>
+          <div *ngFor="let movie of moviesByGenre[genre]">
+            <mat-card>
+              <mat-card-title>
+                {{movie.name}}
+              </mat-card-title>
+              <mat-card-content>
+                <img src="{{movie.posterUrl}}"/>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
       <!--<mat-card class="card-picture" >-->
       <!--<mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">-->
       <!--<span fxFlex="80%">{{movie.title}}</span>-->
