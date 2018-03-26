@@ -36,17 +36,18 @@
       <mat-checkbox *ngFor="let genre of ALL_GENRES"
                     value="{{genre}}"
                     [checked]="true"
-                    (change)="genresChanged(genre, $event)">
+                    (change)="updateGenres(genre, $event)">
         {{genre}}
       </mat-checkbox>
       </div>
     </mat-card>
 
+    <!--TODO add into movie-carousel template-->
     <div *ngIf="showAsCarousel">
-      <div *ngFor="let genre of genresToShow">
-        <div *ngIf="moviesByGenre[genre]">
-          <h2>{{genre}}</h2>
-          <app-movies-carousel [movies]="moviesByGenre[genre]" (movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>
+      <div *ngFor="let genreMovies of moviesByGenre">
+        <div *ngIf="genreMovies.movies.length > 0">
+          <h2>{{genreMovies.genre}}</h2>
+          <app-movies-carousel [movies]="genreMovies.movies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>
         </div>
       </div>
     </div>

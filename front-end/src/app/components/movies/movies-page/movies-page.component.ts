@@ -24,8 +24,8 @@ export class MoviesPageComponent implements OnInit {
   private showAsCarousel : boolean = true;
   private showAsList : boolean;
   private showSpinner : boolean;
-  private genresToShow : string[] = [];
-  private moviesByGenre: { [genre: string] : Array<Movie> } = {};
+  // moviesByGenre = new Map<string, Array<Movie>>();
+  private moviesByGenre = [];
   public ALL_GENRES = [
     "Action",
     "Adventure",
@@ -46,15 +46,18 @@ export class MoviesPageComponent implements OnInit {
   ];
 
 
-  constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {}
+  constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {  }
 
   ngOnInit() {
     this.showSpinner = true;
     this.sideNavService.setSideNav(this.movieSideNav);
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
+      for (let genre of this.ALL_GENRES) {
+        // this.moviesByGenre.set(genre, this.filterMoviesByGenre(genre));
+        this.moviesByGenre.push({'genre' : genre, 'movies' : this.filterMoviesByGenre(genre)});
+      }
       this.sortByName();
-      this.updateMoviesLists();
       this.showSpinner = false;
     });
   }
@@ -73,19 +76,14 @@ export class MoviesPageComponent implements OnInit {
   }
 
   updateMoviesLists() {
-    this.genresToShow = [];
-    var tmpMoviesByGenre = [];
     for (let genre of this.ALL_GENRES) {
-      if (this.genresMap[genre]) {
-        this.genresToShow.push(genre);
-        tmpMoviesByGenre = this.getMoviesByGenre(genre);
-        if (tmpMoviesByGenre.length != 0)
-          this.moviesByGenre[genre] = tmpMoviesByGenre;
+      if (this.getMoviesByGenre(genre)['movies']) {
+        this.moviesByGenre['movies'] = this.filterMoviesByGenre(genre);
       }
     }
   }
 
-  getMoviesByGenre(genre : string) {
+  filterMoviesByGenre(genre : string) {
     return this.allMovies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
   }
 
@@ -130,5 +128,27 @@ export class MoviesPageComponent implements OnInit {
     console.log("Deleting event in movies page." + index);
   }
 
+  updateGenres(genre, event) {
+    var checked = event.source.checked;
 
+      if (!checked) { // delete genre
+        this.getMoviesByGenre(genre).movies = [];
+      } else if (checked) { // add genre
+        this.getMoviesByGenre(genre).movies = this.filterMoviesByGenre(genre);
+      }
+    // this.moviesByGenre[genre].sort();
+  }
+
+  getMoviesByGenre(genre) {
+    return this.moviesByGenre.find((item, index) => {
+      if (item.genre == genre) {
+        return true;
+      }
+    });
+    // .filter((item, index, array) => {
+    //   if (item.genre == genre) {
+    //     return item;
+    //   }
+    // });
+  }
 }

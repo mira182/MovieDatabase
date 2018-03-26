@@ -23,7 +23,6 @@ export class MoviesListComponent implements OnInit {
   }
 
   toggleShowDiv(item) {
-    console.log(item);
     this.animationState = this.animationState === 'in' ? 'out' : 'in';
     this.expanded = !this.expanded;
   }

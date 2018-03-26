@@ -32,6 +32,7 @@ export class MoviesCarouselComponent implements OnInit {
       loop : true,
       easing: 'ease-in'
     }
+    console.log(this.movies);
   }
 
   deleteMovie(movie : Movie) {

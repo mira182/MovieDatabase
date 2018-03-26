@@ -9,7 +9,7 @@ import {Movie} from "../../../model/movie";
 })
 export class MovieGenreBarComponent implements OnInit {
 
-  @Output() genresChanged = new EventEmitter<genresMap>();
+  @Output() genresChanged = new EventEmitter<GenreChangedEvent>();
   @Input() private genresToShow : string[] = [];
 
   private genresMap = {
@@ -36,22 +36,19 @@ export class MovieGenreBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  genresChanged(genre, event) {
-    var checked = event.source.checked;
-    this.genresMap[genre] = checked;
-    if (this.genresToShow.includes(genre)) {
-      if (!checked) {
-        var index = this.genresToShow.indexOf(genre);
-        if (index > -1) {
-          this.genresToShow.splice(index, 1);
-        }
-      }
-    } else {
-      if (checked) {
-        this.genresToShow.push(genre);
-      }
-    }
-    this.genresToShow.sort();
+  updateGenres(genre, event) {
+    this.genresChanged.next(new GenreChangedEvent(genre, event.source.checked));
+  }
+}
+
+export class GenreChangedEvent {
+
+
+  constructor(genre: string, selected: boolean) {
+    this.genre = genre;
+    this.selected = selected;
   }
 
+  genre : string;
+  selected : boolean;
 }

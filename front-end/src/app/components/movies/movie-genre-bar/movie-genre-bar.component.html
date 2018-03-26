@@ -1,3 +1,10 @@
-<p>
-  movie-genre-bar works!
-</p>
+<mat-card>
+  <div fxFlex="column" fxLayoutAlign="space-evenly start">
+    <mat-checkbox *ngFor="let genre of ALL_GENRES"
+                  value="{{genre}}"
+                  [checked]="true"
+                  (change)="updateGenres(genre, $event)">
+      {{genre}}
+    </mat-checkbox>
+  </div>
+</mat-card>
