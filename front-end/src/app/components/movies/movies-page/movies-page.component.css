@@ -3,6 +3,10 @@
   min-height: 400px;
 }
 
+.genre-toolbar {
+  min-height: 100px;
+}
+
 .rightAlignment {
   position: absolute;
   right: 10px;
@@ -45,6 +49,7 @@
   min-height: 100%;
   width: 100%;
 }
+
 .search-form {
   width: 90%;
 }

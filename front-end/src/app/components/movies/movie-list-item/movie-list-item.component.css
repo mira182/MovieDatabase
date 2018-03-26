@@ -1,0 +1,23 @@
+.rightAlignment {
+  position: absolute;
+  right: 10px;
+}
+
+.movie-list-item {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.zoom:hover {
+  transition: transform .3s;
+  transform: scale(1.1);
+}
+
+/deep/ .mat-card-header-text {
+  width: 100%;
+  text-align: center;
+}
+
+mat-card-header {
+  cursor: pointer;
+}

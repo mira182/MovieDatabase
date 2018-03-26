@@ -32,7 +32,7 @@ import {LoginComponent} from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
 import {HomeComponent} from './components/home/home.component';
 import {routing} from "./app.routing";
-import {MoviesListComponent} from './components/movies/movies-list/movies-list.component';
+import {MoviesCarouselComponent} from './components/movies/movies-carousel/movies-carousel.component';
 import {ErrorComponent} from './components/error/error.component';
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
 import {MovieItemComponent} from './components/movies/movie-item/movie-item.component';
@@ -56,13 +56,17 @@ import {OmdbService} from "./services/omdb/omdb-service.service";
 import {MessageSnackbarService} from "./services/error/error-snackbar-service.service";
 import {TvShowsService} from "./services/tvshows/tvshows.service";
 import {MovieStatisticsComponent} from './components/movies/movie-statistics/movie-statistics.component';
+import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { MovieListItemComponent } from './components/movies/movie-list-item/movie-list-item.component';
+import { MovieGenreBarComponent } from './components/movies/movie-genre-bar/movie-genre-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    MoviesListComponent,
+    MoviesCarouselComponent,
     ErrorComponent,
     NavBarComponent,
     MovieItemComponent,
@@ -74,6 +78,9 @@ import {MovieStatisticsComponent} from './components/movies/movie-statistics/mov
     TvshowsPageComponent,
     GetOmdbMovieDialogComponent,
     MovieStatisticsComponent,
+    MoviesListComponent,
+    MovieListItemComponent,
+    MovieGenreBarComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -82,7 +89,7 @@ import {MovieStatisticsComponent} from './components/movies/movie-statistics/mov
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
-    MatSortModule
+    MatSortModule, FlexLayoutModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent

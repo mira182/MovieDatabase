@@ -21,8 +21,8 @@ export class MoviesPageComponent implements OnInit {
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
   private moviesMenuExpanded : boolean;
-  private showAsList : boolean = true;
-  private showAsIcons : boolean;
+  private showAsCarousel : boolean = true;
+  private showAsList : boolean;
   private showSpinner : boolean;
   private genresToShow : string[] = [];
   private moviesByGenre: { [genre: string] : Array<Movie> } = {};
@@ -44,24 +44,7 @@ export class MoviesPageComponent implements OnInit {
     "Sport",
     "Thriller",
   ];
-  private genresMap = {
-    "Action": true,
-    "Adventure": true,
-    "Animation": true,
-    "Biography": true,
-    "Comedy": true,
-    "Crime": true,
-    "Documentary": true,
-    "Drama": true,
-    "Family": true,
-    "Fantasy": true,
-    "Horror": true,
-    "Music": true,
-    "Mystery": true,
-    "Sci-Fi": true,
-    "Sport": true,
-    "Thriller": true,
-  };
+
 
   constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {}
 
@@ -70,8 +53,22 @@ export class MoviesPageComponent implements OnInit {
     this.sideNavService.setSideNav(this.movieSideNav);
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
+      this.sortByName();
       this.updateMoviesLists();
       this.showSpinner = false;
+    });
+  }
+
+  sortByName() {
+    this.allMovies.sort((movie1,movie2) => {
+      if (movie1.name > movie2.name) {
+        return 1;
+      }
+
+      if (movie1.name < movie2.name) {
+        return -1;
+      }
+      return 0;
     });
   }
 
@@ -133,21 +130,5 @@ export class MoviesPageComponent implements OnInit {
     console.log("Deleting event in movies page." + index);
   }
 
-  genresChanged(genre, event) {
-    var checked = event.source.checked;
-    this.genresMap[genre] = checked;
-    if (this.genresToShow.includes(genre)) {
-      if (!checked) {
-        var index = this.genresToShow.indexOf(genre);
-        if (index > -1) {
-          this.genresToShow.splice(index, 1);
-        }
-      }
-    } else {
-      if (checked) {
-        this.genresToShow.push(genre);
-      }
-    }
-    this.genresToShow.sort();
-  }
+
 }

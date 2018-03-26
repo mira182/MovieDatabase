@@ -5,27 +5,27 @@ import {MovieService} from "../../../services/movies/movie.service";
 import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
 
 @Component({
-  selector: 'app-movie-carousel-item',
+  selector: 'app-movie-list-item',
+  templateUrl: './movie-list-item.component.html',
+  styleUrls: ['./movie-list-item.component.css'],
   animations: [SlideInOutAnimation, IndicatorRotate],
-  templateUrl: './movie-item.component.html',
-  styleUrls: ['./movie-item.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class MovieItemComponent implements OnInit {
+export class MovieListItemComponent implements OnInit {
 
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
   @Input() movie : Movie;
+  private expanded : boolean;
   animationState = 'out';
-  expanded = false;
-
-  toggleShowDiv() {
-    this.animationState = this.animationState === 'in' ? 'out' : 'in';
-    this.expanded = !this.expanded;
-  }
 
   constructor(private movieService : MovieService, private messageSnackBar : MessageSnackbarService) { }
 
   ngOnInit() {
+  }
+
+  toggleShowDiv() {
+    this.animationState = this.animationState === 'in' ? 'out' : 'in';
+    this.expanded = !this.expanded;
   }
 
   deleteMovie() {
@@ -36,4 +36,5 @@ export class MovieItemComponent implements OnInit {
       this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
     });
   }
+
 }
