@@ -43,11 +43,11 @@ export class MoviesListComponent implements OnInit {
 
   sortMoviesByImdb() {
     this.movies.sort((movie1,movie2) => {
-      if (movie1.imdbRating > movie2.imdbRating) {
+      if (movie1.imdbRating < movie2.imdbRating) {
         return 1;
       }
 
-      if (movie1.imdbRating < movie2.imdbRating) {
+      if (movie1.imdbRating > movie2.imdbRating) {
         return -1;
       }
       return 0;

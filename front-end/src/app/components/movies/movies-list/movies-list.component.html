@@ -1,12 +1,18 @@
 
-<!-- TODO use select box instead of buttons -->
-<button mat-icon-button matTooltip="Sort by name" (click)="sortMoviesByName()">
-  <mat-icon>view_list</mat-icon>
-</button>
-<button mat-icon-button matTooltip="Sort by IMDB rating" (click)="sortMoviesByImdb()">
-  <mat-icon>view_stream</mat-icon>
-</button>
+<div class="movie-list-settings">
+<mat-card>
+  <mat-card-content>
+    <mat-form-field>
+      <mat-select placeholder="Sort by:" [(value)]="selectedSortingType">
+        <mat-option value="sortByName" (click)="sortMoviesByName()">Name</mat-option>
+        <mat-option value="sortByImdbRating" (click)="sortMoviesByImdb()">IMDB rating</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>
+</div>
 
+<div>
 <mat-list fxLayout="column"
            fxLayoutAlign="space-between stretch"
            fxLayoutGap="15px"
@@ -19,3 +25,4 @@
     </div>
   </div>
  </mat-list>
+</div>
