@@ -17,6 +17,25 @@
 //   MYSTERY = "Mystery"
 // }
 
+// public const ALL_GENRES = [
+//   "Action",
+//   "Adventure",
+//   "Animation",
+//   "Biography",
+//   "Comedy",
+//   "Crime",
+//   "Documentary",
+//   "Drama",
+//   "Family",
+//   "Fantasy",
+//   "Horror",
+//   "Music",
+//   "Mystery",
+//   "Sci-Fi",
+//   "Sport",
+//   "Thriller",
+// ];
+
 export class Genres {
   public static ALL_GENRES = [
     "Action",

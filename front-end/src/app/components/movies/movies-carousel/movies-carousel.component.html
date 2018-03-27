@@ -1,4 +1,4 @@
-
+<h2 *ngIf="movies.length > 0">{{genre}}</h2>
 <ngx-carousel [inputs]="carouselTile">
   <ngx-tile NgxCarouselItem *ngFor="let movie of movies">
     <app-movie-carousel-item [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-carousel-item>

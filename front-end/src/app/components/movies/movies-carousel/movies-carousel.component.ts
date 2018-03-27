@@ -11,6 +11,7 @@ import {Movie} from "../../../model/movie";
 export class MoviesCarouselComponent implements OnInit {
 
   public carouselTile: NgxCarousel;
+  @Input() private genre : string;
   @Input() movies : Array<Movie>;
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
 
@@ -32,7 +33,6 @@ export class MoviesCarouselComponent implements OnInit {
       loop : true,
       easing: 'ease-in'
     }
-    console.log(this.movies);
   }
 
   deleteMovie(movie : Movie) {

@@ -6,6 +6,8 @@ import {MatDialog, MatSidenav} from "@angular/material";
 import {SidenavService} from "../../../services/sidenav-service.service";
 import {IndicatorRotate} from "../../animations/animations";
 import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component";
+import {Genres} from "../../../model/genres";
+import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-service.service";
 
 @Component({
   selector: 'app-movies-page',
@@ -24,45 +26,22 @@ export class MoviesPageComponent implements OnInit {
   private showAsCarousel : boolean = true;
   private showAsList : boolean;
   private showSpinner : boolean;
-  // moviesByGenre = new Map<string, Array<Movie>>();
   private moviesByGenre = [];
-  public ALL_GENRES = [
-    "Action",
-    "Adventure",
-    "Animation",
-    "Biography",
-    "Comedy",
-    "Crime",
-    "Documentary",
-    "Drama",
-    "Family",
-    "Fantasy",
-    "Horror",
-    "Music",
-    "Mystery",
-    "Sci-Fi",
-    "Sport",
-    "Thriller",
-  ];
 
-
-  constructor(private movieService: MovieService, public dialog: MatDialog, private sideNavService : SidenavService) {  }
+  constructor(private movieService: MovieService, private movieUtils : MovieUtilsServiceService,  public dialog: MatDialog, private sideNavService : SidenavService) {  }
 
   ngOnInit() {
     this.showSpinner = true;
     this.sideNavService.setSideNav(this.movieSideNav);
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
-      for (let genre of this.ALL_GENRES) {
-        // this.moviesByGenre.set(genre, this.filterMoviesByGenre(genre));
-        this.moviesByGenre.push({'genre' : genre, 'movies' : this.filterMoviesByGenre(genre)});
-      }
-      this.sortByName();
+      this.loadMoviesByGenre();
+      this.sortAllMoviesByName();
       this.showSpinner = false;
     });
   }
 
-  sortByName() {
+  sortAllMoviesByName() {
     this.allMovies.sort((movie1,movie2) => {
       if (movie1.name > movie2.name) {
         return 1;
@@ -75,16 +54,13 @@ export class MoviesPageComponent implements OnInit {
     });
   }
 
-  updateMoviesLists() {
-    for (let genre of this.ALL_GENRES) {
-      if (this.getMoviesByGenre(genre)['movies']) {
-        this.moviesByGenre['movies'] = this.filterMoviesByGenre(genre);
-      }
+  loadMoviesByGenre() {
+    this.moviesByGenre = [];
+    for (let genre of Genres.ALL_GENRES) {
+      var moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
+      if (moviesByGenre.length > 0)
+        this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
     }
-  }
-
-  filterMoviesByGenre(genre : string) {
-    return this.allMovies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
   }
 
   openAddMovieDialog() {
@@ -109,6 +85,7 @@ export class MoviesPageComponent implements OnInit {
       height: 'auto',
       width: '500px',
     });
+    // TODO reload page after dialog close (new movie added)
   }
 
   importMovies() {
@@ -123,20 +100,19 @@ export class MoviesPageComponent implements OnInit {
     var index = this.allMovies.indexOf(movie);
     if (index > -1) {
       this.allMovies.splice(index, 1);
-      this.updateMoviesLists();
+      this.loadMoviesByGenre();
     }
     console.log("Deleting event in movies page." + index);
   }
 
-  updateGenres(genre, event) {
-    var checked = event.source.checked;
-
+  updateGenres(event) {
+    var checked = event.selected;
+    var genre = event.genre;
       if (!checked) { // delete genre
         this.getMoviesByGenre(genre).movies = [];
       } else if (checked) { // add genre
-        this.getMoviesByGenre(genre).movies = this.filterMoviesByGenre(genre);
+        this.getMoviesByGenre(genre).movies = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
       }
-    // this.moviesByGenre[genre].sort();
   }
 
   getMoviesByGenre(genre) {
@@ -145,10 +121,5 @@ export class MoviesPageComponent implements OnInit {
         return true;
       }
     });
-    // .filter((item, index, array) => {
-    //   if (item.genre == genre) {
-    //     return item;
-    //   }
-    // });
   }
 }

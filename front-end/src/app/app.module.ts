@@ -60,6 +60,7 @@ import { MoviesListComponent } from './components/movies/movies-list/movies-list
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { MovieListItemComponent } from './components/movies/movie-list-item/movie-list-item.component';
 import { MovieGenreBarComponent } from './components/movies/movie-genre-bar/movie-genre-bar.component';
+import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.service";
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { MovieGenreBarComponent } from './components/movies/movie-genre-bar/movi
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent
   ],
   // exports: [CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule],
-  providers: [MovieService, TvShowsService, AuthService, AuthGuardService, TokenStorage, SidenavService, OmdbService, MessageSnackbarService,
+  providers: [MovieService, MovieUtilsServiceService, TvShowsService, AuthService, AuthGuardService, TokenStorage,
+    SidenavService, OmdbService, MessageSnackbarService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi : true },
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false} }
   ],

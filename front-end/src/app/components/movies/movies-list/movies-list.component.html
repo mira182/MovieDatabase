@@ -1,12 +1,21 @@
- <mat-list fxLayout="column"
+
+<!-- TODO use select box instead of buttons -->
+<button mat-icon-button matTooltip="Sort by name" (click)="sortMoviesByName()">
+  <mat-icon>view_list</mat-icon>
+</button>
+<button mat-icon-button matTooltip="Sort by IMDB rating" (click)="sortMoviesByImdb()">
+  <mat-icon>view_stream</mat-icon>
+</button>
+
+<mat-list fxLayout="column"
            fxLayoutAlign="space-between stretch"
            fxLayoutGap="15px"
            fxLayoutGap.xs="0"
            fxFlexOffset="15">
-  <div *ngFor="let genre of genresToShow">
-    <div *ngIf="moviesByGenre[genre]">
-      <h3 mat-subheader>{{genre}}</h3>
-      <app-movie-list-item *ngFor="let movie of moviesByGenre[genre]" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>
+  <div *ngFor="let genreMovies of moviesByGenre">
+    <div *ngIf="genreMovies.movies.length > 0">
+      <h3 mat-subheader>{{genreMovies.genre}}</h3>
+      <app-movie-list-item *ngFor="let movie of genreMovies.movies" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>
     </div>
   </div>
  </mat-list>

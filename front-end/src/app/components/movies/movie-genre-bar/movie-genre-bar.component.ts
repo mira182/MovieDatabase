@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {Movie} from "../../../model/movie";
+import {Genres} from "../../../model/genres";
 
 @Component({
   selector: 'app-movie-genre-bar',
@@ -10,26 +10,8 @@ import {Movie} from "../../../model/movie";
 export class MovieGenreBarComponent implements OnInit {
 
   @Output() genresChanged = new EventEmitter<GenreChangedEvent>();
-  @Input() private genresToShow : string[] = [];
-
-  private genresMap = {
-    "Action": true,
-    "Adventure": true,
-    "Animation": true,
-    "Biography": true,
-    "Comedy": true,
-    "Crime": true,
-    "Documentary": true,
-    "Drama": true,
-    "Family": true,
-    "Fantasy": true,
-    "Horror": true,
-    "Music": true,
-    "Mystery": true,
-    "Sci-Fi": true,
-    "Sport": true,
-    "Thriller": true,
-  };
+  @Input() private moviesByGenre = [];
+  private allGenres = Genres.ALL_GENRES;
 
   constructor() { }
 
@@ -42,8 +24,6 @@ export class MovieGenreBarComponent implements OnInit {
 }
 
 export class GenreChangedEvent {
-
-
   constructor(genre: string, selected: boolean) {
     this.genre = genre;
     this.selected = selected;

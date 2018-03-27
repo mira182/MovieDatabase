@@ -1,10 +1,10 @@
 <mat-card>
   <div fxFlex="column" fxLayoutAlign="space-evenly start">
-    <mat-checkbox *ngFor="let genre of ALL_GENRES"
-                  value="{{genre}}"
+    <mat-checkbox *ngFor="let genreMovies of moviesByGenre"
+                  value="{{genreMovies.genre}}"
                   [checked]="true"
-                  (change)="updateGenres(genre, $event)">
-      {{genre}}
+                  (change)="updateGenres(genreMovies.genre, $event)">
+      {{genreMovies.genre}}
     </mat-checkbox>
   </div>
 </mat-card>
