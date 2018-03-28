@@ -3,11 +3,6 @@
   right: 10px;
 }
 
-.movie-list-item {
-  width: 80%;
-  margin-bottom: 10px;
-}
-
 .zoom:hover {
   transition: transform .3s;
   transform: scale(1.1);
@@ -20,4 +15,9 @@
 
 mat-card-header {
   cursor: pointer;
+}
+
+.movie-list-item {
+  max-width: 500px;
+  margin-bottom: 10px;
 }

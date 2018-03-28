@@ -5,7 +5,7 @@
     </span>
   </mat-card-title>
 
-  <mat-card-content [@slideInOut]="animationState">
+  <mat-card-content *ngIf="expanded" [@slideInOut]="animationState">
     <h2>{{movie.name}}</h2>
     <h3>Year:</h3><p>{{movie.year}}</p>
     <h3>Length:</h3><p>{{movie.length}}</p>

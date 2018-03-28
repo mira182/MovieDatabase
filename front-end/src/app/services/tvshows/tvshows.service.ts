@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Urls} from "../../model/Urls";
 import {TvShow} from "../../model/tvshow";
 import {Observable} from "rxjs/Rx";
+import {Movie} from "../../model/movie";
 
 @Injectable()
 export class TvShowsService {
@@ -20,5 +21,12 @@ export class TvShowsService {
 
   deleteTvShow(id) {
     return this.httpClient.delete(Urls.TV_SHOWS_URL, {params: new HttpParams().set('id', id)});
+  }
+
+  public addTvShow(tvShow : TvShow) {
+    this.httpClient.post<TvShow>(Urls.MOVIES_URL, JSON.stringify(tvShow), {responseType: 'json'})
+      .subscribe(data => {
+        console.log('Add tv show: ' + JSON.stringify(data));
+      });
   }
 }

@@ -4,7 +4,6 @@ import com.mmdb.dao.MovieRepository;
 import com.mmdb.model.dto.MovieDTO;
 import com.mmdb.model.dto.builders.MovieDTOBuilder;
 import com.mmdb.model.entities.Movie;
-import com.mmdb.services.importing.OmdbMoviesDataImporter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,28 +24,6 @@ public class MoviesServiceImpl implements MovieService {
     public List<MovieDTO> getAllMovies() {
         final List<MovieDTO> movies = new ArrayList<>();
         movieRepository.findAll().forEach((Movie movieEntity) -> {
-            movies.add(new MovieDTOBuilder()
-                    .setName(movieEntity.getName())
-                    .setActors(movieEntity.getActors())
-                    .setCountry(movieEntity.getCountry())
-                    .setDescription(movieEntity.getDescription())
-                    .setDirectors(movieEntity.getDirectors())
-                    .setGenre(movieEntity.getGenre())
-                    .setImdbRating(movieEntity.getImdbRating())
-                    .setLength(movieEntity.getLength())
-                    .setPosterUrl(movieEntity.getPosterUrl())
-                    .setProduction(movieEntity.getProduction())
-                    .setYear(movieEntity.getYear())
-                    .setId(movieEntity.getId())
-                    .createMovieDTO());
-        });
-        return movies;
-    }
-
-    @Override
-    public List<MovieDTO> getMoviesByGenre(String genre) {
-        final List<MovieDTO> movies = new ArrayList<>();
-        movieRepository.findByGenreContaining(genre).forEach((Movie movieEntity) -> {
             movies.add(new MovieDTOBuilder()
                     .setName(movieEntity.getName())
                     .setActors(movieEntity.getActors())

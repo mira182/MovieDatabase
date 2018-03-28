@@ -1,5 +1,6 @@
-
-<div class="movie-list-settings">
+<div fxLayout="column"
+     fxLayoutGap.xs="0"
+     fxLayoutAlign="space-between center">
 <mat-card>
   <mat-card-content>
     <mat-form-field>
@@ -10,14 +11,8 @@
     </mat-form-field>
   </mat-card-content>
 </mat-card>
-</div>
 
-<div>
-<mat-list fxLayout="column"
-           fxLayoutAlign="space-between stretch"
-           fxLayoutGap="15px"
-           fxLayoutGap.xs="0"
-           fxFlexOffset="15">
+<mat-list class="movie-list-settings">
   <div *ngFor="let genreMovies of moviesByGenre">
     <div *ngIf="genreMovies.movies.length > 0">
       <h3 mat-subheader>{{genreMovies.genre}}</h3>

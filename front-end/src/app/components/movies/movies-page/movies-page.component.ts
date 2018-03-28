@@ -23,8 +23,6 @@ export class MoviesPageComponent implements OnInit {
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
   private moviesMenuExpanded : boolean;
-  private showAsCarousel : boolean = true;
-  private showAsList : boolean;
   private showSpinner : boolean;
   private moviesByGenre = [];
 
@@ -57,7 +55,7 @@ export class MoviesPageComponent implements OnInit {
   loadMoviesByGenre() {
     this.moviesByGenre = [];
     for (let genre of Genres.ALL_GENRES) {
-      var moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
+      let moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
       if (moviesByGenre.length > 0)
         this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
     }
@@ -80,12 +78,10 @@ export class MoviesPageComponent implements OnInit {
   }
 
   openGetOmdbMovieDialog() {
-    //noinspection TypeScriptUnresolvedFunction
-    let dialogRef = this.dialog.open(GetOmdbMovieDialogComponent, {
+    this.dialog.open(GetOmdbMovieDialogComponent, {
       height: 'auto',
       width: '500px',
     });
-    // TODO reload page after dialog close (new movie added)
   }
 
   importMovies() {
@@ -97,7 +93,7 @@ export class MoviesPageComponent implements OnInit {
 
   deleteMovie(movie : Movie) {
     // delete movie from list
-    var index = this.allMovies.indexOf(movie);
+    const index = this.allMovies.indexOf(movie);
     if (index > -1) {
       this.allMovies.splice(index, 1);
       this.loadMoviesByGenre();
@@ -106,9 +102,9 @@ export class MoviesPageComponent implements OnInit {
   }
 
   updateGenres(event) {
-    var checked = event.selected;
-    var genre = event.genre;
-      if (!checked) { // delete genre
+    const checked = event.selected;
+    const genre = event.genre;
+    if (!checked) { // delete genre
         this.getMoviesByGenre(genre).movies = [];
       } else if (checked) { // add genre
         this.getMoviesByGenre(genre).movies = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);

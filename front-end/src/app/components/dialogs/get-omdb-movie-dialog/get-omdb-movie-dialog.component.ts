@@ -35,6 +35,7 @@ export class GetOmdbMovieDialogComponent implements OnInit {
       } else {
         this.messageSnackBarService.openMessageSnackBar("Saving failed. Result: " + result);
       }
+      window.location.reload();
     }, (err) => {
       this.messageSnackBarService.openMessageSnackBar("Error: " + err.message);
     });

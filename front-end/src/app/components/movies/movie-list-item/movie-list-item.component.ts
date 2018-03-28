@@ -15,7 +15,7 @@ export class MovieListItemComponent implements OnInit {
 
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
   @Input() movie : Movie;
-  private expanded : boolean;
+  private expanded : boolean = false;
   animationState = 'out';
 
   constructor(private movieService : MovieService, private messageSnackBar : MessageSnackbarService) { }

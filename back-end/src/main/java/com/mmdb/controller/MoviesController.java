@@ -1,9 +1,7 @@
 package com.mmdb.controller;
 
 import com.mmdb.model.dto.MovieDTO;
-import com.mmdb.model.dto.OmdbMovieDTO;
 import com.mmdb.model.entities.Movie;
-import com.mmdb.services.importing.OmdbMoviesDataImporter;
 import com.mmdb.services.movies.MoviesServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,13 +30,6 @@ public class MoviesController {
     @PostMapping
     public Movie saveMovie(@RequestBody MovieDTO movieDTO) {
         return moviesServiceImpl.saveMovie(movieDTO);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, params = "genre")
-    public List<MovieDTO> getMoviesByGenre(String genre) {
-        final List<MovieDTO> movies = moviesServiceImpl.getMoviesByGenre(genre);
-        logger.debug("Found movies by {} genre: {}", genre, movies);
-        return movies;
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

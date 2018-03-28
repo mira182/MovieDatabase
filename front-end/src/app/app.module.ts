@@ -21,7 +21,7 @@ import {
   MatSidenavModule,
   MatSnackBarModule,
   MatSortModule,
-  MatTableModule,
+  MatTableModule, MatTabsModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -46,7 +46,7 @@ import {TokenStorage} from "./services/auth/token.storage";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AddMovieDialogComponent} from './components/dialogs/add-movie-dialog/add-movie-dialog.component';
 import {TvShowItemComponent} from './components/tvshows/tv-show-item/tv-show-item.component';
-import {TvShowListComponent} from './components/tvshows/tv-show-list/tv-show-list.component';
+import {TvShowCarouselComponent} from './components/tvshows/tv-show-carousel/tv-show-carousel.component';
 import {ErrorDialogComponent} from './components/dialogs/error-dialog/error-dialog.component';
 import {MoviesPageComponent} from './components/movies/movies-page/movies-page.component';
 import {SidenavService} from "./services/sidenav-service.service";
@@ -73,7 +73,7 @@ import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.se
     MovieItemComponent,
     AddMovieDialogComponent,
     TvShowItemComponent,
-    TvShowListComponent,
+    TvShowCarouselComponent,
     ErrorDialogComponent,
     MoviesPageComponent,
     TvshowsPageComponent,
@@ -90,7 +90,7 @@ import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.se
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
-    MatSortModule, MatSelectModule, FlexLayoutModule
+    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent

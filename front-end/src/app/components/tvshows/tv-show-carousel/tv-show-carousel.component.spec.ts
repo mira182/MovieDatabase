@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TvShowListComponent } from './tv-show-list.component';
+import { TvShowListComponent } from './tv-show-carousel.component';
 
 describe('TvShowListComponent', () => {
   let component: TvShowListComponent;

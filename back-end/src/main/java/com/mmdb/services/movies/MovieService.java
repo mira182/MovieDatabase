@@ -12,8 +12,6 @@ public interface MovieService {
 
     Movie saveMovie(MovieDTO movieDto);
 
-    List<MovieDTO> getMoviesByGenre(String genre);
-
     void deleteMovie(Long id);
 
 }

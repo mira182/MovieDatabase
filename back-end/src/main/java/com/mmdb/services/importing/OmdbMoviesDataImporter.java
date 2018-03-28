@@ -22,29 +22,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-// TODO prettyfi
 @Service
 public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     private static final Logger logger = LogManager.getLogger(OmdbMoviesDataImporter.class);
 
-    public static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&apikey=3534d3d7";
-    public static final String TVSHOWS_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&type=series&apikey=3534d3d7";
+    private static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&apikey=3534d3d7";
+    private static final String TVSHOWS_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&type=series&apikey=3534d3d7";
+
+    private final MovieRepository movieRepository;
+
+    private final TvShowRepository tvShowRepository;
 
     @Autowired
-    private MovieRepository movieRepository;
+    public OmdbMoviesDataImporter(MovieRepository movieRepository, TvShowRepository tvShowRepository) {
+        this.movieRepository = movieRepository;
+        this.tvShowRepository = tvShowRepository;
+    }
 
-    @Autowired
-    private TvShowRepository tvShowRepository;
-
-    @Override
-    public OmdbMovieDTO getMovieData(String title) throws IOException {
+    private OmdbMovieDTO getMovieData(String title) throws IOException {
+        // get json movie data
         final RestTemplate restTemplate = new RestTemplate();
-
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
         final ResponseEntity<String> result = restTemplate.exchange(String.format(MOVIE_TITLE_SEARCH_URL, title),
                 HttpMethod.GET, entity, String.class);
 
@@ -53,6 +54,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
             throw new IOException();
         }
 
+        // deserialize json
         final ObjectMapper mapper = new ObjectMapper();
         SimpleModule mod = new SimpleModule();
         mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
@@ -64,12 +66,11 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     }
 
     private OmdbMovieDTO getTvShowData(String title) throws IOException {
+        // get json tv show data
         final RestTemplate restTemplate = new RestTemplate();
-
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
         final ResponseEntity<String> result = restTemplate.exchange(String.format(TVSHOWS_TITLE_SEARCH_URL, title),
                 HttpMethod.GET, entity, String.class);
 
@@ -78,6 +79,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
             throw new IOException();
         }
 
+        // deserialize json
         final ObjectMapper mapper = new ObjectMapper();
         SimpleModule mod = new SimpleModule();
         mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
@@ -89,17 +91,8 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     }
 
     @Override
-    public List<OmdbMovieDTO> getMoviesData(String titles) {
-        List<OmdbMovieDTO> omdbMovieList = new ArrayList<>();
-        List<String> titlesList = new ArrayList<>();
-        Scanner scanner = new Scanner(titles);
-        scanner.useDelimiter(",");
-        while (scanner.hasNext()) {
-            titlesList.add(scanner.next());
-        }
-        scanner.close();
-
-        for (String title : titlesList) {
+    public void importMoviesData(String titles) {
+        for (String title : stringTitlesToList(titles)) {
             OmdbMovieDTO omdbOmdbMovieDTO;
             try {
                 omdbOmdbMovieDTO = getMovieData(title);
@@ -108,60 +101,19 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 continue;
             }
             movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
-            omdbMovieList.add(omdbOmdbMovieDTO);
         }
-
-        return omdbMovieList;
-    }
-
-    @Override
-    public void importMovieData(String title) {
-        final OmdbMovieDTO omdbOmdbMovieDTO;
-        try {
-            omdbOmdbMovieDTO = getMovieData(title);
-        } catch (IOException e) {
-            logger.error(e);
-            return;
-        }
-        movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
-    }
-
-    @Override
-    public void importMoviesData(String titles) {
-        getMoviesData(titles);
     }
 
     @Override
     public boolean storeOmdbMovie(OmdbMovieDTO omdbMovieDTO) {
         logger.debug("Storing OMDB movie: {}", omdbMovieDTO);
-//        final ObjectMapper mapper = new ObjectMapper();
-//        SimpleModule mod = new SimpleModule();
-//        mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
-//        mapper.registerModule(mod);
-//
-//        try {
-//            final OmdbMovieDTO omdbMovieDTO = mapper.readValue(omdbString, OmdbMovieDTO.class);
-//            movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
-//        } catch (IOException e) {
-//            logger.error(e);
-//        }
-
-        Movie storedMovie = movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
-        if (storedMovie != null) return true;
-        else return false;
+        final Movie storedMovie = movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        return storedMovie != null;
     }
 
     @Override
     public void importTvShowsData(String tvShowsTitles) {
-        List<String> titlesList = new ArrayList<>();
-        Scanner scanner = new Scanner(tvShowsTitles);
-        scanner.useDelimiter(",");
-        while (scanner.hasNext()) {
-            titlesList.add(scanner.next());
-        }
-        scanner.close();
-
-        for (String title : titlesList) {
+        for (String title : stringTitlesToList(tvShowsTitles)) {
             OmdbMovieDTO omdbOmdbMovieDTO;
             try {
                 omdbOmdbMovieDTO = getTvShowData(title);
@@ -171,7 +123,17 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
             }
             tvShowRepository.save(convertTvShowDTOtoEntity(omdbOmdbMovieDTO));
         }
+    }
 
+    private List<String> stringTitlesToList(String titles) {
+        final List<String> titlesList = new ArrayList<>();
+        Scanner scanner = new Scanner(titles);
+        scanner.useDelimiter(",");
+        while (scanner.hasNext()) {
+            titlesList.add(scanner.next());
+        }
+        scanner.close();
+        return titlesList;
     }
 
     private Movie convertDTOtoEntity(OmdbMovieDTO omdbOmdbMovieDTO) {

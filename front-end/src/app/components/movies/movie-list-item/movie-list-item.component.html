@@ -1,18 +1,17 @@
 <mat-card class="movie-list-item mat-elevation-z4" [ngClass]="{'zoom': !expanded }">
-  <mat-card-header (click)="toggleShowDiv()">
-    <div fxFlex="row">
+  <mat-card-header>
+    <div fxFlex="row" (click)="toggleShowDiv()">
       <img mat-card-sm-image src={{movie.posterUrl}}/>
-      <!-- mat-card-avatar-->
       <h4 fxFlex="auto" fxFlexOffset="5">{{movie.name}}</h4>
-      <button mat-icon-button *ngIf="expanded" (click)="deleteMovie()">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-icon-button (click)="toggleShowDiv()" [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
-        <mat-icon>expand_more</mat-icon>
-      </button>
     </div>
+    <button mat-icon-button *ngIf="expanded" (click)="deleteMovie()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleShowDiv()" [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+      <mat-icon>expand_more</mat-icon>
+    </button>
   </mat-card-header>
-  <mat-card-content [@slideInOut]="animationState">
+  <mat-card-content *ngIf="expanded" [@slideInOut]="animationState">
     <h2 style="padding-top: 20px;">{{movie.name}}</h2>
     <h3>Year:</h3>
     <p>{{movie.year}}</p>
@@ -31,7 +30,7 @@
     <h3>Genre:</h3>
     <p>{{movie.genre}}</p>
     <h3>Description:</h3>
-    <div>{{movie.description}}</div>
+    <p>{{movie.description}}</p>
   </mat-card-content>
 
 </mat-card>

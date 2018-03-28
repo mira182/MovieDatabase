@@ -16,7 +16,7 @@ export class MovieItemComponent implements OnInit {
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
   @Input() movie : Movie;
   animationState = 'out';
-  expanded = false;
+  private expanded : boolean = false;
 
   toggleShowDiv() {
     this.animationState = this.animationState === 'in' ? 'out' : 'in';

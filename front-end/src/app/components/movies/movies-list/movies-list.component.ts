@@ -16,10 +16,6 @@ export class MoviesListComponent implements OnInit {
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
   @Input() private moviesByGenre = [];
   @Input() movies : Array<Movie>;
-  private expanded : boolean;
-  animationState = 'out';
-  private sortedByName : boolean = true;
-  private sortedByImdb : boolean;
 
   constructor(private movieUtils : MovieUtilsServiceService) { }
 
@@ -58,7 +54,7 @@ export class MoviesListComponent implements OnInit {
   loadMoviesByGenre() {
     this.moviesByGenre = [];
     for (let genre of Genres.ALL_GENRES) {
-      var moviesByGenre = this.movieUtils.filterMoviesByGenre(this.movies, genre);
+      let moviesByGenre = this.movieUtils.filterMoviesByGenre(this.movies, genre);
       if (moviesByGenre.length > 0)
         this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
     }
