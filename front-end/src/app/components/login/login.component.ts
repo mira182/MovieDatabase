@@ -10,7 +10,7 @@ import {TokenStorage} from "../../services/auth/token.storage";
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  errorMessage:string;
+  loginError: string;
   username: string;
   password: string;
 
@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
         this.authService.setLoggedIn(true);
       },
       error => {
+        this.loginError = error.message;
         console.log("login failed: " + error);
       }
     );

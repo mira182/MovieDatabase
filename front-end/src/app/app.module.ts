@@ -23,13 +23,14 @@ import {
   MatSortModule,
   MatTableModule, MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HomeComponent} from './components/home/home.component';
 import {routing} from "./app.routing";
 import {MoviesCarouselComponent} from './components/movies/movies-carousel/movies-carousel.component';
@@ -85,12 +86,12 @@ import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.se
   ],
   imports: [
     BrowserAnimationsModule,
-    FormsModule, NgbModule,
+    FormsModule, ReactiveFormsModule, NgbModule,
     NgxCarouselModule, BrowserModule,FormsModule,routing, HttpClientModule,
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
-    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule
+    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent

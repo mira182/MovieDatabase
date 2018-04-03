@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
 })
 
 export class AppComponent  implements OnInit {
-  title = 'spring boot and angular 4 secure authentication';
 
   constructor(public authService: AuthService, public router: Router) {
 
@@ -17,16 +16,4 @@ export class AppComponent  implements OnInit {
 
   ngOnInit() {
   }
-
-  // login out from the app
-  // logOut() {
-  //   this.authService.logOut()
-  //     .subscribe(
-  //       data => {
-  //         this.router.navigate(['/login']);
-  //       },
-  //       error => {
-  //         this.router.navigate(['/error']);
-  //       });
-  // }
 }

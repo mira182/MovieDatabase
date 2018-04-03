@@ -6,9 +6,13 @@ import {Movie} from "../../model/movie";
 // import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
 import {Urls} from "../../model/Urls";
+import {TvShow} from "../../model/tvshow";
 
 @Injectable()
 export class MovieService {
+
+  private allMovies : Array<Movie>;
+  private allTvShows : Array<TvShow>;
 
   constructor(protected httpClient: HttpClient) { }
 

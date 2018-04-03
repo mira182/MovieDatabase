@@ -25,6 +25,7 @@ export class MoviesPageComponent implements OnInit {
   private moviesMenuExpanded : boolean;
   private showSpinner : boolean;
   private moviesByGenre = [];
+  value = '';
 
   constructor(private movieService: MovieService, private movieUtils : MovieUtilsServiceService,  public dialog: MatDialog, private sideNavService : SidenavService) {  }
 
