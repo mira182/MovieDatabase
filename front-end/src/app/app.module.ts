@@ -57,11 +57,12 @@ import {OmdbService} from "./services/omdb/omdb-service.service";
 import {MessageSnackbarService} from "./services/error/error-snackbar-service.service";
 import {TvShowsService} from "./services/tvshows/tvshows.service";
 import {MovieStatisticsComponent} from './components/movies/movie-statistics/movie-statistics.component';
-import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
+import { MoviesListGenreComponent } from './components/movies/movies-list-genre/movies-list-genre.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { MovieListItemComponent } from './components/movies/movie-list-item/movie-list-item.component';
 import { MovieGenreBarComponent } from './components/movies/movie-genre-bar/movie-genre-bar.component';
 import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.service";
+import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
 
 @NgModule({
   declarations: [
@@ -80,9 +81,10 @@ import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.se
     TvshowsPageComponent,
     GetOmdbMovieDialogComponent,
     MovieStatisticsComponent,
-    MoviesListComponent,
+    MoviesListGenreComponent,
     MovieListItemComponent,
     MovieGenreBarComponent,
+    MoviesListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -34,9 +34,14 @@
                                (movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>
         </div>
       </mat-tab>
-      <mat-tab label="List view">
+      <mat-tab label="Genre list view">
         <div *ngIf="allMovies">
-          <app-movies-list [movies]="allMovies" [moviesByGenre]="moviesByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+          <app-movies-list-genre [movies]="allMovies" [moviesByGenre]="moviesByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list-genre>
+        </div>
+      </mat-tab>
+      <mat-tab label="Plain list view">
+        <div *ngIf="allMovies">
+          <app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
         </div>
       </mat-tab>
     </mat-tab-group>

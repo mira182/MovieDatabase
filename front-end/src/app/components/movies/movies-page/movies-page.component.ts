@@ -27,7 +27,10 @@ export class MoviesPageComponent implements OnInit {
   private moviesByGenre = [];
   value = '';
 
-  constructor(private movieService: MovieService, private movieUtils : MovieUtilsServiceService,  public dialog: MatDialog, private sideNavService : SidenavService) {  }
+  constructor(private movieService: MovieService,
+              private movieUtils : MovieUtilsServiceService,
+              public dialog: MatDialog,
+              private sideNavService : SidenavService) {  }
 
   ngOnInit() {
     this.showSpinner = true;
@@ -35,23 +38,11 @@ export class MoviesPageComponent implements OnInit {
     this.movieService.getAllMovies().subscribe(data => {
       this.allMovies = data;
       this.loadMoviesByGenre();
-      this.sortAllMoviesByName();
+      this.movieUtils.sortMoviesByName(this.allMovies);
       this.showSpinner = false;
     });
   }
 
-  sortAllMoviesByName() {
-    this.allMovies.sort((movie1,movie2) => {
-      if (movie1.name > movie2.name) {
-        return 1;
-      }
-
-      if (movie1.name < movie2.name) {
-        return -1;
-      }
-      return 0;
-    });
-  }
 
   loadMoviesByGenre() {
     this.moviesByGenre = [];

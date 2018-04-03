@@ -36,7 +36,12 @@
       </mat-tab>
       <mat-tab label="List view">
         <div *ngIf="allTvShows">
-          <app-movies-list [movies]="allTvShows" [moviesByGenre]="tvShowsByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+          <app-movies-list-genre [movies]="allTvShows" [moviesByGenre]="tvShowsByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list-genre>
+        </div>
+      </mat-tab>
+      <mat-tab label="Plain list view">
+        <div *ngIf="allTvShows">
+          <app-movies-list [movies]="allTvShows" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
         </div>
       </mat-tab>
     </mat-tab-group>
