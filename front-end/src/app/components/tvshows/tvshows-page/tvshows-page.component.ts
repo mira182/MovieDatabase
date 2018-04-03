@@ -20,7 +20,7 @@ import {Genres} from "../../../model/genres";
 })
 export class TvshowsPageComponent implements OnInit {
 
-  private allTvShows : Array<TvShow>;
+  private allTvShows : Array<Movie>;
   private newTvShow : TvShow;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
@@ -28,7 +28,7 @@ export class TvshowsPageComponent implements OnInit {
   private showAsCarousel : boolean = true;
   private showAsList : boolean;
   private showSpinner : boolean;
-  private moviesByGenre = [];
+  private tvShowsByGenre = [];
 
   constructor(private tvShowsService: TvShowsService, private movieUtils : MovieUtilsServiceService,  public dialog: MatDialog, private sideNavService : SidenavService) {  }
 
@@ -57,11 +57,13 @@ export class TvshowsPageComponent implements OnInit {
   }
 
   loadMoviesByGenre() {
-    this.moviesByGenre = [];
+    this.tvShowsByGenre = [];
     for (let genre of Genres.ALL_GENRES) {
-      var moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allTvShows, genre);
-      if (moviesByGenre.length > 0)
-        this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
+      let tvShowsByGenre = this.movieUtils.filterMoviesByGenre(this.allTvShows, genre);
+      if (tvShowsByGenre.length > 0) {
+        tvShowsByGenre.sort();
+        this.tvShowsByGenre.push({'genre' : genre, 'movies' : tvShowsByGenre});
+      }
     }
   }
 
@@ -109,15 +111,15 @@ export class TvshowsPageComponent implements OnInit {
   updateGenres(event) {
     var checked = event.selected;
     var genre = event.genre;
-    if (!checked) { // delete genre
+    if (!checked) { // uncheck genre
       this.getMoviesByGenre(genre).movies = [];
-    } else if (checked) { // add genre
+    } else if (checked) { // check genre
       this.getMoviesByGenre(genre).movies = this.movieUtils.filterMoviesByGenre(this.allTvShows, genre);
     }
   }
 
   getMoviesByGenre(genre) {
-    return this.moviesByGenre.find((item, index) => {
+    return this.tvShowsByGenre.find((item, index) => {
       if (item.genre == genre) {
         return true;
       }

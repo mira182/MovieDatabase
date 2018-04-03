@@ -74,6 +74,10 @@
 			<artifactId>json</artifactId>
 			<version>20180130</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 		<!-- Exclude Spring Boot's Default Logging -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -110,7 +114,7 @@
                             <outputDirectory>target/classes/static/</outputDirectory >
                             <resources>
                                 <resource>
-                                    <directory>../front-end/dist</directory >
+                                    <directory>../front-end/mmdb</directory >
                                 </resource>
                             </resources>
                         </configuration>
@@ -124,7 +128,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>../front-end/dist</directory>
+                            <directory>../front-end/mmdb</directory>
                         </resource>
                     </webResources>
                 </configuration>

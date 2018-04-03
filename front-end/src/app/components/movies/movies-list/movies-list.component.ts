@@ -20,7 +20,6 @@ export class MoviesListComponent implements OnInit {
   constructor(private movieUtils : MovieUtilsServiceService) { }
 
   ngOnInit() {
-    this.loadMoviesByGenre();
   }
 
   sortMoviesByName() {

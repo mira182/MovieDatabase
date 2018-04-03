@@ -55,9 +55,12 @@ export class MoviesPageComponent implements OnInit {
   loadMoviesByGenre() {
     this.moviesByGenre = [];
     for (let genre of Genres.ALL_GENRES) {
-      let moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
-      if (moviesByGenre.length > 0)
+      const moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
+      if (moviesByGenre.length > 0) {
+        moviesByGenre.sort();
         this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
+      }
+
     }
   }
 

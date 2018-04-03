@@ -8,8 +8,8 @@
     <mat-nav-list>
       <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded">OMDB<mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-nav-list *ngIf="omdbMenuExpanded">
-        <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get movie</a>
-        <a mat-list-item class="nested-list-item" (click)="importTvShows()">Import movies</a>
+        <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get TV Show</a>
+        <a mat-list-item class="nested-list-item" (click)="importTvShows()">Import TV Show</a>
       </mat-nav-list>
 
       <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded">Movies<mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
@@ -21,28 +21,22 @@
 
   <mat-sidenav-content>
     <header class="jumbotron my-4">
-      <h1 class="display-3">Tv Shows</h1>
-      <!--<button mat-icon-button matTooltip="Show carousel view" (click)="showAsCarousel = true; showAsList = false;">-->
-      <!--<mat-icon>view_list</mat-icon>-->
-      <!--</button>-->
-      <!--<button mat-icon-button matTooltip="Show list view" (click)="showAsCarousel = false; showAsList = true;">-->
-      <!--<mat-icon>view_stream</mat-icon>-->
-      <!--</button>-->
+      <h1 class="display-3">TV Shows</h1>
       <span class="example-fill-remaining-space"></span>
     </header>
 
-    <app-movie-genre-bar [moviesByGenre]="moviesByGenre" (genresChanged)="updateGenres($event)"></app-movie-genre-bar>
+    <app-movie-genre-bar [moviesByGenre]="tvShowsByGenre" (genresChanged)="updateGenres($event)"></app-movie-genre-bar>
 
     <mat-tab-group>
       <mat-tab label="Carousel view">
-        <div *ngFor="let genreMovies of moviesByGenre">
-          <app-movies-carousel [movies]="genreMovies.movies" [genre]="genreMovies.genre"
+        <div *ngFor="let genreTvShows of tvShowsByGenre">
+          <app-movies-carousel [movies]="genreTvShows.movies" [genre]="genreTvShows.genre"
                                (movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>
         </div>
       </mat-tab>
       <mat-tab label="List view">
         <div *ngIf="allTvShows">
-          <app-movies-list [movies]="allTvShows" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+          <app-movies-list [movies]="allTvShows" [moviesByGenre]="tvShowsByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
         </div>
       </mat-tab>
     </mat-tab-group>

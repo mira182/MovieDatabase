@@ -36,7 +36,7 @@
       </mat-tab>
       <mat-tab label="List view">
         <div *ngIf="allMovies">
-          <app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+          <app-movies-list [movies]="allMovies" [moviesByGenre]="moviesByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
         </div>
       </mat-tab>
     </mat-tab-group>

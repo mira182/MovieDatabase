@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN" monitorInterval="30">
-    <Properties>
-        <Property name="LOG_PATTERN">
-            %d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${hostName} --- %-40.40c{1.} : %m%n%ex
-        </Property>
-    </Properties>
-    <Appenders>
-        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
-            <PatternLayout pattern="${LOG_PATTERN}"/>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="FileAppender" fileName="logs/mmdb.log">
-            <PatternLayout pattern="${LOG_PATTERN}"/>
-        </File>
-    </Appenders>
-    <Loggers>
-        <Logger name="com.mmdb" level="debug" additivity="false">
-            <AppenderRef ref="ConsoleAppender" />
-        </Logger>
 
-        <Root level="info">
-            <AppenderRef ref="ConsoleAppender" />
-        </Root>
-    </Loggers>
+        <File name="MyFile" fileName="logs/mmdb.log">
+            <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </appenders>
+
+    <loggers>
+        <root level="debug">
+            <appender-ref ref="Console" level="debug"/>
+            <appender-ref ref="MyFile" level="debug"/>
+        </root>
+    </loggers>
 </Configuration>
