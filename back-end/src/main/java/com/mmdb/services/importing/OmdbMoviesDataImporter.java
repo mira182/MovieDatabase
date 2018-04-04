@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.mmdb.dao.MovieRepository;
 import com.mmdb.dao.TvShowRepository;
 import com.mmdb.model.deserializers.OMDBMovieDeserializer;
+import com.mmdb.model.deserializers.OMDBTvShowDeserializer;
 import com.mmdb.model.dto.OmdbMovieDTO;
+import com.mmdb.model.dto.OmdbTvShowDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.model.entities.TvShow;
 import org.apache.logging.log4j.LogManager;
@@ -65,7 +67,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         return omdbOmdbMovieDTO;
     }
 
-    private OmdbMovieDTO getTvShowData(String title) throws IOException {
+    private OmdbTvShowDTO getTvShowData(String title) throws IOException {
         // get json tv show data
         final RestTemplate restTemplate = new RestTemplate();
         final HttpHeaders headers = new HttpHeaders();
@@ -82,9 +84,9 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         // deserialize json
         final ObjectMapper mapper = new ObjectMapper();
         SimpleModule mod = new SimpleModule();
-        mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
+        mod.addDeserializer(OmdbTvShowDTO.class, new OMDBTvShowDeserializer(OmdbTvShowDTO.class));
         mapper.registerModule(mod);
-        final OmdbMovieDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
+        final OmdbTvShowDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbTvShowDTO.class);
         logger.debug("Deserialized OMDB TV show: {}", omdbOmdbMovieDTO);
 
         return omdbOmdbMovieDTO;
@@ -106,22 +108,29 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public boolean storeOmdbMovie(OmdbMovieDTO omdbMovieDTO) {
-        logger.debug("Storing OMDB movie: {}", omdbMovieDTO);
+        logger.debug("Storing OMDB Movie: {}", omdbMovieDTO);
         final Movie storedMovie = movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        return storedMovie != null;
+    }
+
+    @Override
+    public boolean storeOmdbTvShow(OmdbTvShowDTO omdbTvShowDTO) {
+        logger.debug("Storing OMDB Tv Show: {}", omdbTvShowDTO);
+        final TvShow storedMovie = tvShowRepository.save(convertTvShowDTOtoEntity(omdbTvShowDTO));
         return storedMovie != null;
     }
 
     @Override
     public void importTvShowsData(String tvShowsTitles) {
         for (String title : stringTitlesToList(tvShowsTitles)) {
-            OmdbMovieDTO omdbOmdbMovieDTO;
+            OmdbTvShowDTO omdbTvShowDTO;
             try {
-                omdbOmdbMovieDTO = getTvShowData(title);
+                omdbTvShowDTO = getTvShowData(title);
             } catch (IOException e) {
                 logger.error("Failed to get data from OMDB about tv show {}", title, e);
                 continue;
             }
-            tvShowRepository.save(convertTvShowDTOtoEntity(omdbOmdbMovieDTO));
+            tvShowRepository.save(convertTvShowDTOtoEntity(omdbTvShowDTO));
         }
     }
 
@@ -136,19 +145,19 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         return titlesList;
     }
 
-    private Movie convertDTOtoEntity(OmdbMovieDTO omdbOmdbMovieDTO) {
+    private Movie convertDTOtoEntity(OmdbMovieDTO omdbMovieDTO) {
         final Movie movie = new Movie();
-        movie.setName(omdbOmdbMovieDTO.getName());
-        movie.setCountry(omdbOmdbMovieDTO.getCountry());
-        movie.setProduction(omdbOmdbMovieDTO.getProduction());
-        movie.setYear(omdbOmdbMovieDTO.getYear());
-        movie.setActors(omdbOmdbMovieDTO.getActors());
-        movie.setDescription(omdbOmdbMovieDTO.getDescription());
-        movie.setDirectors(omdbOmdbMovieDTO.getDirectors());
-        movie.setImdbRating(omdbOmdbMovieDTO.getImdbRating());
-        movie.setPosterUrl(omdbOmdbMovieDTO.getPosterUrl());
-        movie.setGenre(omdbOmdbMovieDTO.getGenre());
-        movie.setLength(omdbOmdbMovieDTO.getLength());
+        movie.setName(omdbMovieDTO.getName());
+        movie.setCountry(omdbMovieDTO.getCountry());
+        movie.setProduction(omdbMovieDTO.getProduction());
+        movie.setYear(omdbMovieDTO.getYear());
+        movie.setActors(omdbMovieDTO.getActors());
+        movie.setDescription(omdbMovieDTO.getDescription());
+        movie.setDirectors(omdbMovieDTO.getDirectors());
+        movie.setImdbRating(omdbMovieDTO.getImdbRating());
+        movie.setPosterUrl(omdbMovieDTO.getPosterUrl());
+        movie.setGenre(omdbMovieDTO.getGenre());
+        movie.setLength(omdbMovieDTO.getLength());
 //        try {
 //            movie.setPoster(ImageDownloader.downloadImage(omdbOmdbMovieDTO.getPosterUrl()));
 //        } catch (IOException e) {
@@ -157,25 +166,25 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         return movie;
     }
 
-    private TvShow convertTvShowDTOtoEntity(OmdbMovieDTO omdbOmdbMovieDTO) {
-        final TvShow movie = new TvShow();
-        movie.setName(omdbOmdbMovieDTO.getName());
-        movie.setCountry(omdbOmdbMovieDTO.getCountry());
-        movie.setProduction(omdbOmdbMovieDTO.getProduction());
-        movie.setYear(omdbOmdbMovieDTO.getYear());
-        movie.setActors(omdbOmdbMovieDTO.getActors());
-        movie.setDescription(omdbOmdbMovieDTO.getDescription());
-        movie.setDirectors(omdbOmdbMovieDTO.getDirectors());
-        movie.setImdbRating(omdbOmdbMovieDTO.getImdbRating());
-        movie.setPosterUrl(omdbOmdbMovieDTO.getPosterUrl());
-        movie.setGenre(omdbOmdbMovieDTO.getGenre());
-        movie.setLength(omdbOmdbMovieDTO.getLength());
+    private TvShow convertTvShowDTOtoEntity(OmdbTvShowDTO omdbTvShowDTO) {
+        final TvShow tvShow = new TvShow();
+        tvShow.setName(omdbTvShowDTO.getName());
+        tvShow.setCountry(omdbTvShowDTO.getCountry());
+        tvShow.setProduction(omdbTvShowDTO.getProduction());
+        tvShow.setYear(omdbTvShowDTO.getYear());
+        tvShow.setActors(omdbTvShowDTO.getActors());
+        tvShow.setDescription(omdbTvShowDTO.getDescription());
+        tvShow.setDirectors(omdbTvShowDTO.getDirectors());
+        tvShow.setImdbRating(omdbTvShowDTO.getImdbRating());
+        tvShow.setPosterUrl(omdbTvShowDTO.getPosterUrl());
+        tvShow.setGenre(omdbTvShowDTO.getGenre());
+        tvShow.setLength(omdbTvShowDTO.getLength());
 //        try {
 //            movie.setPoster(ImageDownloader.downloadImage(omdbOmdbMovieDTO.getPosterUrl()));
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        return movie;
+        return tvShow;
     }
 
 }

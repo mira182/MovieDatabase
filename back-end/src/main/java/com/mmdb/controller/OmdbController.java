@@ -1,6 +1,7 @@
 package com.mmdb.controller;
 
 import com.mmdb.model.dto.OmdbMovieDTO;
+import com.mmdb.model.dto.OmdbTvShowDTO;
 import com.mmdb.services.importing.MovieDataImporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,10 @@ public class OmdbController {
     @RequestMapping(value="/storeOmdbMovie", method = RequestMethod.POST)
     public boolean storeOmdbMovie(@RequestBody OmdbMovieDTO omdbMovieDTO) {
         return omdbMoviesDataImporter.storeOmdbMovie(omdbMovieDTO);
+    }
+
+    @RequestMapping(value="/storeOmdbTvShow", method = RequestMethod.POST)
+    public boolean storeOmdbTvShow(@RequestBody OmdbTvShowDTO omdbTvShowDTO) {
+        return omdbMoviesDataImporter.storeOmdbTvShow(omdbTvShowDTO);
     }
 }

@@ -11,10 +11,14 @@ export class OmdbService {
   constructor(protected httpClient: HttpClient) { }
 
   public storeOmdbMovie(movie : Movie) : Observable<boolean> {
-    return this.httpClient.post<boolean>(Urls.OMDB_STORE_URL, movie, {responseType: 'json'});
+    return this.httpClient.post<boolean>(Urls.OMDB_MOVIE_STORE_URL, movie, {responseType: 'json'});
   }
 
   public getOmdbMovie(title : string) : Observable<Movie> {
     return this.httpClient.get<Movie>(Urls.OMDB_URL.replace("%s", title), {responseType: 'json'});
+  }
+
+  public storeOmdbTvShow(movie : Movie) : Observable<boolean> {
+    return this.httpClient.post<boolean>(Urls.OMDB_TVSHOW_STORE_URL, movie, {responseType: 'json'});
   }
 }

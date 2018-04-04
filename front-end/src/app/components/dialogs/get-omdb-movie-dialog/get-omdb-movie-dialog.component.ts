@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {OmdbService} from "../../../services/omdb/omdb-service.service";
 import {Movie} from "../../../model/movie";
 import {MatSnackBar} from "@angular/material";
@@ -12,6 +12,7 @@ import {MessageSnackbarService} from "../../../services/error/error-snackbar-ser
 })
 export class GetOmdbMovieDialogComponent implements OnInit {
 
+  @Input() private title : string;
   private omdbTitle : string;
   private omdbResult : Movie;
 

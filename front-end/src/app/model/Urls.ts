@@ -5,7 +5,8 @@ export class Urls {
   public static readonly MOVIES_URL = "http://localhost:8080/movies";
 
   // OMDB
-  public static readonly OMDB_STORE_URL = "http://localhost:8080/omdb/storeOmdbMovie";
+  public static readonly OMDB_MOVIE_STORE_URL = "http://localhost:8080/omdb/storeOmdbMovie";
+  public static readonly OMDB_TVSHOW_STORE_URL = "http://localhost:8080/omdb/storeOmdbTvShow";
   public static readonly OMDB_IMPORT_MOVIES_URL = "http://localhost:8080/omdb/importMovies";
   public static OMDB_URL = "http://www.omdbapi.com/?t=%s&apikey=3534d3d7";
 

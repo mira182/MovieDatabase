@@ -1,8 +1,7 @@
 package com.mmdb.services.importing;
 
 import com.mmdb.model.dto.OmdbMovieDTO;
-
-import java.io.IOException;
+import com.mmdb.model.dto.OmdbTvShowDTO;
 
 public interface MovieDataImporter {
 
@@ -11,4 +10,6 @@ public interface MovieDataImporter {
     void importTvShowsData(String tvShowsTitles);
 
     boolean storeOmdbMovie(OmdbMovieDTO omdbMovieDTO);
+
+    boolean storeOmdbTvShow(OmdbTvShowDTO omdbMovieDTO);
 }
