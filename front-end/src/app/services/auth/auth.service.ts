@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import {Urls} from "../../model/Urls";
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
   attemptAuth(ussername: string, password: string): Observable<any> {
     const credentials = {username: ussername, password: password};
     console.log('attempAuth ::');
-    return this.http.post<any>('http://localhost:8080/token/generate-token', credentials);
+    return this.http.post<any>(Urls.GENERATE_TOKEN, credentials);
   }
 
   public isLoggedIn(): boolean {

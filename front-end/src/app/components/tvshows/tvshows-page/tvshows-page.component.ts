@@ -10,6 +10,8 @@ import {MovieService} from "../../../services/movies/movie.service";
 import {Movie} from "../../../model/movie";
 import {AddMovieDialogComponent} from "../../dialogs/add-movie-dialog/add-movie-dialog.component";
 import {Genres} from "../../../model/genres";
+import {HttpEvent, HttpEventType} from "@angular/common/http";
+import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
 
 @Component({
   selector: 'app-tvshows-page',
@@ -20,7 +22,7 @@ import {Genres} from "../../../model/genres";
 })
 export class TvshowsPageComponent implements OnInit {
 
-  private allTvShows : Array<Movie>;
+  private allTvShows = new Array<Movie>();
   private newTvShow : TvShow;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
@@ -30,7 +32,11 @@ export class TvshowsPageComponent implements OnInit {
   private showSpinner : boolean;
   private tvShowsByGenre = [];
 
-  constructor(private tvShowsService: TvShowsService, private movieUtils : MovieUtilsServiceService,  public dialog: MatDialog, private sideNavService : SidenavService) {  }
+  constructor(private tvShowsService: TvShowsService,
+              private movieUtils : MovieUtilsServiceService,
+              public dialog: MatDialog,
+              private sideNavService : SidenavService,
+              private errorSnackBarService : MessageSnackbarService) {  }
 
   ngOnInit() {
     this.showSpinner = true;
@@ -92,10 +98,19 @@ export class TvshowsPageComponent implements OnInit {
   }
 
   importTvShows() {
-    this.showSpinner = true;
-    this.tvShowsService.importTvShows();
-    this.showSpinner = false;
-    window.location.reload();
+    this.tvShowsService.importTvShows().subscribe((event : HttpEvent<any>) => {
+      switch (event.type) {
+        case HttpEventType.Sent:
+          this.showSpinner = true;
+          break;
+        case HttpEventType.Response:
+          this.showSpinner = false;
+          window.location.reload();
+          break;
+      }}, error => {
+      this.showSpinner = false;
+      this.errorSnackBarService.openMessageSnackBar(error.message);
+    });
   }
 
   deleteMovie(tvShow : TvShow) {

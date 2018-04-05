@@ -8,6 +8,7 @@ import {IndicatorRotate} from "../../animations/animations";
 import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/get-omdb-movie-dialog.component";
 import {Genres} from "../../../model/genres";
 import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-service.service";
+import {HttpEvent, HttpEventType} from "@angular/common/http";
 
 @Component({
   selector: 'app-movies-page',
@@ -18,7 +19,7 @@ import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-ser
 })
 export class MoviesPageComponent implements OnInit {
 
-  private allMovies : Array<Movie>;
+  private allMovies = new Array<Movie>();
   private newMovie : Movie;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
@@ -49,7 +50,7 @@ export class MoviesPageComponent implements OnInit {
     for (let genre of Genres.ALL_GENRES) {
       const moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
       if (moviesByGenre.length > 0) {
-        moviesByGenre.sort();
+        this.movieUtils.sortMoviesByName(this.moviesByGenre);
         this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
       }
 
@@ -80,10 +81,19 @@ export class MoviesPageComponent implements OnInit {
   }
 
   importMovies() {
-    this.showSpinner = true;
-    this.movieService.importMovies();
-    this.showSpinner = false;
-    window.location.reload();
+    this.movieService.importMovies().subscribe((event: HttpEvent<any>) => {
+      switch (event.type) {
+        case HttpEventType.Sent:
+          this.showSpinner = true;
+          break;
+        case HttpEventType.Response:
+          this.showSpinner = false;
+          window.location.reload();
+          break;
+      }
+    },(error) => {
+      this.showSpinner = false;
+    });
   }
 
   deleteMovie(movie : Movie) {

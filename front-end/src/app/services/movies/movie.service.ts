@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpParams, HttpRequest} from "@angular/common/http";
 import {Movie} from "../../model/movie";
 // import 'rxjs/add/operator/catch';
 // import 'rxjs/add/operator/do';
@@ -27,11 +27,11 @@ export class MovieService {
       });
   }
 
-  public importMovies() {
-    this.httpClient.post<any>(Urls.OMDB_IMPORT_MOVIES_URL, Urls.MOVIES_LIST, {responseType: 'json'})
-      .subscribe(data => {
-        console.log('response: ' + data);
-      });
+  public importMovies() : Observable<HttpEvent<any>> {
+    const req = new HttpRequest('POST', Urls.OMDB_IMPORT_MOVIES_URL, Urls.MOVIES_LIST, {
+      reportProgress: true
+    });
+    return this.httpClient.request(req);
   }
 
   public deleteMovie(id) {

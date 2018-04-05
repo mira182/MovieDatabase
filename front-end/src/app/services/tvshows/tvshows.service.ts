@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpEventType, HttpParams, HttpRequest} from "@angular/common/http";
 import {Urls} from "../../model/Urls";
 import {TvShow} from "../../model/tvshow";
 import {Observable} from "rxjs/Rx";
@@ -15,8 +15,11 @@ export class TvShowsService {
     return this.httpClient.get<TvShow[]>(Urls.TV_SHOWS_URL, {responseType: 'json'});
   }
 
-  importTvShows() : Observable<any> {
-    return this.httpClient.post<any>(Urls.OMDB_IMPORT_TV_SHOWS_URL, Urls.TV_SHOWS_LIST, {responseType: 'json', reportProgress: true});
+  importTvShows() {
+    const req = new HttpRequest('POST', Urls.OMDB_IMPORT_TV_SHOWS_URL, Urls.TV_SHOWS_LIST, {
+      reportProgress: true
+    });
+    return this.httpClient.request(req);
   }
 
   deleteTvShow(id) {

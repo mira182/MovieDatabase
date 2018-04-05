@@ -42,9 +42,6 @@ export class Interceptor implements HttpInterceptor {
           // The backend returned an unsuccessful response code.
           // The response body may contain clues as to what went wrong,
           console.error('Backend returned code ' + err.status +  ' body was: ' + JSON.stringify(err.error));
-          // if (err.status == 500) {
-          //   err.error = new Error("")
-          // }
 
           // is NOT login request
           if (!req.url.endsWith("generate-token")) {
@@ -59,12 +56,6 @@ export class Interceptor implements HttpInterceptor {
             return Observable.throw(err.error);
           }
         }
-
-        // ...optionally return a default fallback value so app can continue (pick one)
-        // which could be a default value
-        // return Observable.of<any>({my: "default value..."});
-        // or simply an empty observable
-        return Observable.empty<HttpEvent<any>>();
       });
   }
 

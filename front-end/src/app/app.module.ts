@@ -98,7 +98,6 @@ import { MoviesListComponent } from './components/movies/movies-list/movies-list
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent
   ],
-  // exports: [CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule],
   providers: [MovieService, MovieUtilsServiceService, TvShowsService, AuthService, AuthGuardService, TokenStorage,
     SidenavService, OmdbService, MessageSnackbarService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi : true },

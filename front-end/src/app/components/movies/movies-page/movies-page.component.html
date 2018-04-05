@@ -35,12 +35,12 @@
         </div>
       </mat-tab>
       <mat-tab label="Genre list view">
-        <div *ngIf="allMovies">
+        <div *ngIf="allMovies.length > 0">
           <app-movies-list-genre [movies]="allMovies" [moviesByGenre]="moviesByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list-genre>
         </div>
       </mat-tab>
       <mat-tab label="Plain list view">
-        <div *ngIf="allMovies">
+        <div *ngIf="allMovies.length > 0">
           <app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
         </div>
       </mat-tab>

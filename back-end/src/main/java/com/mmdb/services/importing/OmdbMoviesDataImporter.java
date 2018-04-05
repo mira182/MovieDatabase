@@ -14,9 +14,11 @@ import com.mmdb.model.entities.TvShow;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.UnknownHttpStatusCodeException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,9 +50,13 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        final ResponseEntity<String> result = restTemplate.exchange(String.format(MOVIE_TITLE_SEARCH_URL, title),
-                HttpMethod.GET, entity, String.class);
-
+        ResponseEntity<String> result;
+        try {
+            result = restTemplate.exchange(String.format(MOVIE_TITLE_SEARCH_URL, title),
+                    HttpMethod.GET, entity, String.class);
+        } catch (UnknownHttpStatusCodeException e) {
+            throw new IOException(e);
+        }
         logger.debug("Requested: {}, Result: code={}, body={}", title, result.getStatusCode(), result.getBody());
         if (result.getBody().contains("Movie not found!")) {
             throw new IOException();
@@ -102,7 +108,12 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 logger.error("Failed to get data from OMDB about movie {}", title, e);
                 continue;
             }
-            movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
+
+            try {
+                movieRepository.save(convertDTOtoEntity(omdbOmdbMovieDTO));
+            } catch (DataIntegrityViolationException e) {
+                logger.error("Movie {} already exists.", title, e);
+            }
         }
     }
 
@@ -130,7 +141,13 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 logger.error("Failed to get data from OMDB about tv show {}", title, e);
                 continue;
             }
-            tvShowRepository.save(convertTvShowDTOtoEntity(omdbTvShowDTO));
+
+            try {
+                tvShowRepository.save(convertTvShowDTOtoEntity(omdbTvShowDTO));
+            } catch (DataIntegrityViolationException e) {
+                logger.error("Movie {} already exists.", title, e);
+            }
+
         }
     }
 

@@ -15,6 +15,7 @@ public class OmdbController {
     @Autowired
     private MovieDataImporter omdbMoviesDataImporter;
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value="/importMovies", method = RequestMethod.POST)
     public void importOmdbMovies(@RequestBody String movieTitles) {
         omdbMoviesDataImporter.importMoviesData(movieTitles);
