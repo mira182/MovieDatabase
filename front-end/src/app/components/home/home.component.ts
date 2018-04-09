@@ -17,8 +17,8 @@ import {IndicatorRotate} from "../animations/animations";
 })
 
 export class HomeComponent {
-  private allMovies : Array<Movie>;
-  private allTvShows : TvShow[];
+  private allMovies = new Array<Movie>();
+  private allTvShows = new Array<TvShow>();
 
   constructor(private movieService: MovieService, private tvShowsService : TvShowsService, public dialog: MatDialog) { }
 

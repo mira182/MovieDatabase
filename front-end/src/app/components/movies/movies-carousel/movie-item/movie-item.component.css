@@ -1,0 +1,13 @@
+.zoom:hover {
+  transition: transform .3s;
+  transform: scale(1.1);
+}
+
+.move-item {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.mat-tooltip {
+  font-size: 120%;
+}

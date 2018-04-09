@@ -26,7 +26,6 @@ export class MoviesPageComponent implements OnInit {
   private moviesMenuExpanded : boolean;
   private showSpinner : boolean;
   private moviesByGenre = [];
-  value = '';
 
   constructor(private movieService: MovieService,
               private movieUtils : MovieUtilsServiceService,
@@ -44,16 +43,15 @@ export class MoviesPageComponent implements OnInit {
     });
   }
 
-
+  // TODO create pipe for sorting
   loadMoviesByGenre() {
     this.moviesByGenre = [];
     for (let genre of Genres.ALL_GENRES) {
       const moviesByGenre = this.movieUtils.filterMoviesByGenre(this.allMovies, genre);
       if (moviesByGenre.length > 0) {
-        this.movieUtils.sortMoviesByName(this.moviesByGenre);
+        this.movieUtils.sortMoviesByName(moviesByGenre);
         this.moviesByGenre.push({'genre' : genre, 'movies' : moviesByGenre});
       }
-
     }
   }
 

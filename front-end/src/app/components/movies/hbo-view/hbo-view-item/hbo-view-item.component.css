@@ -1,0 +1,11 @@
+.title {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+.zoom:hover {
+  transition: transform .3s;
+  transform: scale(1.05);
+}

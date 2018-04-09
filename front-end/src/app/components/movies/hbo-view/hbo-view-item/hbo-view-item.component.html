@@ -1,0 +1,12 @@
+<mat-card (mouseenter)='mouseenter($event)' (mouseleave)="mouseleave($event)">
+  <mat-card-title>
+    <span matTooltip="Plot: {{movie.description}}" matTooltipShowDelay="2000">
+      <a href="javascript:void(0);" (click)="toggleShowDiv()"><img mat-card-image src={{movie.posterUrl}} height="300px"></a>
+    </span>
+  </mat-card-title>
+
+  <mat-card-content class="title">
+    <strong>{{movie.name}}</strong>
+    <p>{{movie.year}} | IMDB: {{movie.imdbRating}}</p>
+  </mat-card-content>
+</mat-card>

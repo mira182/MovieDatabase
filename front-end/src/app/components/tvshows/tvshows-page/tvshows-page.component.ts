@@ -27,8 +27,6 @@ export class TvshowsPageComponent implements OnInit {
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;
   private moviesMenuExpanded : boolean;
-  private showAsCarousel : boolean = true;
-  private showAsList : boolean;
   private showSpinner : boolean;
   private tvShowsByGenre = [];
 
@@ -44,21 +42,8 @@ export class TvshowsPageComponent implements OnInit {
     this.tvShowsService.getAllTvShows().subscribe(data => {
       this.allTvShows = data;
       this.loadMoviesByGenre();
-      this.sortAllMoviesByName();
+      this.movieUtils.sortMoviesByName(this.allTvShows);
       this.showSpinner = false;
-    });
-  }
-
-  sortAllMoviesByName() {
-    this.allTvShows.sort((movie1,movie2) => {
-      if (movie1.name > movie2.name) {
-        return 1;
-      }
-
-      if (movie1.name < movie2.name) {
-        return -1;
-      }
-      return 0;
     });
   }
 
@@ -67,7 +52,7 @@ export class TvshowsPageComponent implements OnInit {
     for (let genre of Genres.ALL_GENRES) {
       let tvShowsByGenre = this.movieUtils.filterMoviesByGenre(this.allTvShows, genre);
       if (tvShowsByGenre.length > 0) {
-        tvShowsByGenre.sort();
+        this.movieUtils.sortMoviesByName(tvShowsByGenre);
         this.tvShowsByGenre.push({'genre' : genre, 'movies' : tvShowsByGenre});
       }
     }

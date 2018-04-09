@@ -1,2 +1,4 @@
  - Add statistics dialog for movies and tv shows
- - Progress of importing movies from OMDB
+ - Progress in percents of importing movies/tvshow from OMDB
+ - Paging when showing movies/tvshows ( https://github.com/feloy/ng-list-lazy-loading )
+ - Add ALL view

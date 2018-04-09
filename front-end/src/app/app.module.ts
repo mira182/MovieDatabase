@@ -36,7 +36,7 @@ import {routing} from "./app.routing";
 import {MoviesCarouselComponent} from './components/movies/movies-carousel/movies-carousel.component';
 import {ErrorComponent} from './components/error/error.component';
 import {NavBarComponent} from './components/nav-bar/nav-bar.component';
-import {MovieItemComponent} from './components/movies/movie-item/movie-item.component';
+import {MovieItemComponent} from './components/movies/movies-carousel/movie-item/movie-item.component';
 import {MovieService} from "./services/movies/movie.service";
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
@@ -59,10 +59,12 @@ import {TvShowsService} from "./services/tvshows/tvshows.service";
 import {MovieStatisticsComponent} from './components/movies/movie-statistics/movie-statistics.component';
 import { MoviesListGenreComponent } from './components/movies/movies-list-genre/movies-list-genre.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { MovieListItemComponent } from './components/movies/movie-list-item/movie-list-item.component';
+import { MovieListItemComponent } from './components/movies/movies-list/movie-list-item/movie-list-item.component';
 import { MovieGenreBarComponent } from './components/movies/movie-genre-bar/movie-genre-bar.component';
 import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.service";
 import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
+import { HboViewComponent } from './components/movies/hbo-view/hbo-view.component';
+import { HboViewItemComponent } from './components/movies/hbo-view/hbo-view-item/hbo-view-item.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { MoviesListComponent } from './components/movies/movies-list/movies-list
     MovieListItemComponent,
     MovieGenreBarComponent,
     MoviesListComponent,
+    HboViewComponent,
+    HboViewItemComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan(basePackages = {"com.social"})
 @EnableJpaRepositories
-@PropertySource("application.properties")
+@PropertySource("application-prod.properties")
 @EnableTransactionManagement
 public class SpringConfigForTests {
 

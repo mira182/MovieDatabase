@@ -3,7 +3,9 @@ mat-card {
   margin: 2em auto;
   text-align: center;
 }
-
+.signin-content {
+  padding: 60px 1rem;
+}
 .full-width {
   width: 80%;
 }

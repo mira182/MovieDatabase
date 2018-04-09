@@ -39,20 +39,20 @@
 export class Genres {
   public static ALL_GENRES = [
     "Action",
-    "Comedy",
-    "Drama",
-    "Fantasy",
     "Adventure",
-    "Horror",
-    "Sci-Fi",
-    "Crime",
-    "Thriller",
-    "Biography",
-    "Music",
     "Animation",
+    "Biography",
+    "Comedy",
+    "Crime",
     "Documentary",
+    "Drama",
     "Family",
+    "Fantasy",
+    "Horror",
+    "Music",
+    "Mystery",
+    "Sci-Fi",
     "Sport",
-    "Mystery"
+    "Thriller"
   ];
 }
