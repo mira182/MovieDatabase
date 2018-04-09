@@ -21,18 +21,16 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownHttpStatusCodeException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @Service
 public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     private static final Logger logger = LogManager.getLogger(OmdbMoviesDataImporter.class);
 
-    private static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&apikey=3534d3d7";
-    private static final String TVSHOWS_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&type=series&apikey=3534d3d7";
+    private static final String OMDB_API_KEY = "3534d3d7";
+    private static final String MOVIE_TITLE_SEARCH_URL = "http://www.omdbapi.com/";
+//    private static final String TVSHOWS_TITLE_SEARCH_URL = "http://www.omdbapi.com/?t=%s&type=series&apikey=3534d3d7";
 
     private final MovieRepository movieRepository;
 
@@ -47,13 +45,19 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     private OmdbMovieDTO getMovieData(String title) throws IOException {
         // get json movie data
         final RestTemplate restTemplate = new RestTemplate();
+
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
         final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        final Map<String, String> params = new HashMap<>();
+        params.put("t", title);
+        params.put("apikey", OMDB_API_KEY);
+
         ResponseEntity<String> result;
         try {
-            result = restTemplate.exchange(String.format(MOVIE_TITLE_SEARCH_URL, title),
-                    HttpMethod.GET, entity, String.class);
+            result = restTemplate.exchange(MOVIE_TITLE_SEARCH_URL, HttpMethod.GET, entity, String.class, params);
         } catch (UnknownHttpStatusCodeException e) {
             throw new IOException(e);
         }
@@ -75,12 +79,24 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     private OmdbTvShowDTO getTvShowData(String title) throws IOException {
         // get json tv show data
+
         final RestTemplate restTemplate = new RestTemplate();
+
         final HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
         final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        final ResponseEntity<String> result = restTemplate.exchange(String.format(TVSHOWS_TITLE_SEARCH_URL, title),
-                HttpMethod.GET, entity, String.class);
+        final Map<String, String> params = new HashMap<>();
+        params.put("t", title);
+        params.put("type", "series");
+        params.put("apikey", OMDB_API_KEY);
+
+        ResponseEntity<String> result;
+        try {
+                result = restTemplate.exchange(MOVIE_TITLE_SEARCH_URL, HttpMethod.GET, entity, String.class, params);
+        } catch (UnknownHttpStatusCodeException e) {
+            throw new IOException(e);
+        }
 
         logger.debug("Requested: {}, Result: code={}, body={}", title, result.getStatusCode(), result.getBody());
         if (result.getBody().contains("Series not found!")) {
