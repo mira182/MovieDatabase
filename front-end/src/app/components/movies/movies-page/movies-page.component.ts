@@ -9,6 +9,9 @@ import {GetOmdbMovieDialogComponent} from "../../dialogs/get-omdb-movie-dialog/g
 import {Genres} from "../../../model/genres";
 import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-service.service";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
+import {OmdbService} from "../../../services/omdb/omdb-service.service";
+import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
+import {Urls} from "../../../model/Urls";
 
 @Component({
   selector: 'app-movies-page',
@@ -30,7 +33,9 @@ export class MoviesPageComponent implements OnInit {
   constructor(private movieService: MovieService,
               private movieUtils : MovieUtilsServiceService,
               public dialog: MatDialog,
-              private sideNavService : SidenavService) {  }
+              private sideNavService : SidenavService,
+              private omdbService : OmdbService,
+              private messageSnackBarService : MessageSnackbarService) {  }
 
   ngOnInit() {
     this.showSpinner = true;
@@ -91,6 +96,16 @@ export class MoviesPageComponent implements OnInit {
       }
     },(error) => {
       this.showSpinner = false;
+    });
+  }
+
+  importMoviesFrontEnd() {
+    this.omdbService.getOmdbMovies(Urls.MOVIES_LIST.split(',')).subscribe(movies => {
+      console.log('getting movies on movies page');
+      console.log(movies);
+      movies.forEach(movie => {
+        this.omdbService.storeOmdbMovie(movie).subscribe();
+      });
     });
   }
 

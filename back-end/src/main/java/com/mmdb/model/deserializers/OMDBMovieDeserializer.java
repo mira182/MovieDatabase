@@ -2,17 +2,18 @@ package com.mmdb.model.deserializers;
 
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.mmdb.model.dto.OmdbMovieDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class OMDBMovieDeserializer extends StdDeserializer<OmdbMovieDTO> {
+
+    private static final Logger logger = LogManager.getLogger(OMDBMovieDeserializer.class);
 
     private static final String MISSING_VALUE = "N/A";
 
@@ -99,6 +100,9 @@ public class OMDBMovieDeserializer extends StdDeserializer<OmdbMovieDTO> {
             }
         }
 
-        return new OmdbMovieDTO(name, year, description, imdbRating, length, actors, directors, country, poster, production, genre);
+        OmdbMovieDTO movie = new OmdbMovieDTO(name, year, description, imdbRating, length, actors, directors, country, poster, production, genre);
+
+        logger.debug("Movie from deserializer: {}", movie);
+        return movie;
     }
 }

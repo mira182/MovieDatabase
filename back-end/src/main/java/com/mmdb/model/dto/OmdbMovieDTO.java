@@ -1,5 +1,6 @@
 package com.mmdb.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,6 +19,7 @@ import javax.persistence.Lob;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 @JsonDeserialize(using = OMDBMovieDeserializer.class)
+@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 public class OmdbMovieDTO {
 
     public OmdbMovieDTO() {

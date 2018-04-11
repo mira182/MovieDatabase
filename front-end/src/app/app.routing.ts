@@ -7,8 +7,8 @@ import {TvshowsPageComponent} from "./components/tvshows/tvshows-page/tvshows-pa
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent }, // canActivate: [AuthGuardService]
-  { path: 'movies', component: MoviesPageComponent, }, // canActivate: [AuthGuardService]
-  { path: 'tvshows', component: TvshowsPageComponent, canActivate: [AuthGuardService]}, // canActivate: [AuthGuardService]
+  { path: 'movies', component: MoviesPageComponent }, // canActivate: [AuthGuardService]
+  { path: 'tvshows', component: TvshowsPageComponent }, // canActivate: [AuthGuardService]
   { path: 'login', component: LoginComponent },
 
   // otherwise redirect to profile

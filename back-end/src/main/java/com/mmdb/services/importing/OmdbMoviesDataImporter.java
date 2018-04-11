@@ -8,6 +8,7 @@ import com.mmdb.dao.TvShowRepository;
 import com.mmdb.model.deserializers.OMDBMovieDeserializer;
 import com.mmdb.model.deserializers.OMDBTvShowDeserializer;
 import com.mmdb.model.dto.OmdbMovieDTO;
+import com.mmdb.model.dto.OmdbMoviesDTO;
 import com.mmdb.model.dto.OmdbTvShowDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.model.entities.TvShow;
@@ -19,8 +20,10 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownHttpStatusCodeException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.*;
 
 @Service
@@ -55,15 +58,24 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         params.put("t", title);
         params.put("apikey", OMDB_API_KEY);
 
+        final UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString(MOVIE_TITLE_SEARCH_URL)
+                .queryParam("t", title.trim())
+                .queryParam("type", "movie")
+                .queryParam("apikey", OMDB_API_KEY);
+
+        String url = URLDecoder.decode(builder.toUriString(), "UTF-8");
+        logger.error("URL: " + url);
+
         ResponseEntity<String> result;
         try {
-            result = restTemplate.exchange(MOVIE_TITLE_SEARCH_URL, HttpMethod.GET, entity, String.class, params);
+            result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         } catch (UnknownHttpStatusCodeException e) {
             throw new IOException(e);
         }
         logger.debug("Requested: {}, Result: code={}, body={}", title, result.getStatusCode(), result.getBody());
         if (result.getBody().contains("Movie not found!")) {
-            throw new IOException();
+            throw new IOException("Movie not found!");
         }
 
         // deserialize json
@@ -86,21 +98,24 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
         final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-        final Map<String, String> params = new HashMap<>();
-        params.put("t", title);
-        params.put("type", "series");
-        params.put("apikey", OMDB_API_KEY);
+        final UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString(MOVIE_TITLE_SEARCH_URL)
+                .queryParam("t", title.trim())
+                .queryParam("type", "series")
+                .queryParam("apikey", OMDB_API_KEY);
 
+        String url = URLDecoder.decode(builder.toUriString(), "UTF-8");
+        logger.error("URL: " + url);
         ResponseEntity<String> result;
         try {
-                result = restTemplate.exchange(MOVIE_TITLE_SEARCH_URL, HttpMethod.GET, entity, String.class, params);
+                result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         } catch (UnknownHttpStatusCodeException e) {
             throw new IOException(e);
         }
 
         logger.debug("Requested: {}, Result: code={}, body={}", title, result.getStatusCode(), result.getBody());
         if (result.getBody().contains("Series not found!")) {
-            throw new IOException();
+            throw new IOException("Movie not found!");
         }
 
         // deserialize json
@@ -136,6 +151,8 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     @Override
     public boolean storeOmdbMovie(OmdbMovieDTO omdbMovieDTO) {
         logger.debug("Storing OMDB Movie: {}", omdbMovieDTO);
+        // TODO return type refactor
+        if (omdbMovieDTO.getName() == null) return false;
         final Movie storedMovie = movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
         return storedMovie != null;
     }
@@ -145,6 +162,16 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         logger.debug("Storing OMDB Tv Show: {}", omdbTvShowDTO);
         final TvShow storedMovie = tvShowRepository.save(convertTvShowDTOtoEntity(omdbTvShowDTO));
         return storedMovie != null;
+    }
+
+    @Override
+    public boolean storeOmdbMovies(OmdbMoviesDTO omdbMoviesDTO) {
+        logger.debug("String OMDB movies: {}", omdbMoviesDTO);
+        for (OmdbMovieDTO omdbMovieDTO : omdbMoviesDTO.getOmdbMovies()) {
+            if (omdbMovieDTO.getName() == null) continue;
+            movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+        }
+        return true;
     }
 
     @Override

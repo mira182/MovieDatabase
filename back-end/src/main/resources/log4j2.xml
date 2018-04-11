@@ -11,6 +11,30 @@
     </appenders>
 
     <loggers>
+        <!-- Log everything in custom package -->
+        <Logger name="com.mmdb" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="MyFile" />
+        </Logger>
+
+        <!-- Log everything in Spring Boot -->
+        <Logger name="org.springframework.boot" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="MyFile" />
+        </Logger>
+
+        <!-- Log everything in Spring Core -->
+        <Logger name="org.springframework.core" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="MyFile" />
+        </Logger>
+
+        <!-- Log everything in Jackson packages -->
+        <Logger name="com.fasterxml.jackson" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="MyFile" />
+        </Logger>
+
         <root level="debug">
             <appender-ref ref="Console" level="debug"/>
             <appender-ref ref="MyFile" level="debug"/>

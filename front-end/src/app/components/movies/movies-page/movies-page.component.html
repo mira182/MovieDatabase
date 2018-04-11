@@ -10,6 +10,7 @@
       <mat-nav-list *ngIf="omdbMenuExpanded">
         <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get movie</a>
         <a mat-list-item class="nested-list-item" (click)="importMovies()">Import movies</a>
+        <a mat-list-item class="nested-list-item" (click)="importMoviesFrontEnd()">Import movies on front-end</a>
       </mat-nav-list>
 
       <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded">Movies<mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
