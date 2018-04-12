@@ -1,5 +1,9 @@
-<div class="loading-indicator">
-  <mat-spinner *ngIf="showSpinner" style="margin:0 auto;"></mat-spinner>
+<div class="loading-indicator" *ngIf="showSpinner">
+  <mat-spinner style="margin:0 auto;"></mat-spinner>
+</div>
+
+<div *ngIf="showProgress">
+  <mat-progress-bar mode="determinate" [value]="importingProgress"></mat-progress-bar>
 </div>
 
 <mat-sidenav-container class="example-container">
@@ -10,7 +14,7 @@
       <mat-nav-list *ngIf="omdbMenuExpanded">
         <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get movie</a>
         <a mat-list-item class="nested-list-item" (click)="importMovies()">Import movies</a>
-        <a mat-list-item class="nested-list-item" (click)="importMoviesFrontEnd()">Import movies on front-end</a>
+        <a mat-list-item class="nested-list-item" (click)="openImportMoviesDialog()">Import movies on front-end</a>
       </mat-nav-list>
 
       <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded">Movies<mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>

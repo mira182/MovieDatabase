@@ -2,3 +2,4 @@
  - Progress in percents of importing movies/tvshow from OMDB
  - Paging when showing movies/tvshows ( https://github.com/feloy/ng-list-lazy-loading )
  - Add ALL view
+ - Lazy viewing for lists

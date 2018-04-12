@@ -3,9 +3,7 @@ package com.mmdb.controller;
 import com.mmdb.model.dto.OmdbMovieDTO;
 import com.mmdb.model.dto.OmdbMoviesDTO;
 import com.mmdb.model.dto.OmdbTvShowDTO;
-import com.mmdb.model.dto.TestDTO;
 import com.mmdb.services.importing.MovieDataImporter;
-import com.mmdb.services.importing.OmdbMoviesDataImporter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +42,7 @@ public class OmdbController {
 
     @RequestMapping(value="/storeOmdbMovies", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean storeOmdbMovies(@RequestBody List<OmdbMovieDTO> movies) {
-        logger.debug("Storing list of movies {}", movies);
-//        for (OmdbMovieDTO movie : omdbMoviesDTO.getOmdbMovies()) {
-//            omdbMoviesDataImporter.storeOmdbMovie(movie);
-//        }
-
-        return true;
+        return omdbMoviesDataImporter.storeOmdbMovies(movies);
     }
 
     @RequestMapping(value="/storeOmdbTvShow", method = RequestMethod.POST)

@@ -12,6 +12,8 @@ import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {OmdbService} from "../../../services/omdb/omdb-service.service";
 import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
 import {Urls} from "../../../model/Urls";
+import {Observable} from "rxjs/Rx";
+import {MoviesToImportDialogComponent} from "../../dialogs/movies-to-import-dialog/movies-to-import-dialog.component";
 
 @Component({
   selector: 'app-movies-page',
@@ -28,7 +30,10 @@ export class MoviesPageComponent implements OnInit {
   private omdbMenuExpanded : boolean;
   private moviesMenuExpanded : boolean;
   private showSpinner : boolean;
+  private showProgress : boolean;
   private moviesByGenre = [];
+  private importingProgress = 0;
+  private importTitles : string;
 
   constructor(private movieService: MovieService,
               private movieUtils : MovieUtilsServiceService,
@@ -83,6 +88,22 @@ export class MoviesPageComponent implements OnInit {
     });
   }
 
+  openImportMoviesDialog() {
+    //noinspection TypeScriptUnresolvedFunction
+    let dialogRef = this.dialog.open(MoviesToImportDialogComponent, {
+      height: 'auto',
+      width: '500px',
+      data : {titles: this.importTitles}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.importTitles = result;
+      if (this.importTitles) {
+        this.importMoviesFrontEnd(this.importTitles);
+      }
+    });
+  }
+
   importMovies() {
     this.movieService.importMovies().subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
@@ -99,13 +120,39 @@ export class MoviesPageComponent implements OnInit {
     });
   }
 
-  importMoviesFrontEnd() {
-    this.omdbService.getOmdbMovies(Urls.MOVIES_LIST.split(',')).subscribe(movies => {
-      console.log('getting movies on movies page');
-      console.log(movies);
-      movies.forEach(movie => {
-        this.omdbService.storeOmdbMovie(movie).subscribe();
+  importMoviesFrontEnd(titles : string) {
+    let failedMovies = [];
+    let omdbMovieList = titles.split(',').map((title, index) => {
+      return this.omdbService.getOmdbMovie(title.trim())
+        .map(movie => movie as Movie)
+        .catch((error: any) => {
+          console.error('Error loading movies from OMDB: ' + title, 'Error: ', error);
+          this.importingProgress++;
+          failedMovies.push(title);
+          return Observable.of(null); // In case error occurs, we need to return Observable, so the stream can continue
+        });
+    });
+
+    Observable.forkJoin(omdbMovieList).subscribe(omdbMovies => {
+      // remove null values
+      let movies = omdbMovies.filter(movie => movie != null);
+      this.omdbService.storeOmdbMovies(movies).subscribe(event => {
+        if (event.type === HttpEventType.Sent) {
+          this.showProgress = true;
+        }
+        if (event.type === HttpEventType.Response) {
+          this.showProgress = false;
+          this.messageSnackBarService.openMessageSnackBar('All movies were imported.');
+          // window.location.reload();
+        }
+      }, error => {
+        this.showProgress = false;
+        this.messageSnackBarService.openMessageSnackBar(error.message);
       });
+    }, error => {
+      this.messageSnackBarService.openMessageSnackBar(error.message);
+    }, () => {
+      console.log('something is done');
     });
   }
 

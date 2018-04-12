@@ -18,8 +18,7 @@ import javax.persistence.Lob;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
-@JsonDeserialize(using = OMDBMovieDeserializer.class)
-@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+//@JsonDeserialize(using = OMDBMovieDeserializer.class)
 public class OmdbMovieDTO {
 
     public OmdbMovieDTO() {
@@ -35,11 +34,11 @@ public class OmdbMovieDTO {
     private String description;
 
     @JsonProperty("imdbRating")
-//    @JsonDeserialize(using = ImdbRatingDeserializer.class, as = Double.class)
+    @JsonDeserialize(using = ImdbRatingDeserializer.class, as = Double.class)
     private Double imdbRating;
 
     @JsonProperty("Runtime")
-//    @JsonDeserialize(using = LengthDeserializer.class, as = Integer.class)
+    @JsonDeserialize(using = LengthDeserializer.class, as = Integer.class)
     private Integer length;
 
     @JsonProperty("Actors")

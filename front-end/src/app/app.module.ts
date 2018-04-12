@@ -24,7 +24,8 @@ import {
   MatTableModule, MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressBarModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -65,6 +66,7 @@ import {MovieUtilsServiceService} from "./services/movies/movie-utils-service.se
 import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
 import { HboViewComponent } from './components/movies/hbo-view/hbo-view.component';
 import { HboViewItemComponent } from './components/movies/hbo-view/hbo-view-item/hbo-view-item.component';
+import { MoviesToImportDialogComponent } from './components/dialogs/movies-to-import-dialog/movies-to-import-dialog.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,7 @@ import { HboViewItemComponent } from './components/movies/hbo-view/hbo-view-item
     MoviesListComponent,
     HboViewComponent,
     HboViewItemComponent,
+    MoviesToImportDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -97,10 +100,10 @@ import { HboViewItemComponent } from './components/movies/hbo-view/hbo-view-item
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
-    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule
+    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule, MatProgressBarModule
   ],
   entryComponents: [
-    AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent
+    AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent, MoviesToImportDialogComponent
   ],
   providers: [MovieService, MovieUtilsServiceService, TvShowsService, AuthService, AuthGuardService, TokenStorage,
     SidenavService, OmdbService, MessageSnackbarService,

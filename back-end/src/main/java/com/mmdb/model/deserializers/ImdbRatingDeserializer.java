@@ -17,8 +17,12 @@ public class ImdbRatingDeserializer extends JsonDeserializer<Double> {
     public Double deserialize(JsonParser jp, DeserializationContext ctxt)
             throws IOException {
 
-        if (jp.getCurrentName().equals(IMDB_RATING_NAME) && jp.getText().equals(MISSING_VALUE)) {
-            return null;
+        if (jp.getCurrentName().equals(IMDB_RATING_NAME)) {
+            try {
+                return Double.parseDouble(jp.getText());
+            } catch (NumberFormatException e) {
+                return null;
+            }
         } else {
             return Double.parseDouble(jp.getText());
         }

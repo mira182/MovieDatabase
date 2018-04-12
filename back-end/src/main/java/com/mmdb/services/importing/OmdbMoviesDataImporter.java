@@ -81,7 +81,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         // deserialize json
         final ObjectMapper mapper = new ObjectMapper();
         SimpleModule mod = new SimpleModule();
-        mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer(OmdbMovieDTO.class));
+        mod.addDeserializer(OmdbMovieDTO.class, new OMDBMovieDeserializer());
         mapper.registerModule(mod);
         final OmdbMovieDTO omdbOmdbMovieDTO = mapper.readValue(result.getBody(), OmdbMovieDTO.class);
         logger.debug("Deserialized OMDB movie: {}", omdbOmdbMovieDTO);
@@ -165,11 +165,15 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
     }
 
     @Override
-    public boolean storeOmdbMovies(OmdbMoviesDTO omdbMoviesDTO) {
+    public boolean storeOmdbMovies(List<OmdbMovieDTO> omdbMoviesDTO) {
         logger.debug("String OMDB movies: {}", omdbMoviesDTO);
-        for (OmdbMovieDTO omdbMovieDTO : omdbMoviesDTO.getOmdbMovies()) {
+        for (OmdbMovieDTO omdbMovieDTO : omdbMoviesDTO) {
             if (omdbMovieDTO.getName() == null) continue;
-            movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+            try {
+                movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
+            } catch (DataIntegrityViolationException e) {
+                logger.error("Failed to store movie {} because it is already in DB.", omdbMovieDTO.getName());
+            }
         }
         return true;
     }

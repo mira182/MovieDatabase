@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class OmdbMoviesDTO {
-
-    private List<OmdbMovieDTO> omdbMovies;
+public class OmdbMoviesDTO extends ArrayList<OmdbMovieDTO> {
 
     public OmdbMoviesDTO() {
         super();

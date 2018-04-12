@@ -17,5 +17,5 @@ public interface MovieDataImporter {
 
     boolean storeOmdbTvShow(OmdbTvShowDTO omdbMovieDTO);
 
-    boolean storeOmdbMovies(OmdbMoviesDTO omdbMoviesDTO);
+    boolean storeOmdbMovies(List<OmdbMovieDTO> omdbMoviesDTO);
 }

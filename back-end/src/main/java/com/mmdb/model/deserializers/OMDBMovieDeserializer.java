@@ -4,6 +4,7 @@ package com.mmdb.model.deserializers;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.mmdb.model.dto.OmdbMovieDTO;
 import org.apache.logging.log4j.LogManager;
@@ -11,19 +12,19 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-public class OMDBMovieDeserializer extends StdDeserializer<OmdbMovieDTO> {
+public class OMDBMovieDeserializer extends JsonDeserializer<OmdbMovieDTO> {
 
     private static final Logger logger = LogManager.getLogger(OMDBMovieDeserializer.class);
 
     private static final String MISSING_VALUE = "N/A";
 
     public OMDBMovieDeserializer() {
-        super(OmdbMovieDTO.class);
+        super();
     }
 
-    public OMDBMovieDeserializer(Class<OmdbMovieDTO> t) {
-        super(t);
-    }
+//    public OMDBMovieDeserializer(Class<OmdbMovieDTO> t) {
+//        super(t);
+//    }
 
     @Override
     public OmdbMovieDTO deserialize(JsonParser jp, DeserializationContext dc) throws IOException {
