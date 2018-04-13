@@ -8,17 +8,19 @@
   <!-- This fills the remaining space of the current row -->
   <span class="example-fill-remaining-space"></span>
 
-    <form>
-    <mat-form-field color="accent">
+  <form class="search-input">
+    <mat-form-field color="accent" class="full-width">
       <input type="text" placeholder="search title" aria-label="Number" matInput [formControl]="searchTerm" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let item of searchResult" [value]="item">
-          {{ item }}
+          <span matTooltip="{{item.name}}" matTooltipShowDelay="1500">{{ item.name }} |
+            <app-imdb-rating [imdbRating]="item.imdbRating"></app-imdb-rating>
+          </span>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  <mat-icon>search</mat-icon>
-    </form>
+    <mat-icon>search</mat-icon>
+  </form>
 
   <button mat-button routerLink="/login" routerLinkActive="active" (click)="logOut()"><mat-icon>power</mat-icon><span>Logout</span></button>
 </mat-toolbar>

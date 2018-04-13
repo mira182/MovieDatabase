@@ -48,10 +48,10 @@ export class NavBarComponent implements OnInit {
 
             this.searchResult = [];
             for (let movie of foundMovies) {
-              this.searchResult.push(movie.name);
+              this.searchResult.push(movie);
             }
             for (let tvShow of foundTvShows) {
-              this.searchResult.push(tvShow.name);
+              this.searchResult.push(tvShow);
             }
           });
         });

@@ -6,7 +6,7 @@
   </mat-card-title>
 
   <mat-card-content class="title">
-    <strong>{{movie.name}}</strong>
-    <p>{{movie.year}} | IMDB: {{movie.imdbRating}}</p>
+    <span matTooltip="{{movie.name}}" matTooltipShowDelay="1500"><strong>{{movie.name}}</strong></span>
+    <p>{{movie.year}} | <app-imdb-rating [imdbRating]="movie.imdbRating"></app-imdb-rating></p>
   </mat-card-content>
 </mat-card>

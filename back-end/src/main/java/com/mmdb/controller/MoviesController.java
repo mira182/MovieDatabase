@@ -3,8 +3,6 @@ package com.mmdb.controller;
 import com.mmdb.model.dto.MovieDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.services.movies.MoviesServiceImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,8 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/movies", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MoviesController {
-
-    private static final Logger logger = LogManager.getLogger(MoviesController.class);
 
     @Autowired
     private MoviesServiceImpl moviesServiceImpl;

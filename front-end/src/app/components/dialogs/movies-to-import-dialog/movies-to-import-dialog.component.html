@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Import movies</h2>
+<mat-dialog-content class="full-width-input">
+  <form>
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Movies" [(ngModel)]="titles"
+                matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" name="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="titles">Save</button>
+</mat-dialog-actions>

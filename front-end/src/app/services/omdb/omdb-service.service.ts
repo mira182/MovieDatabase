@@ -4,6 +4,7 @@ import {Movie} from "../../model/movie";
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import {Urls} from "../../model/Urls";
+import {TvShow} from "../../model/tvshow";
 
 @Injectable()
 export class OmdbService {
@@ -23,7 +24,11 @@ export class OmdbService {
   }
 
   public getOmdbMovie(title : string) : Observable<Movie> {
-    return this.httpClient.get<Movie>(Urls.OMDB_URL.replace("%s", title), {responseType: 'json'}).timeout(30*1000);
+    return this.httpClient.get<Movie>(Urls.OMDB_MOVIE_GET_URL.replace("%s", title), {responseType: 'json'}).timeout(30*1000);
+  }
+
+  public getOmdbTvShow(title : string) : Observable<TvShow> {
+    return this.httpClient.get<TvShow>(Urls.OMDB_TVSHOW_GET_URL.replace("%s", title), {responseType: 'json'}).timeout(30*1000);
   }
 
   // public getOmdbMovies(titles : string[]) : Observable<Array<Movie>> {

@@ -1,11 +1,8 @@
 package com.mmdb.controller;
 
 import com.mmdb.model.dto.OmdbMovieDTO;
-import com.mmdb.model.dto.OmdbMoviesDTO;
 import com.mmdb.model.dto.OmdbTvShowDTO;
 import com.mmdb.services.importing.MovieDataImporter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,8 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/omdb")
 public class OmdbController {
-
-    private static final Logger logger = LogManager.getLogger(OmdbController.class);
 
     @Autowired
     private MovieDataImporter omdbMoviesDataImporter;
@@ -48,5 +43,10 @@ public class OmdbController {
     @RequestMapping(value="/storeOmdbTvShow", method = RequestMethod.POST)
     public boolean storeOmdbTvShow(@RequestBody OmdbTvShowDTO omdbTvShowDTO) {
         return omdbMoviesDataImporter.storeOmdbTvShow(omdbTvShowDTO);
+    }
+
+    @RequestMapping(value="/storeOmdbTvShows", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean storeOmdbTvShows(@RequestBody List<OmdbTvShowDTO> tvShows) {
+        return omdbMoviesDataImporter.storeOmdbTvShows(tvShows);
     }
 }

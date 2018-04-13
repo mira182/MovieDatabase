@@ -12,6 +12,8 @@ import {AddMovieDialogComponent} from "../../dialogs/add-movie-dialog/add-movie-
 import {Genres} from "../../../model/genres";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
+import {Observable} from "rxjs/Rx";
+import {OmdbService} from "../../../services/omdb/omdb-service.service";
 
 @Component({
   selector: 'app-tvshows-page',
@@ -34,7 +36,9 @@ export class TvshowsPageComponent implements OnInit {
               private movieUtils : MovieUtilsServiceService,
               public dialog: MatDialog,
               private sideNavService : SidenavService,
-              private errorSnackBarService : MessageSnackbarService) {  }
+              private errorSnackBarService : MessageSnackbarService,
+              private omdbService : OmdbService,
+              private messageSnackBarService : MessageSnackbarService) {  }
 
   ngOnInit() {
     this.showSpinner = true;
@@ -95,6 +99,36 @@ export class TvshowsPageComponent implements OnInit {
       }}, error => {
       this.showSpinner = false;
       this.errorSnackBarService.openMessageSnackBar(error.message);
+    });
+  }
+
+  importTvShowsFrontEnd(titles : string) {
+    let omdbMovieList = titles.split(',').map((title, index) => {
+      return this.omdbService.getOmdbTvShow(title.trim())
+        .map(tvshow => tvshow as TvShow)
+        .catch((error: any) => {
+          console.error('Error loading movies from OMDB: ' + title, 'Error: ', error);
+          return Observable.of(null); // In case error occurs, we need to return Observable, so the stream can continue
+        });
+    });
+
+    Observable.forkJoin(omdbMovieList).subscribe(omdbTvShows => {
+      // remove null values
+      let tvShows = omdbTvShows.filter(tvShow => tvShow != null);
+      this.omdbService.storeOmdbMovies(tvShows).subscribe(event => {
+        if (event.type === HttpEventType.Sent) {
+        }
+        if (event.type === HttpEventType.Response) {
+          this.messageSnackBarService.openMessageSnackBar('All tv shows were imported.');
+          // window.location.reload();
+        }
+      }, error => {
+        this.messageSnackBarService.openMessageSnackBar(error.message);
+      });
+    }, error => {
+      this.messageSnackBarService.openMessageSnackBar(error.message);
+    }, () => {
+      console.log('something is done');
     });
   }
 

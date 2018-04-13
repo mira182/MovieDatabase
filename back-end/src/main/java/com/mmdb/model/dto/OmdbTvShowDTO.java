@@ -3,6 +3,8 @@ package com.mmdb.model.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.mmdb.model.deserializers.ImdbRatingDeserializer;
+import com.mmdb.model.deserializers.LengthDeserializer;
 import com.mmdb.model.deserializers.OMDBMovieDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
-@JsonDeserialize(using = OMDBMovieDeserializer.class)
+//@JsonDeserialize(using = OMDBMovieDeserializer.class)
 public class OmdbTvShowDTO {
 
     public OmdbTvShowDTO() {
@@ -26,11 +28,11 @@ public class OmdbTvShowDTO {
     private String description;
 
     @JsonProperty("imdbRating")
-//    @JsonDeserialize(using = ImdbRatingDeserializer.class, as = Double.class)
+    @JsonDeserialize(using = ImdbRatingDeserializer.class, as = Double.class)
     private Double imdbRating;
 
     @JsonProperty("Runtime")
-//    @JsonDeserialize(using = LengthDeserializer.class, as = Integer.class)
+    @JsonDeserialize(using = LengthDeserializer.class, as = Integer.class)
     private Integer length;
 
     @JsonProperty("Actors")

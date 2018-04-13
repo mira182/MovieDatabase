@@ -8,7 +8,6 @@ import com.mmdb.dao.TvShowRepository;
 import com.mmdb.model.deserializers.OMDBMovieDeserializer;
 import com.mmdb.model.deserializers.OMDBTvShowDeserializer;
 import com.mmdb.model.dto.OmdbMovieDTO;
-import com.mmdb.model.dto.OmdbMoviesDTO;
 import com.mmdb.model.dto.OmdbTvShowDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.model.entities.TvShow;
@@ -173,6 +172,20 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
                 movieRepository.save(convertDTOtoEntity(omdbMovieDTO));
             } catch (DataIntegrityViolationException e) {
                 logger.error("Failed to store movie {} because it is already in DB.", omdbMovieDTO.getName());
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean storeOmdbTvShows(List<OmdbTvShowDTO> tvShows) {
+        logger.debug("String OMDB tv shows: {}", tvShows);
+        for (OmdbTvShowDTO omdbTvShowDTO : tvShows) {
+            if (omdbTvShowDTO.getName() == null) continue;
+            try {
+                tvShowRepository.save(convertTvShowDTOtoEntity(omdbTvShowDTO));
+            } catch (DataIntegrityViolationException e) {
+                logger.error("Failed to store movie {} because it is already in DB.", omdbTvShowDTO.getName());
             }
         }
         return true;

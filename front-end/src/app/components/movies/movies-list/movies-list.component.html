@@ -12,6 +12,13 @@
     </mat-card-content>
   </mat-card>
 
+  <!--<virtual-scroll [items]="buffer" (update)="movies = $event" (change)="onListChange($event)">-->
+    <!--<div *ngIf="movies.length > 0">-->
+      <!--<app-movie-list-item *ngFor="let movie of movies" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>-->
+    <!--</div>-->
+    <!--<div *ngIf="loading" class="loader">Loading...</div>-->
+  <!--</virtual-scroll>-->
+
   <mat-list class="movie-list-settings">
       <div *ngIf="movies.length > 0">
         <app-movie-list-item *ngFor="let movie of movies" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>

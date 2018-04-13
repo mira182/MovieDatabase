@@ -13,23 +13,23 @@
   </mat-card-header>
   <mat-card-content *ngIf="expanded" [@slideInOut]="animationState">
     <h2 style="padding-top: 20px;">{{movie.name}}</h2>
-    <h3>Year:</h3>
+    <h4>Year:</h4>
     <p>{{movie.year}}</p>
-    <h3>Length:</h3>
-    <p>{{movie.length}}</p>
-    <h3>IMDB rating:</h3>
+    <h4>Length:</h4>
+    <p>{{movie.length | movieLength}}</p>
+    <h4>IMDB rating:</h4>
     <p>{{movie.imdbRating}}</p>
-    <h3>Director:</h3>
+    <h4>Director:</h4>
     <p>{{movie.directors}}</p>
-    <h3>Actors:</h3>
+    <h4>Actors:</h4>
     <p>{{movie.actors}}</p>
-    <h3>Country:</h3>
+    <h4>Country:</h4>
     <p>{{movie.country}}</p>
-    <h3>Production:</h3>
+    <h4>Production:</h4>
     <p>{{movie.production}}</p>
-    <h3>Genre:</h3>
+    <h4>Genre:</h4>
     <p>{{movie.genre}}</p>
-    <h3>Description:</h3>
+    <h4>Description:</h4>
     <p>{{movie.description}}</p>
   </mat-card-content>
 

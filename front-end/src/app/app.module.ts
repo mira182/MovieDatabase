@@ -67,6 +67,9 @@ import { MoviesListComponent } from './components/movies/movies-list/movies-list
 import { HboViewComponent } from './components/movies/hbo-view/hbo-view.component';
 import { HboViewItemComponent } from './components/movies/hbo-view/hbo-view-item/hbo-view-item.component';
 import { MoviesToImportDialogComponent } from './components/dialogs/movies-to-import-dialog/movies-to-import-dialog.component';
+import {VirtualScrollModule} from "angular2-virtual-scroll";
+import { MovieLengthPipe } from './components/pipes/movie-length.pipe';
+import { ImdbRatingComponent } from './components/movies/imdb-rating/imdb-rating.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +95,8 @@ import { MoviesToImportDialogComponent } from './components/dialogs/movies-to-im
     HboViewComponent,
     HboViewItemComponent,
     MoviesToImportDialogComponent,
+    MovieLengthPipe,
+    ImdbRatingComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -100,7 +105,7 @@ import { MoviesToImportDialogComponent } from './components/dialogs/movies-to-im
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
-    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule, MatProgressBarModule
+    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule, MatProgressBarModule, VirtualScrollModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent, MoviesToImportDialogComponent
