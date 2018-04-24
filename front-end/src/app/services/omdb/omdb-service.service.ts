@@ -23,6 +23,14 @@ export class OmdbService {
     return this.httpClient.request(request);
   }
 
+  public storeOmdbTvShows(tvShows : Array<TvShow>) : Observable<HttpEvent<any>> {
+    const request = new HttpRequest('POST', Urls.OMDB_TVSHOWS_STORE_URL,  tvShows, {
+      reportProgress: true
+    });
+
+    return this.httpClient.request(request);
+  }
+
   public getOmdbMovie(title : string) : Observable<Movie> {
     return this.httpClient.get<Movie>(Urls.OMDB_MOVIE_GET_URL.replace("%s", title), {responseType: 'json'}).timeout(30*1000);
   }
@@ -30,10 +38,6 @@ export class OmdbService {
   public getOmdbTvShow(title : string) : Observable<TvShow> {
     return this.httpClient.get<TvShow>(Urls.OMDB_TVSHOW_GET_URL.replace("%s", title), {responseType: 'json'}).timeout(30*1000);
   }
-
-  // public getOmdbMovies(titles : string[]) : Observable<Array<Movie>> {
-  //
-  // }
 
   public storeOmdbTvShow(movie : Movie) : Observable<boolean> {
     return this.httpClient.post<boolean>(Urls.OMDB_TVSHOW_STORE_URL, movie, {responseType: 'json'});

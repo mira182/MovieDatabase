@@ -20,6 +20,10 @@ export class MovieService {
       return this.httpClient.get<Movie[]>(Urls.MOVIES_URL, {responseType: 'json'});
   }
 
+  public getMovie(id : number) : Observable<Movie> {
+    return this.httpClient.get<Movie>(Urls.MOVIES_URL + "/" + id, {responseType: 'json'});
+  }
+
   public addMovie(movie : Movie) {
     this.httpClient.post<Movie>(Urls.MOVIES_URL, JSON.stringify(movie), {responseType: 'json'})
       .subscribe(data => {

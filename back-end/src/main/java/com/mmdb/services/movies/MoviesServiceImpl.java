@@ -43,6 +43,25 @@ public class MoviesServiceImpl implements MovieService {
     }
 
     @Override
+    public MovieDTO getMovie(Long id) {
+        final Movie foundMovie = movieRepository.getOne(id);
+        return new MovieDTOBuilder()
+                .setName(foundMovie.getName())
+                .setActors(foundMovie.getActors())
+                .setCountry(foundMovie.getCountry())
+                .setDescription(foundMovie.getDescription())
+                .setDirectors(foundMovie.getDirectors())
+                .setGenre(foundMovie.getGenre())
+                .setImdbRating(foundMovie.getImdbRating())
+                .setLength(foundMovie.getLength())
+                .setPosterUrl(foundMovie.getPosterUrl())
+                .setProduction(foundMovie.getProduction())
+                .setYear(foundMovie.getYear())
+                .setId(foundMovie.getId())
+                .createMovieDTO();
+    }
+
+    @Override
     public void deleteMovie(Long id) {
         logger.debug("Deleting movie with ID: {} from database.", id);
         movieRepository.delete(id);

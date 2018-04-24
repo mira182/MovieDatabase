@@ -23,6 +23,11 @@ public class MoviesController {
         return moviesServiceImpl.getAllMovies();
     }
 
+    @GetMapping(value="/{id}")
+    public MovieDTO getMovie(@PathVariable Long id) {
+        return moviesServiceImpl.getMovie(id);
+    }
+
     @PostMapping
     public Movie saveMovie(@RequestBody MovieDTO movieDTO) {
         return moviesServiceImpl.saveMovie(movieDTO);

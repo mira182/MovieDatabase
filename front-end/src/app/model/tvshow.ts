@@ -11,6 +11,4 @@ export class TvShow {
   posterUrl : string;
   production : string;
   genre : string;
-  seasons : number;
-  episodes : number;
 }

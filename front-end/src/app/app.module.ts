@@ -70,6 +70,7 @@ import { MoviesToImportDialogComponent } from './components/dialogs/movies-to-im
 import {VirtualScrollModule} from "angular2-virtual-scroll";
 import { MovieLengthPipe } from './components/pipes/movie-length.pipe';
 import { ImdbRatingComponent } from './components/movies/imdb-rating/imdb-rating.component';
+import { MovieDetailsComponent } from './components/movies/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { ImdbRatingComponent } from './components/movies/imdb-rating/imdb-rating
     MoviesToImportDialogComponent,
     MovieLengthPipe,
     ImdbRatingComponent,
+    MovieDetailsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

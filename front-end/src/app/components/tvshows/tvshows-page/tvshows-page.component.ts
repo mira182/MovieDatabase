@@ -14,6 +14,7 @@ import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
 import {Observable} from "rxjs/Rx";
 import {OmdbService} from "../../../services/omdb/omdb-service.service";
+import {MoviesToImportDialogComponent} from "../../dialogs/movies-to-import-dialog/movies-to-import-dialog.component";
 
 @Component({
   selector: 'app-tvshows-page',
@@ -31,6 +32,7 @@ export class TvshowsPageComponent implements OnInit {
   private moviesMenuExpanded : boolean;
   private showSpinner : boolean;
   private tvShowsByGenre = [];
+  private importTitles : string;
 
   constructor(private tvShowsService: TvShowsService,
               private movieUtils : MovieUtilsServiceService,
@@ -86,6 +88,22 @@ export class TvshowsPageComponent implements OnInit {
     });
   }
 
+  openImportMoviesDialog() {
+    //noinspection TypeScriptUnresolvedFunction
+    let dialogRef = this.dialog.open(MoviesToImportDialogComponent, {
+      height: 'auto',
+      width: '500px',
+      data : {titles: this.importTitles}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.importTitles = result;
+      if (this.importTitles) {
+        this.importTvShowsFrontEnd(this.importTitles);
+      }
+    });
+  }
+
   importTvShows() {
     this.tvShowsService.importTvShows().subscribe((event : HttpEvent<any>) => {
       switch (event.type) {
@@ -113,9 +131,10 @@ export class TvshowsPageComponent implements OnInit {
     });
 
     Observable.forkJoin(omdbMovieList).subscribe(omdbTvShows => {
+      console.log(omdbTvShows);
       // remove null values
       let tvShows = omdbTvShows.filter(tvShow => tvShow != null);
-      this.omdbService.storeOmdbMovies(tvShows).subscribe(event => {
+      this.omdbService.storeOmdbTvShows(tvShows).subscribe(event => {
         if (event.type === HttpEventType.Sent) {
         }
         if (event.type === HttpEventType.Response) {

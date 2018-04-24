@@ -1,5 +1,6 @@
 package com.mmdb.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -12,6 +13,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
+//@JsonFormat(shape=JsonFormat.Shape.ARRAY)
 //@JsonDeserialize(using = OMDBMovieDeserializer.class)
 public class OmdbTvShowDTO {
 

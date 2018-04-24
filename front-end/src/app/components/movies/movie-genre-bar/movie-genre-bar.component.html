@@ -1,6 +1,5 @@
-<div>
-<mat-card>
-  <div fxFlex="column" fxLayoutAlign="space-evenly start">
+<mat-card *ngIf="moviesByGenre.length > 0">
+  <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayout.xs="column wrap">
     <mat-checkbox *ngFor="let genreMovies of moviesByGenre"
                   value="{{genreMovies.genre}}"
                   [checked]="true"
@@ -9,4 +8,3 @@
     </mat-checkbox>
   </div>
 </mat-card>
-</div>
