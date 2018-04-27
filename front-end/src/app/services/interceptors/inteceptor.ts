@@ -17,7 +17,7 @@ const TOKEN_HEADER_KEY = 'Authorization';
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  constructor(private token: TokenStorage, private router: Router, public dialog: MatDialog) { }
+  constructor(private token: TokenStorage, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const  token = this.token.getToken();
@@ -59,12 +59,6 @@ export class Interceptor implements HttpInterceptor {
       });
   }
 
-  openDialog(apiError): void {
-    let dialogRef = this.dialog.open(ErrorDialogComponent, {
-      data : {
-        exceptionData: apiError
-      }
-    });
-  }
+
 
 }

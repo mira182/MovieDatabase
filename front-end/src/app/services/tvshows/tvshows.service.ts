@@ -15,6 +15,10 @@ export class TvShowsService {
     return this.httpClient.get<TvShow[]>(Urls.TV_SHOWS_URL, {responseType: 'json'});
   }
 
+  public getTvShow(id : number) : Observable<TvShow> {
+    return this.httpClient.get<TvShow>(Urls.TV_SHOWS_URL + "/" + id, {responseType: 'json'});
+  }
+
   importTvShows() {
     const req = new HttpRequest('POST', Urls.OMDB_IMPORT_TV_SHOWS_URL, Urls.TV_SHOWS_LIST, {
       reportProgress: true

@@ -1,5 +1,6 @@
 package com.mmdb.controller;
 
+import com.mmdb.model.dto.MovieDTO;
 import com.mmdb.model.dto.TvShowDTO;
 import com.mmdb.services.tvshows.TvShowsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,10 @@ public class TvShowsController {
     @RequestMapping(method = RequestMethod.DELETE, params = "id")
     public void deleteTvShow(Long id) {
         tvShowsService.deleteTvShow(id);
+    }
+
+    @GetMapping(value="/{id}")
+    public TvShowDTO getTvShow(@PathVariable Long id) {
+        return tvShowsService.getTvShow(id);
     }
 }

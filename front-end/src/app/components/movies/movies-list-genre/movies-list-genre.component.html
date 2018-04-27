@@ -1,16 +1,10 @@
+<div fxLayout="row" dir="rtl" fxLayoutGap="15px">
+  <app-movie-sort [movies]="movies" (moviesSorted)="moviesSorted($event)"></app-movie-sort>
+</div>
+
 <div fxLayout="column"
      fxLayoutGap.xs="0"
      fxLayoutAlign="space-between center">
-<mat-card>
-  <mat-card-content>
-    <mat-form-field>
-      <mat-select placeholder="Sort by:" [(value)]="selectedSortingType">
-        <mat-option value="sortByName" (click)="sortMoviesByName()">Name</mat-option>
-        <mat-option value="sortByImdbRating" (click)="sortMoviesByImdb()">IMDB rating</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-card-content>
-</mat-card>
 
 <mat-list class="movie-list-genre-settings">
   <div *ngFor="let genreMovies of moviesByGenre">

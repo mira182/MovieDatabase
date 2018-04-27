@@ -17,17 +17,9 @@ export class MoviesListComponent implements OnInit {
   buffer: Movie[] = [];
   private loading: boolean;
 
-  constructor(private movieUtilsService : MovieUtilsServiceService) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  sortMoviesByName() {
-    this.movieUtilsService.sortMoviesByName(this.movies);
-  }
-
-  sortMoviesByImdb() {
-    this.movieUtilsService.sortMoviesByImdb(this.movies);
   }
 
   deleteMovie(movie : Movie) {

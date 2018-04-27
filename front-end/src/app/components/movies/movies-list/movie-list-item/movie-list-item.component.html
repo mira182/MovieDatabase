@@ -12,25 +12,15 @@
     </button>
   </mat-card-header>
   <mat-card-content *ngIf="expanded" [@slideInOut]="animationState">
-    <h2 style="padding-top: 20px;">{{movie.name}}</h2>
-    <h4>Year:</h4>
-    <p>{{movie.year}}</p>
-    <h4>Length:</h4>
-    <p>{{movie.length | movieLength}}</p>
-    <h4>IMDB rating:</h4>
-    <p>{{movie.imdbRating}}</p>
-    <h4>Director:</h4>
-    <p>{{movie.directors}}</p>
-    <h4>Actors:</h4>
-    <p>{{movie.actors}}</p>
-    <h4>Country:</h4>
-    <p>{{movie.country}}</p>
-    <h4>Production:</h4>
-    <p>{{movie.production}}</p>
-    <h4>Genre:</h4>
-    <p>{{movie.genre}}</p>
-    <h4>Description:</h4>
-    <p>{{movie.description}}</p>
+    <h2 style="padding-top: 20px;">{{movie.name}} <app-imdb-rating [imdbRating]="movie.imdbRating"></app-imdb-rating></h2>
+    <h4>{{movie.year}}</h4>
+    <p><strong>Length:</strong> {{movie.length | movieLength}}</p>
+    <p><strong>Director:</strong> {{movie.directors}}</p>
+    <p><strong>Actors:</strong> {{movie.actors}}</p>
+    <p><strong>Country:</strong> {{movie.country}}</p>
+    <p><strong>Production:</strong> {{movie.production}}</p>
+    <p><strong>Genre:</strong> {{movie.genre}}</p>
+    <p><strong>Description:</strong> {{movie.description}}</p>
   </mat-card-content>
 
 </mat-card>

@@ -10,10 +10,18 @@ import {Error} from "../../../model/error";
 })
 export class ErrorDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public exceptionData : Error) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public exceptionData : Error, public dialog: MatDialog) { }
 
   ngOnInit() {
     console.log(JSON.stringify(this.exceptionData));
+  }
+
+  openDialog(apiError): void {
+    let dialogRef = this.dialog.open(ErrorDialogComponent, {
+      data : {
+        exceptionData: apiError
+      }
+    });
   }
 
 }

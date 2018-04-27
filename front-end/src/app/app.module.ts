@@ -71,6 +71,8 @@ import {VirtualScrollModule} from "angular2-virtual-scroll";
 import { MovieLengthPipe } from './components/pipes/movie-length.pipe';
 import { ImdbRatingComponent } from './components/movies/imdb-rating/imdb-rating.component';
 import { MovieDetailsComponent } from './components/movies/movie-details/movie-details.component';
+import { MovieSortComponent } from './components/movies/movie-sort/movie-sort.component';
+import { TvshowDetailsComponent } from './components/tvshows/tvshow-details/tvshow-details.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { MovieDetailsComponent } from './components/movies/movie-details/movie-d
     MovieLengthPipe,
     ImdbRatingComponent,
     MovieDetailsComponent,
+    MovieSortComponent,
+    TvshowDetailsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

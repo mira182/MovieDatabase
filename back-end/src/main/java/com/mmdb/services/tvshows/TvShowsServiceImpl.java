@@ -2,7 +2,9 @@ package com.mmdb.services.tvshows;
 
 import com.mmdb.dao.TvShowRepository;
 import com.mmdb.model.dto.TvShowDTO;
+import com.mmdb.model.dto.builders.MovieDTOBuilder;
 import com.mmdb.model.dto.builders.TvShowDTOBuilder;
+import com.mmdb.model.entities.Movie;
 import com.mmdb.model.entities.TvShow;
 import com.mmdb.services.movies.MoviesServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -41,6 +43,25 @@ public class TvShowsServiceImpl implements TvShowsService {
                     .createTvShowDTO());
         });
         return tvShows;
+    }
+
+    @Override
+    public TvShowDTO getTvShow(Long id) {
+        final TvShow foundTvShow = tvShowRepository.getOne(id);
+        return new TvShowDTOBuilder()
+                .setName(foundTvShow.getName())
+                .setActors(foundTvShow.getActors())
+                .setCountry(foundTvShow.getCountry())
+                .setDescription(foundTvShow.getDescription())
+                .setDirectors(foundTvShow.getDirectors())
+                .setGenre(foundTvShow.getGenre())
+                .setImdbRating(foundTvShow.getImdbRating())
+                .setLength(foundTvShow.getLength())
+                .setPosterUrl(foundTvShow.getPosterUrl())
+                .setProduction(foundTvShow.getProduction())
+                .setYear(foundTvShow.getYear())
+                .setId(foundTvShow.getId())
+                .createTvShowDTO();
     }
 
     @Override

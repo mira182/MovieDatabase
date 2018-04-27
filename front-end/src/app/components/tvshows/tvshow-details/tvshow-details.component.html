@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayoutGap="15px">
+  <div>
+    <img src={{tvShow.posterUrl}} height="400px" width="300px">
+  </div>
+
+  <div>
+    <h2>{{tvShow.name}} <app-imdb-rating [imdbRating]="tvShow.imdbRating"></app-imdb-rating></h2>
+    <h4>{{tvShow.year}}</h4>
+    <p><strong>Length:</strong> {{tvShow.length | movieLength}}</p>
+    <p><strong>Director:</strong> {{tvShow.directors}}</p>
+    <p><strong>Actors:</strong> {{tvShow.actors}}</p>
+    <p><strong>Country:</strong> {{tvShow.country}}</p>
+    <p><strong>Production:</strong> {{tvShow.production}}</p>
+    <p><strong>Genre:</strong> {{tvShow.genre}}</p>
+    <p><strong>Description:</strong> {{tvShow.description}}</p>
+  </div>
+</div>

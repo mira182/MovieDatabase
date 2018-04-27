@@ -6,14 +6,14 @@
 
 
 <!-- Movies -->
-<h2>Movies</h2><h4 style="color: #dddddd;">({{allMovies.length}})</h4>
+<h2>Movies <span style="color: #dddddd; font-size: 22px;">({{allMovies.length}})</span></h2>
 <app-movies-carousel [movies]="allMovies"></app-movies-carousel>
 
 <!--<mat-divider></mat-divider>-->
 
 <!-- TV shows-->
-<h2>TV Shows</h2><h4 style="color: #dddddd;">({{allTvShows.length}})</h4>
-<app-tv-show-carousel [tvShows]="allTvShows"></app-tv-show-carousel>
+<h2>TV Shows <span style="color: #dddddd; font-size: 22px;">({{allTvShows.length}})</span></h2>
+<app-movies-carousel [movies]="allTvShows"></app-movies-carousel>
 
 
 

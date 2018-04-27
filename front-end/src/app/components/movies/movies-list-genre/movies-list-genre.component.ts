@@ -22,14 +22,10 @@ export class MoviesListGenreComponent implements OnInit {
   ngOnInit() {
   }
 
-  sortMoviesByName() {
-    this.movieUtils.sortMoviesByName(this.movies);
-    this.loadMoviesByGenre();
-  }
-
-  sortMoviesByImdb() {
-    this.movieUtils.sortMoviesByImdb(this.movies);
-    this.loadMoviesByGenre();
+  moviesSorted(sorted : boolean) {
+    if (sorted) {
+      this.loadMoviesByGenre();
+    }
   }
 
   loadMoviesByGenre() {

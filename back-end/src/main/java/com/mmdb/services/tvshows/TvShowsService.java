@@ -10,6 +10,8 @@ public interface TvShowsService {
 
     List<TvShowDTO> getAllTvShows();
 
+    TvShowDTO getTvShow(Long id);
+
     TvShow saveMovie(TvShowDTO movieDto);
 
     List<TvShowDTO> getMoviesByGenre(String genre);

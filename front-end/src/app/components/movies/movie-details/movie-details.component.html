@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayoutGap="15px">
+  <div>
+    <img src={{movie.posterUrl}} height="400px" width="300px">
+  </div>
+
+  <div>
+    <h2>{{movie.name}} <app-imdb-rating [imdbRating]="movie.imdbRating"></app-imdb-rating></h2>
+    <h4>{{movie.year}}</h4>
+    <p><strong>Length:</strong> {{movie.length | movieLength}}</p>
+    <p><strong>Director:</strong> {{movie.directors}}</p>
+    <p><strong>Actors:</strong> {{movie.actors}}</p>
+    <p><strong>Country:</strong> {{movie.country}}</p>
+    <p><strong>Production:</strong> {{movie.production}}</p>
+    <p><strong>Genre:</strong> {{movie.genre}}</p>
+    <p><strong>Description:</strong> {{movie.description}}</p>
+  </div>
+</div>
