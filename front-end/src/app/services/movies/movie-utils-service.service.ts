@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Movie} from "../../model/movie";
+import {Item} from "../../model/item";
 
 @Injectable()
 export class MovieUtilsServiceService {
 
-  public filterMoviesByGenre(movies : Array<Movie>, genre : string) {
+  public filterMoviesByGenre(movies : Array<Item>, genre : string) {
     return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
   }
 

@@ -25,7 +25,7 @@ import {MoviesToImportDialogComponent} from "../../dialogs/movies-to-import-dial
 })
 export class TvshowsPageComponent implements OnInit {
 
-  private allTvShows = new Array<Movie>();
+  private allTvShows = new Array<TvShow>();
   private newTvShow : TvShow;
   @ViewChild('sideNav') movieSideNav: MatSidenav;
   private omdbMenuExpanded : boolean;

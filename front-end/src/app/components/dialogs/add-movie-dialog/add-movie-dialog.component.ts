@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Inject} from '@angular/core';
-import {MatDialogModule} from '@angular/material/dialog';
 import {Movie} from "../../../model/movie";
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 
 @Component({

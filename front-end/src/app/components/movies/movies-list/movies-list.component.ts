@@ -3,6 +3,7 @@ import {Movie} from "../../../model/movie";
 import {MovieService} from "../../../services/movies/movie.service";
 import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-service.service";
 import {ChangeEvent} from "angular2-virtual-scroll";
+import {Item} from "../../../model/item";
 
 @Component({
   selector: 'app-movies-list',
@@ -12,8 +13,8 @@ import {ChangeEvent} from "angular2-virtual-scroll";
 })
 export class MoviesListComponent implements OnInit {
 
-  @Input() movies : Array<Movie>;
-  @Output() movieDeleteEvent = new EventEmitter<Movie>();
+  @Input() movies : Array<Item>;
+  @Output() movieDeleteEvent = new EventEmitter<Item>();
   buffer: Movie[] = [];
   private loading: boolean;
 
@@ -22,7 +23,7 @@ export class MoviesListComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteMovie(movie : Movie) {
+  deleteMovie(movie : Item) {
     this.movieDeleteEvent.next(movie);
   }
 
@@ -36,7 +37,7 @@ export class MoviesListComponent implements OnInit {
     }, () => this.loading = false);
   }
 
-  fetchNextChunk(skip: number, limit: number): Promise<Movie[]> {
+  fetchNextChunk(skip: number, limit: number): Promise<Item[]> {
     return new Promise((resolve, reject) => {
       return this.movies.slice(skip, limit);
     });

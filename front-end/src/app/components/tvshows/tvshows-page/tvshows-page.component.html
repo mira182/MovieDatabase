@@ -6,16 +6,16 @@
   <mat-sidenav #sideNav mode="over">
     <mat-toolbar color="primary" class="sidenav-content"><span>Sidenav toolbar</span></mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded">OMDB<mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
+      <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded"><strong>OMDB</strong><mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-nav-list *ngIf="omdbMenuExpanded">
         <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get TV Show</a>
         <a mat-list-item class="nested-list-item" (click)="importTvShows()">Import TV Show</a>
         <a mat-list-item class="nested-list-item" (click)="openImportMoviesDialog()">Import tvshows on front-end</a>
       </mat-nav-list>
 
-      <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded">Movies<mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
+      <a mat-list-item (click)="moviesMenuExpanded = !moviesMenuExpanded"><strong>TV Shows</strong><mat-icon class="rightAlignment" [@indicatorRotate]="moviesMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-nav-list *ngIf="moviesMenuExpanded">
-        <a mat-list-item class="nested-list-item" (click)="openAddMovieDialog()">Add movie</a>
+        <a mat-list-item class="nested-list-item" (click)="openAddMovieDialog()">Add TV Show</a>
       </mat-nav-list>
     </mat-nav-list>
   </mat-sidenav>

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {NgxCarousel} from 'ngx-carousel';
 import {Movie} from "../../../model/movie";
+import {Item} from "../../../model/item";
 
 @Component({
   selector: 'app-movies-carousel',
@@ -12,7 +13,7 @@ export class MoviesCarouselComponent implements OnInit {
 
   public carouselTile: NgxCarousel;
   @Input() private genre : string;
-  @Input() movies : Array<Movie>;
+  @Input() movies : Array<Item>;
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
 
   constructor() {
@@ -35,7 +36,7 @@ export class MoviesCarouselComponent implements OnInit {
     }
   }
 
-  deleteMovie(movie : Movie) {
+  deleteMovie(movie : Item) {
     this.movieDeleteEvent.next(movie);
   }
 }

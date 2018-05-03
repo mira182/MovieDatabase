@@ -47,8 +47,6 @@ import {Interceptor} from "./services/interceptors/inteceptor";
 import {TokenStorage} from "./services/auth/token.storage";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AddMovieDialogComponent} from './components/dialogs/add-movie-dialog/add-movie-dialog.component';
-import {TvShowItemComponent} from './components/tvshows/tv-show-item/tv-show-item.component';
-import {TvShowCarouselComponent} from './components/tvshows/tv-show-carousel/tv-show-carousel.component';
 import {ErrorDialogComponent} from './components/dialogs/error-dialog/error-dialog.component';
 import {MoviesPageComponent} from './components/movies/movies-page/movies-page.component';
 import {SidenavService} from "./services/sidenav-service.service";
@@ -84,8 +82,6 @@ import { TvshowDetailsComponent } from './components/tvshows/tvshow-details/tvsh
     NavBarComponent,
     MovieItemComponent,
     AddMovieDialogComponent,
-    TvShowItemComponent,
-    TvShowCarouselComponent,
     ErrorDialogComponent,
     MoviesPageComponent,
     TvshowsPageComponent,

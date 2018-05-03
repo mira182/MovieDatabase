@@ -1,7 +1,7 @@
 <mat-card (mouseenter)='mouseenter($event)' (mouseleave)="mouseleave($event)">
   <mat-card-title>
     <span matTooltip="Plot: {{movie.description}}" matTooltipShowDelay="2000">
-      <a routerLink="/movies/{{movie.id}}" routerLinkActive="active"><img mat-card-image src={{movie.posterUrl}} height="300px"></a>
+      <a href="javascript:void(0)" (click)="showDetails()"><img mat-card-image src={{movie.posterUrl}} height="300px"></a>
     </span>
   </mat-card-title>
 

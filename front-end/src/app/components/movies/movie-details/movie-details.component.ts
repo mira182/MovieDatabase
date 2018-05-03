@@ -14,15 +14,12 @@ export class MovieDetailsComponent implements OnInit {
 
   private movie : Movie = new Movie();
 
-  constructor(private movieService : MovieService, private route: ActivatedRoute, private errorDialog : ErrorDialogComponent) { }
+  constructor(private movieService : MovieService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(pathParams => {
       this.movieService.getMovie(pathParams['id']).subscribe(movie => {
         this.movie = movie;
-        if (movie) {
-          this.errorDialog.openDialog(new Error("Movie with ID: " + pathParams['id'] + "does not exist!"));
-        }
       });
     });
   }

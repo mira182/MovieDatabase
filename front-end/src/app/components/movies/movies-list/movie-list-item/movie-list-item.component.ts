@@ -3,6 +3,7 @@ import {Movie} from "../../../../model/movie";
 import {IndicatorRotate, SlideInOutAnimation} from "../../../animations/animations";
 import {MovieService} from "../../../../services/movies/movie.service";
 import {MessageSnackbarService} from "../../../../services/error/error-snackbar-service.service";
+import {Item} from "../../../../model/item";
 
 @Component({
   selector: 'app-movie-list-item',
@@ -14,7 +15,7 @@ import {MessageSnackbarService} from "../../../../services/error/error-snackbar-
 export class MovieListItemComponent implements OnInit {
 
   @Output() movieDeleteEvent = new EventEmitter<Movie>();
-  @Input() movie : Movie;
+  @Input() movie : Item;
   private expanded : boolean = false;
   animationState = 'out';
 
@@ -30,7 +31,7 @@ export class MovieListItemComponent implements OnInit {
 
   deleteMovie() {
     this.movieService.deleteMovie(this.movie.id).subscribe((result) => {
-      this.messageSnackBar.openMessageSnackBar("Movie " + this.movie.name + " deleted successfully.");
+      this.messageSnackBar.openMessageSnackBar("Item " + this.movie.name + " deleted successfully.");
       this.movieDeleteEvent.next(this.movie);
     }, (error) => {
       this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));

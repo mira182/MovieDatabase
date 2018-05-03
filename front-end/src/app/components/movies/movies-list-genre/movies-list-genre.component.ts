@@ -3,6 +3,7 @@ import {Movie} from "../../../model/movie";
 import {IndicatorRotate, SlideInOutAnimation} from "../../animations/animations";
 import {Genres} from "../../../model/genres";
 import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-service.service";
+import {Item} from "../../../model/item";
 
 @Component({
   selector: 'app-movies-list-genre',
@@ -13,9 +14,9 @@ import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-ser
 })
 export class MoviesListGenreComponent implements OnInit {
 
-  @Output() movieDeleteEvent = new EventEmitter<Movie>();
+  @Output() movieDeleteEvent = new EventEmitter<Item>();
   @Input() private moviesByGenre = [];
-  @Input() movies : Array<Movie>;
+  @Input() movies : Array<Item>;
 
   constructor(private movieUtils : MovieUtilsServiceService) { }
 
@@ -37,7 +38,7 @@ export class MoviesListGenreComponent implements OnInit {
     }
   }
 
-  deleteMovie(movie : Movie) {
+  deleteMovie(movie : Item) {
     this.movieDeleteEvent.next(movie);
   }
 }
