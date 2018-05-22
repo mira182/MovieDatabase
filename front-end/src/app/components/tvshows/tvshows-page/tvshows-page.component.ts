@@ -69,7 +69,7 @@ export class TvshowsPageComponent implements OnInit {
     let dialogRef = this.dialog.open(AddMovieDialogComponent, {
       height: 'auto',
       width: '500px',
-      data : {newMovie: this.newTvShow}
+      data : {newMovie: this.newTvShow, title: 'Add TV Show'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -158,7 +158,7 @@ export class TvshowsPageComponent implements OnInit {
       this.allTvShows.splice(index, 1);
       this.loadMoviesByGenre();
     }
-    console.log("Deleting event in movies page." + index);
+    console.log("Deleting tv show " + tvShow.name);
   }
 
   updateGenres(event) {

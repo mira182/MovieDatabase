@@ -3,4 +3,3 @@
  - Paging when showing movies/tvshows ( https://github.com/feloy/ng-list-lazy-loading )
  - Add ALL view
  - Lazy viewing for lists
- - Movie details page

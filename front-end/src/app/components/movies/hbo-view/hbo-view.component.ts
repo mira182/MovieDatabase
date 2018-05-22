@@ -32,5 +32,4 @@ export class HboViewComponent implements OnInit {
       easing: 'ease-in'
     }
   }
-
 }

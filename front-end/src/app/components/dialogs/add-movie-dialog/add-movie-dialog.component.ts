@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation, Inject} from '@angular/core';
-import {Movie} from "../../../model/movie";
-import {MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {Item} from "../../../model/item";
 
 
 @Component({
@@ -11,10 +11,12 @@ import {MatDialogRef} from '@angular/material';
 })
 export class AddMovieDialogComponent implements OnInit {
 
-  private newMovie: Movie = new Movie();
+  private newMovie: Item;
+  private title : string;
 
-  //noinspection JSAnnotator
-  constructor(public dialogRef: MatDialogRef<AddMovieDialogComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.title = data.title;
+  }
 
   ngOnInit() {
   }

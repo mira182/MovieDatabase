@@ -71,6 +71,7 @@ import { ImdbRatingComponent } from './components/movies/imdb-rating/imdb-rating
 import { MovieDetailsComponent } from './components/movies/movie-details/movie-details.component';
 import { MovieSortComponent } from './components/movies/movie-sort/movie-sort.component';
 import { TvshowDetailsComponent } from './components/tvshows/tvshow-details/tvshow-details.component';
+import { MoviesViewsComponent } from './components/movies/movies-views/movies-views.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { TvshowDetailsComponent } from './components/tvshows/tvshow-details/tvsh
     MovieDetailsComponent,
     MovieSortComponent,
     TvshowDetailsComponent,
+    MoviesViewsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -50,8 +50,16 @@
         </div>
       </mat-tab>
       <mat-tab label="HBO view">
-        <div *ngFor="let genreMovies of moviesByGenre">
-          <app-hbo-view [movies]="genreMovies.movies" [genre]="genreMovies.genre"></app-hbo-view>
+        <app-movies-views (viewTypeEvent)="selectViewType($event)"></app-movies-views>
+        <div ngSwitch="viewType">
+          <div *ngSwitchCase="viewType.ListView">
+            <app-hbo-view *ngFor="let genreMovies of moviesByGenre" [movies]="genreMovies.movies" [genre]="genreMovies.genre"></app-hbo-view>
+          </div>
+          <div *ngSwitchCase="'1'">
+            <div *ngIf="allMovies.length > 0">
+              <app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
+            </div>
+          </div>
         </div>
       </mat-tab>
     </mat-tab-group>

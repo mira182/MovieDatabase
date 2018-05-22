@@ -14,6 +14,7 @@ import {MessageSnackbarService} from "../../../services/error/error-snackbar-ser
 import {Urls} from "../../../model/Urls";
 import {Observable} from "rxjs/Rx";
 import {MoviesToImportDialogComponent} from "../../dialogs/movies-to-import-dialog/movies-to-import-dialog.component";
+import {ViewTypes} from "../../../model/viewTypes";
 
 @Component({
   selector: 'app-movies-page',
@@ -34,6 +35,7 @@ export class MoviesPageComponent implements OnInit {
   private moviesByGenre = [];
   private importingProgress = 0;
   private importTitles : string;
+  private viewType = ViewTypes;
 
   constructor(private movieService: MovieService,
               private movieUtils : MovieUtilsServiceService,
@@ -70,7 +72,7 @@ export class MoviesPageComponent implements OnInit {
     let dialogRef = this.dialog.open(AddMovieDialogComponent, {
       height: 'auto',
       width: '500px',
-      data : {newMovie: this.newMovie}
+      data : {newMovie: this.newMovie, title: 'Add Movie'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -163,7 +165,7 @@ export class MoviesPageComponent implements OnInit {
       this.allMovies.splice(index, 1);
       this.loadMoviesByGenre();
     }
-    console.log("Deleting event in movies page." + index);
+    console.log("Deleting movie " + movie.name);
   }
 
   updateGenres(event) {
@@ -182,5 +184,10 @@ export class MoviesPageComponent implements OnInit {
         return true;
       }
     });
+  }
+
+  selectViewType($event) {
+    console.log($event);
+    this.viewType = $event;
   }
 }

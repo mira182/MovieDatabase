@@ -4,6 +4,8 @@ import {IndicatorRotate, SlideInOutAnimation} from "../../../animations/animatio
 import {MovieService} from "../../../../services/movies/movie.service";
 import {MessageSnackbarService} from "../../../../services/error/error-snackbar-service.service";
 import {Item} from "../../../../model/item";
+import {Router} from "@angular/router";
+import {TvShowsService} from "../../../../services/tvshows/tvshows.service";
 
 @Component({
   selector: 'app-movie-list-item',
@@ -19,7 +21,10 @@ export class MovieListItemComponent implements OnInit {
   private expanded : boolean = false;
   animationState = 'out';
 
-  constructor(private movieService : MovieService, private messageSnackBar : MessageSnackbarService) { }
+  constructor(private movieService : MovieService,
+              private tvShowService : TvShowsService,
+              private messageSnackBar : MessageSnackbarService,
+              private router : Router) { }
 
   ngOnInit() {
   }
@@ -30,12 +35,21 @@ export class MovieListItemComponent implements OnInit {
   }
 
   deleteMovie() {
-    this.movieService.deleteMovie(this.movie.id).subscribe((result) => {
-      this.messageSnackBar.openMessageSnackBar("Item " + this.movie.name + " deleted successfully.");
-      this.movieDeleteEvent.next(this.movie);
-    }, (error) => {
-      this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
-    });
+    if (this.router.url.includes('movies')) {
+      this.movieService.deleteMovie(this.movie.id).subscribe(result => {
+        this.messageSnackBar.openMessageSnackBar("Movie " + this.movie.name + " deleted successfully.");
+        this.movieDeleteEvent.next(this.movie);
+      }, (error) => {
+        this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
+      });
+    } else {
+      this.tvShowService.deleteTvShow(this.movie.id).subscribe(result => {
+        this.messageSnackBar.openMessageSnackBar("Tv show " + this.movie.name + " deleted successfully.");
+        this.movieDeleteEvent.next(this.movie);
+      }, (error) => {
+        this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
+      });
+    }
   }
 
 }

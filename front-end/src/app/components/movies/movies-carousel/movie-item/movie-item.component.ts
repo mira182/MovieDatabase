@@ -36,18 +36,16 @@ export class MovieItemComponent implements OnInit {
 
   deleteMovie() {
     if (this.router.url.includes('movies')) {
-      this.movieService.deleteMovie(this.movie.id).subscribe((result) => {
-        if (result) {
-          this.messageSnackBar.openMessageSnackBar("Movie " + this.movie.name + " deleted successfully.");
-          this.movieDeleteEvent.next(this.movie);
-        }
+      this.movieService.deleteMovie(this.movie.id).subscribe(result => {
+        this.messageSnackBar.openMessageSnackBar("Movie " + this.movie.name + " deleted successfully.");
+        this.movieDeleteEvent.next(this.movie);
       }, (error) => {
         this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
       });
     } else {
       this.tvShowService.deleteTvShow(this.movie.id).subscribe(result => {
-          this.messageSnackBar.openMessageSnackBar("Tv show " + this.movie.name + " deleted successfully.");
-          this.movieDeleteEvent.next(this.movie);
+        this.messageSnackBar.openMessageSnackBar("Tv show " + this.movie.name + " deleted successfully.");
+        this.movieDeleteEvent.next(this.movie);
       }, (error) => {
         this.messageSnackBar.openMessageSnackBar(JSON.stringify(error));
       });
