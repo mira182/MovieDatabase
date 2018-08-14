@@ -11,10 +11,9 @@ import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-ser
 import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {OmdbService} from "../../../services/omdb/omdb-service.service";
 import {MessageSnackbarService} from "../../../services/error/error-snackbar-service.service";
-import {Urls} from "../../../model/Urls";
 import {Observable} from "rxjs/Rx";
 import {MoviesToImportDialogComponent} from "../../dialogs/movies-to-import-dialog/movies-to-import-dialog.component";
-import {ViewTypes} from "../../../model/viewTypes";
+import {ViewType} from "../../../model/viewType";
 
 @Component({
   selector: 'app-movies-page',
@@ -35,7 +34,7 @@ export class MoviesPageComponent implements OnInit {
   private moviesByGenre = [];
   private importingProgress = 0;
   private importTitles : string;
-  private viewType = ViewTypes;
+  private viewType = ViewType.CategoryView;
 
   constructor(private movieService: MovieService,
               private movieUtils : MovieUtilsServiceService,

@@ -13,9 +13,11 @@
       <input type="text" placeholder="search title" aria-label="Number" matInput [formControl]="searchTerm" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let item of searchResult" [value]="item">
-          <span matTooltip="{{item.name}}" matTooltipShowDelay="1500">{{ item.name }} |
-            <app-imdb-rating [imdbRating]="item.imdbRating"></app-imdb-rating>
-          </span>
+          <div (click)="showDetails(item)">
+            <span matTooltip="{{item.name}}" matTooltipShowDelay="1500">
+              {{ item.name }} | <app-imdb-rating [imdbRating]="item.imdbRating"></app-imdb-rating>
+            </span>
+          </div>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

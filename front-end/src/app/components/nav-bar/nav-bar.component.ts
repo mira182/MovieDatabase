@@ -31,17 +31,17 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.searchTerm.valueChanges
       .debounceTime(400)
-      .subscribe(data => {
-        this.movieService.getAllMovies().subscribe((movies: Array<Movie>) => {
-          this.tvShowsService.getAllTvShows().subscribe((tvShows: Array<TvShow>) => {
-            const foundMovies = movies.filter((movie, index, movies) => {
-              if (movie.name.toLocaleLowerCase().includes(data)) {
+      .subscribe(searchString => {
+        this.movieService.getAllMovies().subscribe((movies: Array<Movie>) => { // get all movies
+          this.tvShowsService.getAllTvShows().subscribe((tvShows: Array<TvShow>) => { // get all tv shows
+            const foundMovies = movies.filter((movie, index, movies) => { // is is a movie?
+              if (movie.name.toLocaleLowerCase().includes(searchString)) {
                 return true;
               }
             });
 
-            const foundTvShows = tvShows.filter((tvShow, index, tvShows) => {
-              if (tvShow.name.toLocaleLowerCase().includes(data)) {
+            const foundTvShows = tvShows.filter((tvShow, index, tvShows) => { // is is a tv show?
+              if (tvShow.name.toLocaleLowerCase().includes(searchString)) {
                 return true;
               }
             });
@@ -67,6 +67,8 @@ export class NavBarComponent implements OnInit {
     this.sideNavService.toggleSideNav();
   }
 
-
+  showDetails(item : Movie) {
+    this.router.navigateByUrl('movies/' + item.id);
+  }
 
 }
