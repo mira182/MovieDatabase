@@ -1,4 +1,4 @@
-<div class="loading-indicator" *ngIf="showSpinner">
+<div class="loading-indicator spinner-container" *ngIf="showSpinner">
   <mat-spinner style="margin:0 auto;"></mat-spinner>
 </div>
 
@@ -13,7 +13,7 @@
       <a mat-list-item (click)="omdbMenuExpanded = !omdbMenuExpanded"><strong>OMDB</strong><mat-icon class="rightAlignment" [@indicatorRotate]="omdbMenuExpanded ? 'expanded': 'collapsed'">expand_more</mat-icon></a>
       <mat-nav-list *ngIf="omdbMenuExpanded">
         <a mat-list-item class="nested-list-item" (click)="openGetOmdbMovieDialog()">Get movie</a>
-        <a mat-list-item class="nested-list-item" (click)="importMovies()">Import movies</a>
+        <a mat-list-item class="nested-list-item" (click)="importMovies()">Import movies on back-end</a>
         <a mat-list-item class="nested-list-item" (click)="openImportMoviesDialog()">Import movies on front-end</a>
       </mat-nav-list>
 
@@ -29,55 +29,33 @@
       <h1 class="display-3">Movies</h1>
       <span class="example-fill-remaining-space"></span>
     </header>
-
-    <app-movie-genre-bar [moviesByGenre]="moviesByGenre" (genresChanged)="updateGenres($event)"></app-movie-genre-bar>
-
-    <!--<mat-tab-group>-->
-      <!--<mat-tab label="Carousel view">-->
-        <!--<div *ngFor="let genreMovies of moviesByGenre">-->
-          <!--<app-movies-carousel [movies]="genreMovies.movies" [genre]="genreMovies.genre"-->
-                               <!--(movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>-->
-        <!--</div>-->
-      <!--</mat-tab>-->
-      <!--<mat-tab label="Genre list view">-->
-        <!--<div *ngIf="allMovies.length > 0">-->
-          <!--<app-movies-list-genre [movies]="allMovies" [moviesByGenre]="moviesByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list-genre>-->
-        <!--</div>-->
-      <!--</mat-tab>-->
-      <!--<mat-tab label="Plain list view">-->
-        <!--<div *ngIf="allMovies.length > 0">-->
-          <!--<app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>-->
-        <!--</div>-->
-      <!--</mat-tab>-->
-
-
-      <!-- TODO experimental => probably use it as main page for movies -->
-      <!--<mat-tab label="HBO view">-->
-        <app-movies-views (changeViewType)="selectViewType($event)"></app-movies-views>
-        <div [ngSwitch]="viewType">
-          <!--  TODO change switch cases to enum names isntead of numbers-->
-          <div *ngSwitchCase="'0'">
-            <app-hbo-view *ngFor="let genreMovies of moviesByGenre" [movies]="genreMovies.movies" [genre]="genreMovies.genre"></app-hbo-view>
-          </div>
-          <div *ngSwitchCase="'1'">
-            <div *ngIf="allMovies.length > 0">
-              <app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
-            </div>
-          </div>
-          <div *ngSwitchCase="'2'">
-            <div *ngFor="let genreMovies of moviesByGenre">
-              <app-movies-carousel [movies]="genreMovies.movies" [genre]="genreMovies.genre"
-                                   (movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>
-            </div>
-          </div>
-          <div *ngSwitchCase="'3'">
-            <div *ngIf="allMovies.length > 0">
-              <app-movies-list-genre [movies]="allMovies" [moviesByGenre]="moviesByGenre" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list-genre>
-            </div>
+    <div>
+      <app-movie-genre-bar [moviesByGenre]="moviesByGenre" (genresChanged)="updateGenres($event)"></app-movie-genre-bar>
+      <app-movies-views (changeViewType)="selectViewType($event)"></app-movies-views>
+      <div [ngSwitch]="viewType">
+        <!--  TODO change switch cases to enum names isntead of numbers-->
+        <div *ngSwitchCase="'0'">
+          <!--<app-hbo-view *ngFor="let genreMovies of moviesByGenre" [movies]="genreMovies.movies" [genre]="genreMovies.genre"></app-hbo-view>-->
+          <app-grid-view></app-grid-view>
+        </div>
+        <div *ngSwitchCase="'1'">
+          <div *ngIf="allMovies.length > 0">
+            <app-movies-list [movies]="allMovies" (movieDeleteEvent)="deleteMovie($event)"></app-movies-list>
           </div>
         </div>
-      <!--</mat-tab>-->
-    <!--</mat-tab-group>-->
-
+        <div *ngSwitchCase="'2'">
+          <div *ngFor="let genreMovies of moviesByGenre">
+            <app-movies-carousel [movies]="genreMovies.movies" [genre]="genreMovies.genre"
+                                 (movieDeleteEvent)="deleteMovie($event)"></app-movies-carousel>
+          </div>
+        </div>
+        <div *ngSwitchCase="'3'">
+          <div *ngIf="allMovies.length > 0">
+            <app-movies-list-genre [movies]="allMovies" [moviesByGenre]="moviesByGenre"
+                                   (movieDeleteEvent)="deleteMovie($event)"></app-movies-list-genre>
+          </div>
+        </div>
+      </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -17,6 +17,7 @@ export class MoviesListComponent implements OnInit {
   @Output() movieDeleteEvent = new EventEmitter<Item>();
   buffer: Movie[] = [];
   private loading: boolean;
+  public viewPortItems;
 
   constructor() { }
 

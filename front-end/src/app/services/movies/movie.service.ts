@@ -7,6 +7,7 @@ import {Movie} from "../../model/movie";
 import {Observable} from "rxjs";
 import {Urls} from "../../model/Urls";
 import {TvShow} from "../../model/tvshow";
+import {Page} from "../../model/page";
 
 @Injectable()
 export class MovieService {
@@ -22,6 +23,10 @@ export class MovieService {
 
   public getMovie(id : number) : Observable<Movie> {
     return this.httpClient.get<Movie>(Urls.MOVIES_URL + "/" + id, {responseType: 'json'});
+  }
+
+  public getPaginatedMovies(page : number, size : number) {
+    return this.httpClient.get<Page>(Urls.MOVIES_URL, {params: new HttpParams().set('page', page.toString()).set('size', size.toString())});
   }
 
   public addMovie(movie : Movie) {

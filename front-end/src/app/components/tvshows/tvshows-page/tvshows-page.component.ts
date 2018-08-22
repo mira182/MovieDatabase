@@ -15,6 +15,7 @@ import {MessageSnackbarService} from "../../../services/error/error-snackbar-ser
 import {Observable} from "rxjs/Rx";
 import {OmdbService} from "../../../services/omdb/omdb-service.service";
 import {MoviesToImportDialogComponent} from "../../dialogs/movies-to-import-dialog/movies-to-import-dialog.component";
+import {ViewType} from "../../../model/viewType";
 
 @Component({
   selector: 'app-tvshows-page',
@@ -33,6 +34,7 @@ export class TvshowsPageComponent implements OnInit {
   private showSpinner : boolean;
   private tvShowsByGenre = [];
   private importTitles : string;
+  private viewType = ViewType.CategoryView;
 
   constructor(private tvShowsService: TvShowsService,
               private movieUtils : MovieUtilsServiceService,
@@ -177,5 +179,10 @@ export class TvshowsPageComponent implements OnInit {
         return true;
       }
     });
+  }
+
+  selectViewType($event) {
+    console.log($event);
+    this.viewType = $event;
   }
 }

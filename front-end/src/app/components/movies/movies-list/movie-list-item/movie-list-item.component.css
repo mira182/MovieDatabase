@@ -18,6 +18,6 @@ mat-card-header {
 }
 
 .movie-list-item {
-  max-width: 500px;
+  /*max-width: 500px;*/
   margin-bottom: 10px;
 }

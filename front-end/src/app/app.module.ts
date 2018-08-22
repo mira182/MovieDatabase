@@ -25,7 +25,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatAutocompleteModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatPaginatorModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -65,13 +66,16 @@ import { MoviesListComponent } from './components/movies/movies-list/movies-list
 import { HboViewComponent } from './components/movies/hbo-view/hbo-view.component';
 import { HboViewItemComponent } from './components/movies/hbo-view/hbo-view-item/hbo-view-item.component';
 import { MoviesToImportDialogComponent } from './components/dialogs/movies-to-import-dialog/movies-to-import-dialog.component';
-import {VirtualScrollModule} from "angular2-virtual-scroll";
 import { MovieLengthPipe } from './components/pipes/movie-length.pipe';
 import { ImdbRatingComponent } from './components/movies/imdb-rating/imdb-rating.component';
 import { MovieDetailsComponent } from './components/movies/movie-details/movie-details.component';
 import { MovieSortComponent } from './components/movies/movie-sort/movie-sort.component';
 import { TvshowDetailsComponent } from './components/tvshows/tvshow-details/tvshow-details.component';
 import { MoviesViewsComponent } from './components/movies/movies-views/movies-views.component';
+import { GridViewComponent } from './components/movies/grid-view/grid-view.component';
+import { GridViewItemComponent } from './components/movies/grid-view/grid-view-item/grid-view-item.component';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+
 
 @NgModule({
   declarations: [
@@ -101,6 +105,8 @@ import { MoviesViewsComponent } from './components/movies/movies-views/movies-vi
     MovieSortComponent,
     TvshowDetailsComponent,
     MoviesViewsComponent,
+    GridViewComponent,
+    GridViewItemComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -109,7 +115,8 @@ import { MoviesViewsComponent } from './components/movies/movies-views/movies-vi
     CommonModule, MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatDialogModule, MatTableModule,
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
-    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule, MatProgressBarModule, VirtualScrollModule
+    MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule, MatProgressBarModule, VirtualScrollModule,
+    MatPaginatorModule, VirtualScrollModule
   ],
   entryComponents: [
     AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent, MoviesToImportDialogComponent

@@ -2,11 +2,8 @@ package com.mmdb.services.tvshows;
 
 import com.mmdb.dao.TvShowRepository;
 import com.mmdb.model.dto.TvShowDTO;
-import com.mmdb.model.dto.builders.MovieDTOBuilder;
-import com.mmdb.model.dto.builders.TvShowDTOBuilder;
-import com.mmdb.model.entities.Movie;
 import com.mmdb.model.entities.TvShow;
-import com.mmdb.services.movies.MoviesServiceImpl;
+import com.mmdb.util.TvShowUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TvShowsServiceImpl implements TvShowsService {
@@ -25,52 +23,20 @@ public class TvShowsServiceImpl implements TvShowsService {
 
     @Override
     public List<TvShowDTO> getAllTvShows() {
-        final List<TvShowDTO> tvShows = new ArrayList<>();
-        tvShowRepository.findAll().forEach((TvShow tvShowEntity) -> {
-            tvShows.add(new TvShowDTOBuilder()
-                    .setId(tvShowEntity.getId())
-                    .setName(tvShowEntity.getName())
-                    .setActors(tvShowEntity.getActors())
-                    .setCountry(tvShowEntity.getCountry())
-                    .setDescription(tvShowEntity.getDescription())
-                    .setDirectors(tvShowEntity.getDirectors())
-                    .setGenre(tvShowEntity.getGenre())
-                    .setImdbRating(tvShowEntity.getImdbRating())
-                    .setLength(tvShowEntity.getLength())
-                    .setPosterUrl(tvShowEntity.getPosterUrl())
-                    .setProduction(tvShowEntity.getProduction())
-                    .setYear(tvShowEntity.getYear())
-                    .createTvShowDTO());
-        });
-        return tvShows;
+        return tvShowRepository.findAll()
+                .stream()
+                .map(tvShow -> TvShowUtils.convertEntityToDTO(tvShow))
+                .collect(Collectors.toList());
     }
 
     @Override
     public TvShowDTO getTvShow(Long id) {
         final TvShow foundTvShow = tvShowRepository.getOne(id);
-        return new TvShowDTOBuilder()
-                .setName(foundTvShow.getName())
-                .setActors(foundTvShow.getActors())
-                .setCountry(foundTvShow.getCountry())
-                .setDescription(foundTvShow.getDescription())
-                .setDirectors(foundTvShow.getDirectors())
-                .setGenre(foundTvShow.getGenre())
-                .setImdbRating(foundTvShow.getImdbRating())
-                .setLength(foundTvShow.getLength())
-                .setPosterUrl(foundTvShow.getPosterUrl())
-                .setProduction(foundTvShow.getProduction())
-                .setYear(foundTvShow.getYear())
-                .setId(foundTvShow.getId())
-                .createTvShowDTO();
+        return TvShowUtils.convertEntityToDTO(foundTvShow);
     }
 
     @Override
     public TvShow saveMovie(TvShowDTO movieDto) {
-        return null;
-    }
-
-    @Override
-    public List<TvShowDTO> getMoviesByGenre(String genre) {
         return null;
     }
 

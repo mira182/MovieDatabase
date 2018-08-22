@@ -2,15 +2,21 @@ package com.mmdb.services.movies;
 
 import com.mmdb.dao.MovieRepository;
 import com.mmdb.model.dto.MovieDTO;
-import com.mmdb.model.dto.builders.MovieDTOBuilder;
 import com.mmdb.model.entities.Movie;
+import com.mmdb.util.MovieUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MoviesServiceImpl implements MovieService {
@@ -22,43 +28,15 @@ public class MoviesServiceImpl implements MovieService {
 
     @Override
     public List<MovieDTO> getAllMovies() {
-        final List<MovieDTO> movies = new ArrayList<>();
-        movieRepository.findAll().forEach((Movie movieEntity) -> {
-            movies.add(new MovieDTOBuilder()
-                    .setName(movieEntity.getName())
-                    .setActors(movieEntity.getActors())
-                    .setCountry(movieEntity.getCountry())
-                    .setDescription(movieEntity.getDescription())
-                    .setDirectors(movieEntity.getDirectors())
-                    .setGenre(movieEntity.getGenre())
-                    .setImdbRating(movieEntity.getImdbRating())
-                    .setLength(movieEntity.getLength())
-                    .setPosterUrl(movieEntity.getPosterUrl())
-                    .setProduction(movieEntity.getProduction())
-                    .setYear(movieEntity.getYear())
-                    .setId(movieEntity.getId())
-                    .createMovieDTO());
-        });
-        return movies;
+        return movieRepository.findAll().stream()
+                .map(movie -> MovieUtils.convertEntityToDTO(movie))
+                .collect(Collectors.toList());
     }
 
     @Override
     public MovieDTO getMovie(Long id) {
         final Movie foundMovie = movieRepository.getOne(id);
-        return new MovieDTOBuilder()
-                .setName(foundMovie.getName())
-                .setActors(foundMovie.getActors())
-                .setCountry(foundMovie.getCountry())
-                .setDescription(foundMovie.getDescription())
-                .setDirectors(foundMovie.getDirectors())
-                .setGenre(foundMovie.getGenre())
-                .setImdbRating(foundMovie.getImdbRating())
-                .setLength(foundMovie.getLength())
-                .setPosterUrl(foundMovie.getPosterUrl())
-                .setProduction(foundMovie.getProduction())
-                .setYear(foundMovie.getYear())
-                .setId(foundMovie.getId())
-                .createMovieDTO();
+        return MovieUtils.convertEntityToDTO(foundMovie);
     }
 
     @Override
@@ -68,24 +46,14 @@ public class MoviesServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<MovieDTO> findPaginated(int page, int size) {
+        final Page<MovieDTO> movies = movieRepository.findAll(new PageRequest(page, size, Sort.Direction.ASC, "name"))
+                .map(movie -> MovieUtils.convertEntityToDTO(movie));
+        return movies;
+    }
+
+    @Override
     public Movie saveMovie(MovieDTO movieDto) {
-        final Movie movie = new Movie();
-        movie.setName(movieDto.getName());
-        movie.setCountry(movieDto.getCountry());
-        movie.setProduction(movieDto.getProduction());
-        movie.setYear(movieDto.getYear());
-        movie.setActors(movieDto.getActors());
-        movie.setDescription(movieDto.getDescription());
-        movie.setDirectors(movieDto.getDirectors());
-        movie.setImdbRating(movieDto.getImdbRating());
-        movie.setPosterUrl(movieDto.getPosterUrl());
-        movie.setGenre(movieDto.getGenre());
-        movie.setLength(movieDto.getLength());
-//        try {
-//            movie.setPoster(ImageDownloader.downloadImage(omdbMovieDTO.getPosterUrl()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        return movieRepository.save(movie);
+        return MovieUtils.convertDTOToEntity(movieDto);
     }
 }

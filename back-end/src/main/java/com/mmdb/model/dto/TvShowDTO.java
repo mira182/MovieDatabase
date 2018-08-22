@@ -1,13 +1,12 @@
 package com.mmdb.model.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import com.mmdb.model.entities.TvShow;
+import lombok.*;
 
 @Data
 @Setter(AccessLevel.NONE)
 @AllArgsConstructor
+@Builder
 public class TvShowDTO {
     private Long id;
     private String name;

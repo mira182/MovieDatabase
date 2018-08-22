@@ -1,13 +1,19 @@
 package com.mmdb.model.entities;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "Movie")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Movie {
 
     @Id

@@ -1,13 +1,12 @@
 package com.mmdb.model.dto;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import com.mmdb.model.entities.Movie;
+import lombok.*;
 
 @Data
 @Setter(AccessLevel.NONE)
 @AllArgsConstructor
+@Builder
 public class MovieDTO {
     private Long id;
     private String name;
@@ -21,5 +20,4 @@ public class MovieDTO {
     private String posterUrl;
     private String production;
     private String genre;
-
 }

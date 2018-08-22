@@ -14,7 +14,5 @@ public interface TvShowsService {
 
     TvShow saveMovie(TvShowDTO movieDto);
 
-    List<TvShowDTO> getMoviesByGenre(String genre);
-
     void deleteTvShow(Long id);
 }

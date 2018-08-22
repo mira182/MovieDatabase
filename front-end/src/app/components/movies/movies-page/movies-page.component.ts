@@ -186,7 +186,6 @@ export class MoviesPageComponent implements OnInit {
   }
 
   selectViewType($event) {
-    console.log($event);
     this.viewType = $event;
   }
 }
