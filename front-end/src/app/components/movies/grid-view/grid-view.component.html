@@ -1,0 +1,17 @@
+<div *ngIf="page">
+  <div fxLayout="row" dir="rtl" fxLayoutGap="15px">
+    <app-movie-sort [movies]="page.content"></app-movie-sort>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start start">
+    <div *ngFor="let movie of page.content">
+      <app-grid-view-item [movie]="movie"></app-grid-view-item>
+    </div>
+  </div>
+  @angular/core
+
+  <mat-paginator [length]="page.totalElements"
+                 [pageSize]="50"
+                 (page)="getPaginatedMovies($event)">
+  </mat-paginator>
+</div>
