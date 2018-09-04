@@ -1,20 +1,36 @@
-<div fxLayout="row" dir="rtl" fxLayoutGap="15px">
-  <app-movie-sort [movies]="movies"></app-movie-sort>
-</div>
 
-<div fxLayout="column"
-     fxLayoutGap.xs="0"
-     fxLayoutAlign="space-between start">
-
-  <virtual-scroll [items]="movies" (update)="viewPortItems = $event">
-    <div *ngIf="movies.length > 0">
-      <app-movie-list-item *ngFor="let movie of movies" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>
-    </div>
-  </virtual-scroll>
-
+<!--<div-->
+  <!--fxLayout="column"-->
+     <!--fxLayoutGap.xs="0"-->
+     <!--fxLayoutAlign="space-between start">-->
+  <!---->
   <!--<mat-list class="movie-list-settings">-->
       <!--<div *ngIf="movies.length > 0">-->
         <!--<app-movie-list-item *ngFor="let movie of movies" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>-->
       <!--</div>-->
   <!--</mat-list>-->
+<!--</div>-->
+
+<div  #scrollingBlock>
+  <div class="status">
+    Showing <span class="badge">{{indices?.start}}</span>
+    - <span class="badge">{{indices?.end}}</span>
+    of <span class="badge">{{buffer?.length}}</span>
+    <span>({{scrollItems?.length}} nodes)</span>
+  </div>
+  <virtual-scroll
+    [items]="buffer"
+    (update)="scrollItems = $event"
+    (end)="fetchMore($event)">
+    <app-movie-list-item *ngFor="let movie of scrollItems" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>
+    <div *ngIf="loading" class="loader">Loading...</div>
+  </virtual-scroll>
 </div>
+
+<!--<virtual-scroll [items]="movies" (update)="viewPortItems = $event">-->
+  <!--<div *ngIf="movies.length > 0">-->
+    <!--<app-movie-list-item *ngFor="let movie of movies" [movie]="movie" (movieDeleteEvent)="deleteMovie($event)"></app-movie-list-item>-->
+  <!--</div>-->
+<!--</virtual-scroll>-->
+
+

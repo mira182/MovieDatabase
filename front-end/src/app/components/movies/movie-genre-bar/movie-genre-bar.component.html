@@ -1,15 +1,3 @@
-<!-- TODO menu of checkboxes for selecting genres instead of toolbar -->
-<!--<mat-card *ngIf="moviesByGenre.length > 0">-->
-  <!--<div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxLayout.xs="column wrap">-->
-    <!--<mat-checkbox *ngFor="let genreMovies of moviesByGenre"-->
-                  <!--value="{{genreMovies.genre}}"-->
-                  <!--[checked]="true"-->
-                  <!--(change)="updateGenres(genreMovies.genre, $event)">-->
-      <!--{{genreMovies.genre}}-->
-    <!--</mat-checkbox>-->
-  <!--</div>-->
-<!--</mat-card>-->
-
 <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Genre" matTooltipShowDelay="1500" >
   <mat-icon>filter_list</mat-icon>
 </button>

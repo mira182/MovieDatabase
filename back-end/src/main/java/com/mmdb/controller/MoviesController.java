@@ -1,6 +1,6 @@
 package com.mmdb.controller;
 
-import com.mmdb.model.dto.MovieDTO;
+import com.mmdb.model.dto.internal.MovieDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.services.movies.MoviesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class MoviesController {
 
     @RequestMapping(params = { "page", "size" }, method = RequestMethod.GET)
     public Page<MovieDTO> getPaginatedMovies(@RequestParam("page") int page, @RequestParam("size") int size) {
-        Page<MovieDTO> resultPage = moviesServiceImpl.findPaginated(page, size);
+        Page<MovieDTO> resultPage = moviesServiceImpl.getPaginatedMovies(page, size);
 //        if (page > resultPage.getTotalPages()) {
 //            throw new MyResourceNotFoundException();
 //        }

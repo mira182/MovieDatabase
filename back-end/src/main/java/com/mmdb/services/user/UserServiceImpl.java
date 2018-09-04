@@ -1,7 +1,7 @@
 package com.mmdb.services.user;
 
 import com.mmdb.dao.UserRepository;
-import com.mmdb.model.dto.UserDTO;
+import com.mmdb.model.dto.internal.UserDTO;
 import com.mmdb.model.entities.Privilege;
 import com.mmdb.model.entities.Role;
 import com.mmdb.model.entities.User;

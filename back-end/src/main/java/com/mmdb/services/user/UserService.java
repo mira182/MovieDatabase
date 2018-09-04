@@ -1,6 +1,6 @@
 package com.mmdb.services.user;
 
-import com.mmdb.model.dto.UserDTO;
+import com.mmdb.model.dto.internal.UserDTO;
 import com.mmdb.model.entities.User;
 
 import java.util.List;

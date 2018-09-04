@@ -1,6 +1,6 @@
 package com.mmdb.controller;
 
-import com.mmdb.model.dto.UserDTO;
+import com.mmdb.model.dto.internal.UserDTO;
 import com.mmdb.model.entities.User;
 import com.mmdb.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

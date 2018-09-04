@@ -1,11 +1,13 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Sort" matTooltipShowDelay="1500">
-  <mat-icon>sort</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="sortMoviesByName()">
-    <span>Name</span>
+<div *ngIf="canBeSorted">
+  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Sort" matTooltipShowDelay="1500">
+    <mat-icon>sort</mat-icon>
   </button>
-  <button mat-menu-item (click)="sortMoviesByImdb()">
-    <span>IMDB Rating</span>
-  </button>
-</mat-menu>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="sortMoviesByName()">
+      <span>Name</span>
+    </button>
+    <button mat-menu-item (click)="sortMoviesByImdb()">
+      <span>IMDB Rating</span>
+    </button>
+  </mat-menu>
+</div>

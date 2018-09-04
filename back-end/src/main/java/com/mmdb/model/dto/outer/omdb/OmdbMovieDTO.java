@@ -1,4 +1,4 @@
-package com.mmdb.model.dto;
+package com.mmdb.model.dto.outer.omdb;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

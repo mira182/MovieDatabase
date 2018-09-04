@@ -30,8 +30,11 @@
       <span class="example-fill-remaining-space"></span>
     </header>
     <div>
-      <app-movie-genre-bar [moviesByGenre]="moviesByGenre" (genresChanged)="updateGenres($event)"></app-movie-genre-bar>
-      <app-movies-views (changeViewType)="selectViewType($event)"></app-movies-views>
+      <app-movie-toolbar [moviesByGenre]="moviesByGenre"
+                         [movies]="movies"
+                         (genresChanged)="updateGenres($event)"
+                         (changeViewType)="selectViewType($event)">
+      </app-movie-toolbar>
       <div [ngSwitch]="viewType">
         <!--  TODO change switch cases to enum names isntead of numbers-->
         <div *ngSwitchCase="'0'">

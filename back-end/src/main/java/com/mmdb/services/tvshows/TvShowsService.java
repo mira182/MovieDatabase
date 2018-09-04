@@ -1,7 +1,7 @@
 package com.mmdb.services.tvshows;
 
 
-import com.mmdb.model.dto.TvShowDTO;
+import com.mmdb.model.dto.internal.TvShowDTO;
 import com.mmdb.model.entities.TvShow;
 
 import java.util.List;

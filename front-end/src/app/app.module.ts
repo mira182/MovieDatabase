@@ -75,6 +75,7 @@ import { MoviesViewsComponent } from './components/movies/movies-views/movies-vi
 import { GridViewComponent } from './components/movies/grid-view/grid-view.component';
 import { GridViewItemComponent } from './components/movies/grid-view/grid-view-item/grid-view-item.component';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { MovieToolbarComponent } from './components/movies/movie-toolbar/movie-toolbar.component';
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
     MoviesViewsComponent,
     GridViewComponent,
     GridViewItemComponent,
+    MovieToolbarComponent,
   ],
   imports: [
     BrowserAnimationsModule,

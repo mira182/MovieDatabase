@@ -9,7 +9,8 @@ import {ViewType} from "../../../model/viewType";
 })
 export class MoviesViewsComponent implements OnInit {
 
-  @Output() changeViewType = new EventEmitter<ViewType>();
+  @Output()
+  changeViewType = new EventEmitter<ViewType>();
   ViewTypes = ViewType;
 
   constructor() { }

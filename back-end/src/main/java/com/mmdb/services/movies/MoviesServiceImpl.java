@@ -1,20 +1,17 @@
 package com.mmdb.services.movies;
 
 import com.mmdb.dao.MovieRepository;
-import com.mmdb.model.dto.MovieDTO;
+import com.mmdb.model.dto.internal.MovieDTO;
 import com.mmdb.model.entities.Movie;
 import com.mmdb.util.MovieUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +43,7 @@ public class MoviesServiceImpl implements MovieService {
     }
 
     @Override
-    public Page<MovieDTO> findPaginated(int page, int size) {
+    public Page<MovieDTO> getPaginatedMovies(int page, int size) {
         final Page<MovieDTO> movies = movieRepository.findAll(new PageRequest(page, size, Sort.Direction.ASC, "name"))
                 .map(movie -> MovieUtils.convertEntityToDTO(movie));
         return movies;

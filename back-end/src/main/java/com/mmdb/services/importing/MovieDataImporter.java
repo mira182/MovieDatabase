@@ -1,7 +1,7 @@
 package com.mmdb.services.importing;
 
-import com.mmdb.model.dto.OmdbMovieDTO;
-import com.mmdb.model.dto.OmdbTvShowDTO;
+import com.mmdb.model.dto.outer.omdb.OmdbMovieDTO;
+import com.mmdb.model.dto.outer.omdb.OmdbTvShowDTO;
 
 import java.util.List;
 

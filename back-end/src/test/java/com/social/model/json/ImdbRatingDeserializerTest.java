@@ -5,13 +5,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.mmdb.model.deserializers.ImdbRatingDeserializer;
-import com.mmdb.model.dto.OmdbMovieDTO;
+import com.mmdb.model.dto.outer.omdb.OmdbMovieDTO;
 import org.junit.Test;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Collections;
 
 public class ImdbRatingDeserializerTest {
 

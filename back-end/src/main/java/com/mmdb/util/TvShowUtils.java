@@ -1,6 +1,6 @@
 package com.mmdb.util;
 
-import com.mmdb.model.dto.TvShowDTO;
+import com.mmdb.model.dto.internal.TvShowDTO;
 import com.mmdb.model.entities.TvShow;
 
 public class TvShowUtils {

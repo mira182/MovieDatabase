@@ -3,21 +3,21 @@
   <span>MMDB</span>
   <button mat-icon-button (click)="toggleSideNav()" *ngIf="router.url != '/home'"><mat-icon>menu</mat-icon></button>
   <!--<mat-button-toggle-group name="fontStyle" aria-label="Font Style">-->
-    <!--<mat-button-toggle color="primary" routerLink="/home" routerLinkActive="active">Home</mat-button-toggle>-->
-    <!--<mat-button-toggle mat-button routerLink="/movies" routerLinkActive="active">Movies</mat-button-toggle>-->
+    <!--<mat-button-toggle routerLink="/home" routerLinkActive="active">Home</mat-button-toggle>-->
+    <!--<mat-button-toggle routerLink="/movies" routerLinkActive="active">Movies</mat-button-toggle>-->
     <!--<mat-button-toggle routerLink="/tvshows" routerLinkActive="active">TV Shows</mat-button-toggle>-->
   <!--</mat-button-toggle-group>-->
   <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
   <button mat-button routerLink="/movies" routerLinkActive="active">Movies</button>
   <button mat-button routerLink="/tvshows" routerLinkActive="active">TV Shows</button>
-  <!-- This fills the remaining space of the current row -->
+   <!--This fills the remaining space of the current row-->
   <span class="example-fill-remaining-space"></span>
 
   <form class="search-input">
     <mat-form-field color="accent" class="full-width">
       <input type="text" placeholder="search title" aria-label="Number" matInput [formControl]="searchTerm" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let item of searchResult" [value]="item">
+        <mat-option *ngFor="let item of searchResult" [value]="item.name">
           <div (click)="showDetails(item)">
             <span matTooltip="{{item.name}}" matTooltipShowDelay="1500">
               {{ item.name }} | <app-imdb-rating [imdbRating]="item.imdbRating"></app-imdb-rating>

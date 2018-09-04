@@ -1,7 +1,7 @@
 package com.mmdb.controller;
 
-import com.mmdb.model.dto.OmdbMovieDTO;
-import com.mmdb.model.dto.OmdbTvShowDTO;
+import com.mmdb.model.dto.outer.omdb.OmdbMovieDTO;
+import com.mmdb.model.dto.outer.omdb.OmdbTvShowDTO;
 import com.mmdb.services.importing.MovieDataImporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

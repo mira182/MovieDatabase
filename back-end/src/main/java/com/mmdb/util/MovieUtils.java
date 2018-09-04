@@ -1,6 +1,6 @@
 package com.mmdb.util;
 
-import com.mmdb.model.dto.MovieDTO;
+import com.mmdb.model.dto.internal.MovieDTO;
 import com.mmdb.model.entities.Movie;
 
 public class MovieUtils {

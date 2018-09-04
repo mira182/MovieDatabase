@@ -1,7 +1,6 @@
 package com.mmdb.controller;
 
-import com.mmdb.model.dto.MovieDTO;
-import com.mmdb.model.dto.TvShowDTO;
+import com.mmdb.model.dto.internal.TvShowDTO;
 import com.mmdb.services.tvshows.TvShowsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

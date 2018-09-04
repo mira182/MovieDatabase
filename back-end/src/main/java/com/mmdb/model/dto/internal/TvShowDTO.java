@@ -1,4 +1,4 @@
-package com.mmdb.model.dto;
+package com.mmdb.model.dto.internal;
 
 import com.mmdb.model.entities.TvShow;
 import lombok.*;

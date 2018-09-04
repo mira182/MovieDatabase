@@ -11,6 +11,7 @@ import {MovieUtilsServiceService} from "../../../services/movies/movie-utils-ser
 export class MovieSortComponent implements OnInit {
 
   @Input() private movies = new Array<Movie>();
+  @Input() private canBeSorted : boolean;
   @Output() moviesSorted = new EventEmitter<boolean>();
 
   constructor(private movieUtilsService : MovieUtilsServiceService) { }
