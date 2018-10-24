@@ -21,4 +21,7 @@ export class Urls {
   public static readonly OMDB_IMPORT_TV_SHOWS_URL = "http://localhost:8080/omdb/importTvShows";
   public static readonly OMDB_TVSHOW_STORE_URL = "http://localhost:8080/omdb/storeOmdbTvShow";
   public static readonly OMDB_TVSHOWS_STORE_URL = "http://localhost:8080/omdb/storeOmdbTvShows";
+
+  // ACTORS
+  public static readonly MOVIES_ACTORS_URL = "http://localhost:8080/movies/actors";
 }

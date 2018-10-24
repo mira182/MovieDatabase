@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {TokenStorage} from "../../services/auth/token.storage";
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";

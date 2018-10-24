@@ -26,7 +26,9 @@ public class MoviesController {
 
     @GetMapping(value="/{id}")
     public MovieDTO getMovie(@PathVariable Long id) {
-        return moviesServiceImpl.getMovie(id);
+        MovieDTO m = moviesServiceImpl.getMovie(id);
+        System.out.println(m);
+        return m;
     }
 
     @RequestMapping(params = { "page", "size" }, method = RequestMethod.GET)
@@ -47,5 +49,10 @@ public class MoviesController {
     @RequestMapping(method = RequestMethod.DELETE, params = "id")
     public void deleteMovie(Long id) {
         moviesServiceImpl.deleteMovie(id);
+    }
+
+    @GetMapping(value = "/actors")
+    public List<String> getAllActors() {
+        return moviesServiceImpl.getAllActors();
     }
 }

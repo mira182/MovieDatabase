@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OmdbMoviesDataImporter implements MovieDataImporter {
@@ -130,7 +131,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public void importMoviesData(String titles) {
-        for (String title : stringTitlesToList(titles)) {
+        for (String title : titles.split("\\s*,\\s*")) {
             OmdbMovieDTO omdbOmdbMovieDTO;
             try {
                 omdbOmdbMovieDTO = getMovieData(title);
@@ -193,7 +194,7 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
 
     @Override
     public void importTvShowsData(String tvShowsTitles) {
-        for (String title : stringTitlesToList(tvShowsTitles)) {
+        for (String title : tvShowsTitles.split("\\s*,\\s*")) {
             OmdbTvShowDTO omdbTvShowDTO;
             try {
                 omdbTvShowDTO = getTvShowData(title);
@@ -211,24 +212,13 @@ public class OmdbMoviesDataImporter implements MovieDataImporter {
         }
     }
 
-    private List<String> stringTitlesToList(String titles) {
-        final List<String> titlesList = new ArrayList<>();
-        Scanner scanner = new Scanner(titles);
-        scanner.useDelimiter(",");
-        while (scanner.hasNext()) {
-            titlesList.add(scanner.next());
-        }
-        scanner.close();
-        return titlesList;
-    }
-
     private Movie convertDTOtoEntity(OmdbMovieDTO omdbMovieDTO) {
         final Movie movie = new Movie();
         movie.setName(omdbMovieDTO.getName());
         movie.setCountry(omdbMovieDTO.getCountry());
         movie.setProduction(omdbMovieDTO.getProduction());
         movie.setYear(omdbMovieDTO.getYear());
-        movie.setActors(omdbMovieDTO.getActors());
+        movie.setActors(Arrays.asList(omdbMovieDTO.getActors().trim().split("\\s*,\\s*")));
         movie.setDescription(omdbMovieDTO.getDescription());
         movie.setDirectors(omdbMovieDTO.getDirectors());
         movie.setImdbRating(omdbMovieDTO.getImdbRating());

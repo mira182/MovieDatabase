@@ -1,4 +1,4 @@
-<div fxLayout="row" dir="rtl" fxLayoutGap="15px">
+<div fxLayout="row" dir="rtl" fxLayoutGap="15px" style="margin-bottom: 20px">
   <app-movie-genre-bar [moviesByGenre]="moviesByGenre" (genresChanged)="updateGenres($event)"></app-movie-genre-bar>
   <app-movie-sort [movies]="movies" [canBeSorted]="canBeSorted"></app-movie-sort>
   <app-movies-views (changeViewType)="selectViewType($event)"></app-movies-views>

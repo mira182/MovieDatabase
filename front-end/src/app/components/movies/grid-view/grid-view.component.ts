@@ -18,9 +18,10 @@ export class GridViewComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
-    this.movieService.getPaginatedMovies(0, 50).subscribe(page => {
-      this.page = page;
-    });
+    let firstPage = new PageEvent();
+    firstPage.pageIndex = 0;
+    firstPage.pageSize = 50;
+    this.getPaginatedMovies(firstPage);
   }
 
   getPaginatedMovies(pageEvent : PageEvent) {

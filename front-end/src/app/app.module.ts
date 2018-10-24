@@ -26,7 +26,8 @@ import {
   MatTooltipModule,
   MatAutocompleteModule,
   MatProgressBarModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatChipsModule
 } from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -76,6 +77,7 @@ import { GridViewComponent } from './components/movies/grid-view/grid-view.compo
 import { GridViewItemComponent } from './components/movies/grid-view/grid-view-item/grid-view-item.component';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { MovieToolbarComponent } from './components/movies/movie-toolbar/movie-toolbar.component';
+import { EditMovieDialogComponent } from './components/dialogs/edit-movie-dialog/edit-movie-dialog.component';
 
 
 @NgModule({
@@ -109,6 +111,7 @@ import { MovieToolbarComponent } from './components/movies/movie-toolbar/movie-t
     GridViewComponent,
     GridViewItemComponent,
     MovieToolbarComponent,
+    EditMovieDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -118,10 +121,10 @@ import { MovieToolbarComponent } from './components/movies/movie-toolbar/movie-t
     MatFormFieldModule, MatIconModule, MatSidenavModule, MatMenuModule, MatExpansionModule, MatDividerModule, MatListModule,
     MatTooltipModule, MatSnackBarModule, MatButtonToggleModule, MatCheckboxModule, MatProgressSpinnerModule, MatGridListModule,
     MatSortModule, MatSelectModule, MatTabsModule, FlexLayoutModule, MatAutocompleteModule, MatProgressBarModule, VirtualScrollModule,
-    MatPaginatorModule, VirtualScrollModule
+    MatPaginatorModule, MatChipsModule
   ],
   entryComponents: [
-    AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent, MoviesToImportDialogComponent
+    AddMovieDialogComponent, ErrorDialogComponent, GetOmdbMovieDialogComponent, MoviesToImportDialogComponent, EditMovieDialogComponent
   ],
   providers: [MovieService, MovieUtilsServiceService, TvShowsService, AuthService, AuthGuardService, TokenStorage,
     SidenavService, OmdbService, MessageSnackbarService,

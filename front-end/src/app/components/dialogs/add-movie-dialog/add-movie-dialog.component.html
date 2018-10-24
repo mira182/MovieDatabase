@@ -1,45 +1,45 @@
 <h2 mat-dialog-title>{{title}}</h2>
 <mat-dialog-content class="full-width-input">
   <form>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Movie name" [(ngModel)]="newMovie.name" name="name" required>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="number" min="0" max="2150" maxLength="4" placeholder="Year" [(ngModel)]="newMovie.year" name="year">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="number" placeholder="Length" [(ngModel)]="newMovie.length" name="length">
       <span matSuffix>minutes</span>
       <!--<mat-hint>Length ot he movie in minutes.</mat-hint>-->
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Genre" [(ngModel)]="newMovie.genre" name="genre">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="number" placeholder="Imdb rating" [(ngModel)]="newMovie.imdbRating" name="imdbRating">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Actors" [(ngModel)]="newMovie.actors" name="actors">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Directors" [(ngModel)]="newMovie.directors" name="directors">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Country" [(ngModel)]="newMovie.country" name="country">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <input matInput type="text" placeholder="Poster URL" [(ngModel)]="newMovie.posterUrl" name="posterUrl">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <textarea matInput placeholder="Description" [(ngModel)]="newMovie.description"
                 matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5" name="description"></textarea>
     </mat-form-field>

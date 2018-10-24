@@ -1,17 +1,34 @@
-<div fxLayout="row" fxLayoutGap="15px">
-  <div>
-    <img src={{movie.posterUrl}} height="400px" width="300px">
-  </div>
+<div class="movie-details jumbotron">
 
-  <div>
-    <h2>{{movie.name}} <app-imdb-rating [imdbRating]="movie.imdbRating"></app-imdb-rating></h2>
-    <h4>{{movie.year}}</h4>
-    <p><strong>Length:</strong> {{movie.length | movieLength}}</p>
-    <p><strong>Director:</strong> {{movie.directors}}</p>
-    <p><strong>Actors:</strong> {{movie.actors}}</p>
-    <p><strong>Country:</strong> {{movie.country}}</p>
-    <p><strong>Production:</strong> {{movie.production}}</p>
-    <p><strong>Genre:</strong> {{movie.genre}}</p>
-    <p><strong>Description:</strong> {{movie.description}}</p>
-  </div>
+  <mat-card>
+    <mat-card-title fxLayout="row">
+      <div fxFlex="1 1 auto">
+        {{movie.name}}
+        <app-imdb-rating [imdbRating]="movie.imdbRating"></app-imdb-rating>
+      </div>
+      <button fxFlex="none" mat-icon-button matTooltip="Edit movie" matTooltipShowDelay="1500" (click)="editMovie()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-title>
+    <mat-card-subtitle>
+      ({{movie.year}})
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div fxLayout="row wrap" fxLayoutGap="10px">
+        <div fxFlex="none">
+          <img src={{movie.posterUrl}} height="400px" width="300px">
+        </div>
+
+        <div fxFlex="1 1 auto" fxLayout="column" fxLayoutGap="10px">
+          <div><strong>Length:</strong> {{movie.length | movieLength}}</div>
+          <div><strong>Director:</strong> {{movie.directors}}</div>
+          <div><strong>Actors:</strong> {{movie.actors}}</div>
+          <div><strong>Country:</strong> {{movie.country}}</div>
+          <div><strong>Production:</strong> {{movie.production}}</div>
+          <div><strong>Genre:</strong> {{movie.genre}}</div>
+          <div><strong>Description:</strong> {{movie.description}}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

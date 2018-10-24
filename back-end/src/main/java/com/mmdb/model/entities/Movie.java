@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -33,7 +34,10 @@ public class Movie {
 
     private Integer length;
 
-    private String actors;
+    @ElementCollection
+    @CollectionTable(name="actors", joinColumns=@JoinColumn(name="movie_id"))
+    @Column(name="actors_names")
+    private List<String> actors;
 
     private String directors;
 

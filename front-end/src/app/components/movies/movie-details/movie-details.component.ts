@@ -1,8 +1,9 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Movie} from "../../../model/movie";
 import {MovieService} from "../../../services/movies/movie.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ErrorDialogComponent} from "../../dialogs/error-dialog/error-dialog.component";
+import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material";
+import {EditMovieDialogComponent} from "../../dialogs/edit-movie-dialog/edit-movie-dialog.component";
 
 @Component({
   selector: 'app-movie-details',
@@ -14,7 +15,7 @@ export class MovieDetailsComponent implements OnInit {
 
   private movie : Movie = new Movie();
 
-  constructor(private movieService : MovieService, private route: ActivatedRoute) { }
+  constructor(private movieService : MovieService, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.params.subscribe(pathParams => {
@@ -24,4 +25,13 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
 
+  editMovie() {
+    let dialogRef = this.dialog.open(EditMovieDialogComponent, {
+      width: '600px',
+      data: {movie: this.movie}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }

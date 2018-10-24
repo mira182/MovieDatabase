@@ -46,4 +46,8 @@ export class MovieService {
   public deleteMovie(id) {
     return this.httpClient.delete(Urls.MOVIES_URL, {params: new HttpParams().set('id', id)});
   }
+
+  public getAllActors() : Observable<string[]> {
+    return this.httpClient.get<string[]>(Urls.MOVIES_ACTORS_URL, {responseType: 'json'});
+  }
 }

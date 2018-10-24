@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Edit movie details</h2>
+
+<mat-dialog-content class="full-width-input">
+  <!-- (ngSubmit)="save(editFormGroup)"-->
+  <form [formGroup]="editFormGroup">
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Title" formControlName="title" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Year" formControlName="year" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Director" formControlName="director" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let actor of displayActors"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(actor)">
+          {{actor}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          matInput
+          placeholder="Actors"
+          #actorsInput
+          formControlName="actors"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let actor of filteredActors | async" [value]="actor">
+          {{actor}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Country" formControlName="country" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Production" formControlName="production" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Genre" formControlName="genre" required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <textarea matInput  matTextareaAutosize matAutosizeMinRows="2"
+                placeholder="Description" formControlName="description" required></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="getOmdbMovie(omdbTitle)">Find movie</button>
+  <button mat-raised-button color="primary" mat-dialog-close (click)="saveMovie()">Save</button>
+  <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -9,8 +9,3 @@
   transition: transform .3s;
   transform: scale(1.05);
 }
-
-.grid-item {
-  width: 150px;
-  margin-bottom: 10px;
-}

@@ -1,24 +1,16 @@
 <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Genre" matTooltipShowDelay="1500" >
   <mat-icon>filter_list</mat-icon>
 </button>
-<mat-menu #menu="matMenu">
-  <!--<mat-grid-list cols="1">-->
-    <!--<mat-grid-tile *ngFor="let genreMovies of moviesByGenre">-->
-      <!--<mat-checkbox value="{{genreMovies.genre}}"-->
-                    <!--[checked]="true"-->
-                    <!--(change)="updateGenres(genreMovies.genre, $event)">-->
-        <!--{{genreMovies.genre}}-->
-      <!--</mat-checkbox>-->
-    <!--</mat-grid-tile>-->
-  <!--</mat-grid-list>-->
 
-
-  <div fxLayout="row wrap" fxLayoutGap="10px">
-    <mat-checkbox *ngFor="let genreMovies of moviesByGenre"
+<mat-menu #menu="matMenu" class="genre-menu">
+  <div class="flex-grid">
+    <div *ngFor="let genreMovies of moviesByGenre"  class="col">
+    <mat-checkbox labelPosition="before"
                   value="{{genreMovies.genre}}"
                   [checked]="true"
                   (change)="updateGenres(genreMovies.genre, $event)">
       {{genreMovies.genre}}
     </mat-checkbox>
+    </div>
   </div>
 </mat-menu>

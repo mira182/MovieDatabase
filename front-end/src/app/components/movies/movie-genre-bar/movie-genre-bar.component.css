@@ -1,0 +1,12 @@
+.flex-grid {
+  /*display: grid;*/
+  /*grid-template-columns: repeat(3, 1fr);*/
+
+  display: flex;
+  flex-flow: row wrap;
+  width: 300px;
+}
+
+.col {
+}
+

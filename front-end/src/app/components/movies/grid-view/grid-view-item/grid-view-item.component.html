@@ -1,4 +1,4 @@
-<mat-card class="grid-item"(mouseenter)='mouseenter($event)' (mouseleave)="mouseleave($event)">
+<mat-card (mouseenter)='mouseenter($event)' (mouseleave)="mouseleave($event)">
   <span matTooltip="Plot: {{movie.description}}" matTooltipShowDelay="2000">
       <a href="javascript:void(0)" (click)="showDetails()"><img mat-card-image src={{movie.posterUrl}} height="200px" ></a>
     </span>

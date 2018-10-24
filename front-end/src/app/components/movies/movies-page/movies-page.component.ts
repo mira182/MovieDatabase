@@ -34,7 +34,7 @@ export class MoviesPageComponent implements OnInit {
   private moviesByGenre = [];
   private importingProgress = 0;
   private importTitles : string;
-  private viewType = ViewType.CategoryView;
+  private viewType = ViewType.GridView;
 
   constructor(private movieService: MovieService,
               private movieUtils : MovieUtilsServiceService,

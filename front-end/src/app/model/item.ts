@@ -5,7 +5,7 @@ export class Item {
   description : string;
   imdbRating : number;
   length : number;
-  actors : string;
+  actors : string[];
   directors : string;
   country : string;
   posterUrl : string;

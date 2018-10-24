@@ -13,21 +13,22 @@
    <!--This fills the remaining space of the current row-->
   <span class="example-fill-remaining-space"></span>
 
-  <form class="search-input">
-    <mat-form-field color="accent" class="full-width">
-      <input type="text" placeholder="search title" aria-label="Number" matInput [formControl]="searchTerm" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let item of searchResult" [value]="item.name">
-          <div (click)="showDetails(item)">
+  <div fxLayout="row" fxLayoutAlign="end" class="search-input">
+  <mat-form-field color="accent" class="full-width">
+    <input type="text" placeholder="search title" aria-label="Number" matInput [formControl]="searchTerm"
+           [matAutocomplete]="auto">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let item of searchResult" [value]="item.name">
+      <div (click)="showDetails(item)">
             <span matTooltip="{{item.name}}" matTooltipShowDelay="1500">
               {{ item.name }} | <app-imdb-rating [imdbRating]="item.imdbRating"></app-imdb-rating>
             </span>
-          </div>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <mat-icon>search</mat-icon>
-  </form>
+      </div>
+    </mat-option>
+  </mat-autocomplete>
+  </div>
 
-  <button mat-button routerLink="/login" routerLinkActive="active" (click)="logOut()"><mat-icon>power</mat-icon><span>Logout</span></button>
+  <button mat-button routerLink="/login" routerLinkActive="active" (click)="logOut()"><mat-icon>power_settings_new</mat-icon><span>Logout</span></button>
 </mat-toolbar>
